@@ -111,7 +111,7 @@ footer strong{color:var(--gold)}
 /* ── FLOW MODAL ── */
 .fov{display:none;position:fixed;inset:0;z-index:800;background:rgba(0,0,0,.92);align-items:center;justify-content:center;padding:16px}
 .fov.open{display:flex}
-.fbox{background:var(--dark);border:1px solid var(--border);border-radius:14px;max-width:580px;width:100%;max-height:94vh;display:flex;flex-direction:column;box-shadow:0 30px 80px rgba(0,0,0,.9);animation:min .35s cubic-bezier(.23,1,.32,1)}
+.fbox{background:var(--dark);border:1px solid var(--border);border-radius:14px;max-width:580px;width:100%;max-height:94vh;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.9);animation:min .35s cubic-bezier(.23,1,.32,1)}
 @keyframes min{from{opacity:0;transform:translateY(28px) scale(.97)}to{opacity:1;transform:none}}
 .fh{padding:20px 24px 14px;border-bottom:1px solid #222;display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-shrink:0}
 .fh h2{font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--gold);letter-spacing:2px;margin-top:6px}
@@ -390,7 +390,7 @@ tbody td{padding:10px 14px;vertical-align:middle}
   .fbox{max-height:96vh;border-radius:12px;display:flex;flex-direction:column}
   .fh{padding:14px 16px 12px}
   .fh h2{font-size:20px}
-  .fb{padding:14px 16px 8px}
+  .fb{padding:14px 16px 8px;overflow-y:auto;-webkit-overflow-scrolling:touch;min-height:0}
   .fg{grid-template-columns:1fr}
   .ff input{font-size:16px}
   .qb button{width:44px;height:44px}
@@ -616,14 +616,19 @@ tbody td{padding:10px 14px;vertical-align:middle}
             <span class="snm">TiloPay — Procesador de pagos</span><br>
             <button class="scpbtn" onclick="copySinpe()">📋 Copiar número</button>
           </div>
-          <div style="background:rgba(255,214,0,.06);border:1px solid rgba(255,214,0,.2);border-radius:10px;padding:12px 14px;margin:10px 0;text-align:left;font-family:'Montserrat',sans-serif;font-size:11px;color:#bbb;line-height:1.7">
-            <p style="color:#FFD600;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;font-size:10px">📱 Cómo pagar con SINPE Móvil</p>
-            <ol style="padding-left:16px;margin:0">
-              <li>Abrí <strong style="color:#fff">SINPE Móvil</strong> en tu banco y transferí el monto exacto al <strong style="color:#FFD600">7059-9200</strong>.</li>
-              <li>En el campo <strong style="color:#fff">detalle</strong>, escribí el código de 3 dígitos + <strong style="color:#FFD600">@</strong> que aparece en pantalla. Ej: <code style="background:rgba(255,214,0,.15);padding:1px 5px;border-radius:3px;color:#FFD600">917 @</code></li>
-              <li>El monto y el detalle deben <strong style="color:#fff">coincidir exactamente</strong>.</li>
-              <li>Hacé clic en <strong style="color:#fff">Confirmar recepción de transferencia</strong> para completar.</li>
-            </ol>
+          <div style="background:rgba(255,214,0,.06);border:1px solid rgba(255,214,0,.2);border-radius:10px;margin:10px 0;font-family:'Montserrat',sans-serif;overflow:hidden">
+            <button onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none';this.querySelector('.arr').textContent=this.nextElementSibling.style.display==='none'?'▼':'▲'" style="width:100%;background:none;border:none;padding:10px 14px;text-align:left;cursor:pointer;display:flex;justify-content:space-between;align-items:center">
+              <span style="color:#FFD600;font-weight:700;letter-spacing:1px;text-transform:uppercase;font-size:10px">📱 Cómo pagar con SINPE Móvil</span>
+              <span class="arr" style="color:#FFD600;font-size:12px">▼</span>
+            </button>
+            <div style="display:none;padding:0 14px 12px;font-size:11px;color:#bbb;line-height:1.7">
+              <ol style="padding-left:16px;margin:0">
+                <li>Abrí <strong style="color:#fff">SINPE Móvil</strong> en tu banco y transferí el monto exacto al <strong style="color:#FFD600">7059-9200</strong>.</li>
+                <li>En el campo <strong style="color:#fff">detalle</strong>, escribí el código de 3 dígitos + <strong style="color:#FFD600">@</strong> que aparece en pantalla. Ej: <code style="background:rgba(255,214,0,.15);padding:1px 5px;border-radius:3px;color:#FFD600">917 @</code></li>
+                <li>El monto y el detalle deben <strong style="color:#fff">coincidir exactamente</strong>.</li>
+                <li>Hacé clic en <strong style="color:#fff">Confirmar recepción de transferencia</strong> para completar.</li>
+              </ol>
+            </div>
           </div>
           <div class="scr">
             <input type="checkbox" id="spc" onchange="onSinpePaid()">
