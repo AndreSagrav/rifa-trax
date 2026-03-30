@@ -122,7 +122,7 @@ footer strong{color:var(--gold)}
 .sd{width:8px;height:8px;border-radius:50%;background:#333;transition:background .3s}
 .sd.active{background:var(--gold)}
 .sd.done{background:var(--green)}
-.fb{overflow-y:scroll;-webkit-overflow-scrolling:touch;touch-action:pan-y;overscroll-behavior:contain;padding:20px 24px 8px;flex:1;min-height:0}
+.fb{overflow-y:auto;-webkit-overflow-scrolling:touch;padding:20px 24px 8px;flex:1;min-height:0;overscroll-behavior:contain}
 .fb::-webkit-scrollbar{width:4px}
 .fb::-webkit-scrollbar-thumb{background:var(--gold);border-radius:2px}
 .fg{display:grid;grid-template-columns:1fr 1fr;gap:14px}
@@ -387,7 +387,7 @@ tbody td{padding:10px 14px;vertical-align:middle}
   .ptag{font-size:52px;padding:10px 24px}
   /* FLOW MODAL */
   .fov{padding:8px}
-  .fbox{max-height:96vh;border-radius:12px;height:96vh}
+  .fbox{max-height:96vh;border-radius:12px;display:flex;flex-direction:column}
   .fh{padding:14px 16px 12px}
   .fh h2{font-size:20px}
   .fb{padding:14px 16px 8px}
@@ -960,6 +960,12 @@ async function loadProgress() {
 // ════════════════════════════════════════
 var sClicks=0, sTimer;
 document.addEventListener('DOMContentLoaded', function() {
+  // Fix modal scroll on mobile
+  var fb = document.querySelector('.fb');
+  if(fb){
+    fb.addEventListener('touchstart', function(e){e.stopPropagation();}, {passive:true});
+    fb.addEventListener('touchmove', function(e){e.stopPropagation();}, {passive:true});
+  }
   if(new URLSearchParams(window.location.search).get('v')==='sorteo'){
     document.getElementById('vl').style.display='none';
     document.getElementById('va').style.display='none';
@@ -1136,7 +1142,7 @@ function copySinpe(){navigator.clipboard.writeText('87043603').catch(function(){
 async function initTilo(){
   var ld=document.getElementById('tl'),fl=document.getElementById('tfields');
   ld.style.display='block'; fl.style.display='none';
-  ld.innerHTML='<div style="text-align:center;padding:12px"><p style="color:#ccc;font-size:13px;margin-bottom:10px;line-height:1.6">Al confirmar serás redirigido al formulario seguro de TiloPay para completar el pago con tarjeta de crédito o débito.</p><p style="color:#FFD600;font-size:11px;font-weight:700">🔒 Pago 100% seguro · PCI DSS · 3DS 2.0</p></div>';
+  ld.innerHTML='<div style="text-align:center;padding:12px"><p style="color:#ccc;font-size:13px;margin-bottom:10px;line-height:1.6">Al confirmar serás redirigido al formulario seguro de TiloPay para completar el pago con tarjeta.</p><p style="color:#FFD600;font-size:11px;font-weight:700">🔒 Pago seguro · PCI DSS · 3DS 2.0</p></div>';
   tiloOrder='RIFA-'+Date.now();
   document.getElementById('bcf').disabled=false;
 }
@@ -1171,23 +1177,31 @@ async function confirmar(){
     var r=await fetch(SB_URL+'/rest/v1/ventas',{method:'POST',headers:aHeaders(false),body:JSON.stringify(body)});
     if(r.ok){
       if(payMethod==='tarjeta'){
-        var nom2=document.getElementById('fn').value.trim();
-        var em2=document.getElementById('fem').value.trim()||'sin@correo.com';
-        var ced2=document.getElementById('fid').value.trim().replace(/-/g,'');
-        var tel2=document.getElementById('ftel').value.trim().replace(/-/g,'');
+        var n=document.getElementById('fn').value.trim();
+        var e=document.getElementById('fem').value.trim()||'sin@correo.com';
+        var c=document.getElementById('fid').value.trim().replace(/-/g,'');
+        var t=document.getElementById('ftel').value.trim().replace(/-/g,'');
         var form=document.createElement('form');
-        form.method='POST';form.action='https://app.tilopay.com/pay';
+        form.method='POST';
+        form.action='https://app.tilopay.com/checkout';
         var fields={apikey:TP_KEY,apiuser:TP_USER,apipassword:TP_PASS,
           currency:'CRC',language:'es',amount:flQty*PRICE,
           orderNumber:tiloOrder,capture:1,subscription:0,
-          billToFirstName:nom2.split(' ')[0]||nom2,
-          billToLastName:nom2.split(' ').slice(1).join(' ')||'-',
-          billToEmail:em2,billToTelephone:tel2||'00000000',
+          billToFirstName:n.split(' ')[0]||n,
+          billToLastName:n.split(' ').slice(1).join(' ')||'-',
+          billToEmail:e,billToTelephone:t||'00000000',
           billToAddress:'Costa Rica',billToCity:'San Jose',
           billToState:'SJO',billToZipPostCode:'10101',billToCountry:'CR',
-          typeDni:1,dni:ced2,redirect:window.location.href.split('?')[0]+'?tp=ok'};
-        Object.keys(fields).forEach(function(k){var i=document.createElement('input');i.type='hidden';i.name=k;i.value=fields[k];form.appendChild(i);});
-        document.body.appendChild(form);form.submit();return;
+          typeDni:1,dni:c,
+          redirect:window.location.href.split('?')[0]+'?tp=ok'};
+        Object.keys(fields).forEach(function(k){
+          var i=document.createElement('input');
+          i.type='hidden';i.name=k;i.value=fields[k];
+          form.appendChild(i);
+        });
+        document.body.appendChild(form);
+        form.submit();
+        return;
       }
       var fmt=nums.map(function(n){return String(n).padStart(4,'0');});
       document.getElementById('cnums').textContent=fmt.join(' · ');
