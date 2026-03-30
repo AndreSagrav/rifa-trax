@@ -122,7 +122,7 @@ footer strong{color:var(--gold)}
 .sd{width:8px;height:8px;border-radius:50%;background:#333;transition:background .3s}
 .sd.active{background:var(--gold)}
 .sd.done{background:var(--green)}
-.fb{overflow-y:scroll;-webkit-overflow-scrolling:touch;touch-action:pan-y;padding:20px 24px 8px;flex:1;min-height:0}
+.fb{overflow-y:scroll;-webkit-overflow-scrolling:touch;touch-action:pan-y;overscroll-behavior:contain;padding:20px 24px 8px;flex:1;min-height:0}
 .fb::-webkit-scrollbar{width:4px}
 .fb::-webkit-scrollbar-thumb{background:var(--gold);border-radius:2px}
 .fg{display:grid;grid-template-columns:1fr 1fr;gap:14px}
@@ -1136,7 +1136,7 @@ function copySinpe(){navigator.clipboard.writeText('87043603').catch(function(){
 async function initTilo(){
   var ld=document.getElementById('tl'),fl=document.getElementById('tfields');
   ld.style.display='block'; fl.style.display='none';
-  ld.innerHTML='<div style="text-align:center;padding:8px"><p style="color:#ccc;font-size:12px;margin-bottom:8px">Al confirmar, serás redirigido al formulario seguro de TiloPay para completar el pago con tarjeta.</p><div style="color:#888;font-size:11px">🔒 TiloPay · PCI DSS · 3DS 2.0</div></div>';
+  ld.innerHTML='<div style="text-align:center;padding:12px"><p style="color:#ccc;font-size:13px;margin-bottom:10px;line-height:1.6">Al confirmar serás redirigido al formulario seguro de TiloPay para completar el pago con tarjeta de crédito o débito.</p><p style="color:#FFD600;font-size:11px;font-weight:700">🔒 Pago 100% seguro · PCI DSS · 3DS 2.0</p></div>';
   tiloOrder='RIFA-'+Date.now();
   document.getElementById('bcf').disabled=false;
 }
