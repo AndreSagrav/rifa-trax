@@ -122,7 +122,7 @@ footer strong{color:var(--gold)}
 .sd{width:8px;height:8px;border-radius:50%;background:#333;transition:background .3s}
 .sd.active{background:var(--gold)}
 .sd.done{background:var(--green)}
-.fb{overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;touch-action:pan-y;padding:20px 24px 8px;flex:1;min-height:0}
+.fb{overflow-y:auto;-webkit-overflow-scrolling:touch;padding:20px 24px 8px;flex:1}
 .fb::-webkit-scrollbar{width:4px}
 .fb::-webkit-scrollbar-thumb{background:var(--gold);border-radius:2px}
 .fg{display:grid;grid-template-columns:1fr 1fr;gap:14px}
@@ -551,7 +551,7 @@ tbody td{padding:10px 14px;vertical-align:middle}
 <footer>
   <p>Rifa Chevrolet Trax 2013</p>
   <p style="margin-top:6px">Organizado por: <strong>César Andrés Batista Vargas</strong> &nbsp;·&nbsp; Cédula <strong>2-0539-0118</strong></p>
-  <p style="margin-top:8px">Consultas: <strong><a href="/cdn-cgi/l/email-protection#284a495c415b5e495a684f45494144064b4745" style="color:var(--gold);text-decoration:none"><span class="__cf_email__" data-cfemail="741615001d07021506341319151d185a171b19">[email&#160;protected]</span></a></strong></p>
+  <p style="margin-top:8px">Consultas: <strong><a href="mailto:batisvar@gmail.com" style="color:var(--gold);text-decoration:none">batisvar@gmail.com</a></strong></p>
   <p style="margin-top:14px;font-size:11px;color:#555">La fecha puede adelantarse si se venden todas las acciones antes.</p>
 </footer>
 </div><!-- /vl -->
@@ -808,7 +808,7 @@ tbody td{padding:10px 14px;vertical-align:middle}
 
 <div class="toast" id="toast"></div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 // ════════════════════════════════════════
 // CONSTANTS (declared ONCE)
 // ════════════════════════════════════════
@@ -1118,12 +1118,13 @@ function onRegScroll(){
 function onAcc(){regAcc=document.getElementById('arc').checked;document.getElementById('bs3').disabled=!regAcc;}
 
 function selPay(m){
-  payMethod=m; sinpeDone=false;
+  payMethod=(m==='card')?'tarjeta':m;
+  sinpeDone=false;
   document.getElementById('spc').checked=false;
   ['pm-sinpe','pm-card'].forEach(function(id){document.getElementById(id).classList.remove('sel');});
   document.getElementById('pm-'+m).classList.add('sel');
-  document.getElementById('sinpe-p').style.display=m==='sinpe'?'block':'none';
-  document.getElementById('card-p').style.display=m==='card'?'block':'none';
+  document.getElementById('sinpe-p').style.display=(m==='sinpe')?'block':'none';
+  document.getElementById('card-p').style.display=(m==='card')?'block':'none';
   document.getElementById('bcf').disabled=true;
   if(m==='card') initTilo();
 }
@@ -1135,15 +1136,9 @@ function copySinpe(){navigator.clipboard.writeText('87043603').catch(function(){
 async function initTilo(){
   var ld=document.getElementById('tl'),fl=document.getElementById('tfields');
   ld.style.display='block'; fl.style.display='none';
-  ld.textContent='🔄 Preparando pago con tarjeta...';
-  // TiloPay redirect flow - token must be obtained server-side
-  // Show redirect button instead
-  ld.innerHTML='<div style="text-align:center;padding:8px">'
-    +'<p style="color:#ccc;font-size:12px;margin-bottom:12px">Al confirmar, serás redirigido al formulario seguro de TiloPay para completar el pago con tarjeta.</p>'
-    +'<div style="display:flex;align-items:center;justify-content:center;gap:8px;color:#888;font-size:11px">🔒 TiloPay · PCI DSS · 3DS 2.0</div>'
-    +'</div>';
-  document.getElementById('bcf').disabled=false;
+  ld.innerHTML='<div style="text-align:center;padding:8px"><p style="color:#ccc;font-size:12px;margin-bottom:8px">Al confirmar, serás redirigido al formulario seguro de TiloPay para completar el pago con tarjeta.</p><div style="color:#888;font-size:11px">🔒 TiloPay · PCI DSS · 3DS 2.0</div></div>';
   tiloOrder='RIFA-'+Date.now();
+  document.getElementById('bcf').disabled=false;
 }
 
 async function asignarNums(qty){
@@ -1170,33 +1165,34 @@ async function confirmar(){
     correo:document.getElementById('fem').value.trim()||null,
     cantidad:flQty, metodo_pago:payMethod, estado:'pendiente',
     numeros_accion:nums,
-    notas:payMethod==='card'?'TiloPay:'+tiloOrder:'SINPE manual'
+    notas:payMethod==='tarjeta'?'TiloPay:'+tiloOrder:'SINPE'
   };
   try{
-    console.log('Enviando venta:', JSON.stringify(body));
     var r=await fetch(SB_URL+'/rest/v1/ventas',{method:'POST',headers:aHeaders(false),body:JSON.stringify(body)});
-    if(!r.ok){var errTxt=await r.text();console.error('Supabase error:',r.status,errTxt);}
     if(r.ok){
-      if(payMethod==='card'){
-        var nom=document.getElementById('fn').value.trim();
-        var em=document.getElementById('fem').value.trim()||'sin@correo.com';
-        var ced=document.getElementById('fid').value.trim().replace(/-/g,'');
-        var tel=document.getElementById('ftel').value.trim().replace(/-/g,'');
-        var monto=flQty*PRICE;
-        var redirect=window.location.href.split('?')[0]+'?tp=ok';
-        var params=new URLSearchParams({
-          apikey:TP_KEY,apiuser:TP_USER,apipassword:TP_PASS,
-          currency:'CRC',language:'es',amount:monto,
+      if(payMethod==='tarjeta'){
+        var nom2=document.getElementById('fn').value.trim();
+        var em2=document.getElementById('fem').value.trim()||'sin@correo.com';
+        var ced2=document.getElementById('fid').value.trim().replace(/-/g,'');
+        var tel2=document.getElementById('ftel').value.trim().replace(/-/g,'');
+        var monto2=flQty*PRICE;
+        var form=document.createElement('form');
+        form.method='POST';form.action='https://app.tilopay.com/pay';
+        var fields={apikey:TP_KEY,apiuser:TP_USER,apipassword:TP_PASS,
+          currency:'CRC',language:'es',amount:monto2,
           orderNumber:tiloOrder,capture:1,subscription:0,
-          billToFirstName:nom.split(' ')[0]||nom,
-          billToLastName:nom.split(' ').slice(1).join(' ')||'-',
-          billToEmail:em,billToTelephone:tel||'00000000',
+          billToFirstName:nom2.split(' ')[0]||nom2,
+          billToLastName:nom2.split(' ').slice(1).join(' ')||'-',
+          billToEmail:em2,billToTelephone:tel2||'00000000',
           billToAddress:'Costa Rica',billToCity:'San Jose',
           billToState:'SJO',billToZipPostCode:'10101',billToCountry:'CR',
-          typeDni:1,dni:ced,redirect:redirect
+          typeDni:1,dni:ced2,redirect:window.location.href.split('?')[0]+'?tp=ok'};
+        Object.keys(fields).forEach(function(k){
+          var inp=document.createElement('input');
+          inp.type='hidden';inp.name=k;inp.value=fields[k];
+          form.appendChild(inp);
         });
-        window.location.href='https://app.tilopay.com/pay?'+params.toString();
-        return;
+        document.body.appendChild(form);form.submit();return;
       }
       var fmt=nums.map(function(n){return String(n).padStart(4,'0');});
       document.getElementById('cnums').textContent=fmt.join(' · ');
@@ -1871,4 +1867,13 @@ function buildParticles(){
     el.style.animationDuration=(Math.random()*8+6)+'s';
     el.style.animationDelay=(Math.random()*8)+'s';
     el.style.width=el.style.height=(Math.random()*4+1)+'px';
-    el.style.backgroun
+    el.style.background=cols[Math.floor(Math.random()*cols.length)];
+    pc.appendChild(el);
+  })();}
+}
+document.addEventListener('DOMContentLoaded', buildParticles);
+
+if(location.search.indexOf('v=sorteo')>=0&&!_sh){startSorteoPoll();}
+</script>
+</body>
+</html>
