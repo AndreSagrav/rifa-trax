@@ -951,7 +951,7 @@ document.addEventListener('DOMContentLoaded', function() {
     startSorteoPoll();
     return;
   }
-  document.addEventListener('keydown', function(e){
+  document.addEventListener('keydown',function(e){
     var ts=document.getElementById('ts');
     if(!ts||!ts.classList.contains('active')) return;
     if(e.key==='Enter'&&!e.repeat){e.preventDefault();var b=document.getElementById('sbini');if(b&&!b.disabled)iniciarSorteo();}
@@ -1491,6 +1491,63 @@ function setWheel(w, digit, animate){
   });
 }
 
+function playSpinSoundPublic(dur){
+  try{
+    var ctx=new(window.AudioContext||window.webkitAudioContext)();
+    if(ctx.state==='suspended') ctx.resume();
+    var steps=Math.floor(dur/55);
+    for(var i=0;i<steps;i++){(function(i){
+      var o=ctx.createOscillator(),g=ctx.createGain();
+      o.connect(g);g.connect(ctx.destination);
+      o.frequency.value=900-(i/steps)*700;o.type='sine';
+      var t=ctx.currentTime+i*(dur/1000/steps);
+      g.gain.setValueAtTime(0.07,t);
+      g.gain.exponentialRampToValueAtTime(0.001,t+0.05);
+      o.start(t);o.stop(t+0.06);
+    })(i);}
+    var t2=ctx.currentTime+dur/1000-0.08;
+    var o2=ctx.createOscillator(),g2=ctx.createGain();
+    o2.connect(g2);g2.connect(ctx.destination);
+    o2.frequency.value=180;o2.type='sawtooth';
+    g2.gain.setValueAtTime(0.25,t2);g2.gain.exponentialRampToValueAtTime(0.001,t2+0.3);
+    o2.start(t2);o2.stop(t2+0.35);
+    var o3=ctx.createOscillator(),g3=ctx.createGain();
+    o3.connect(g3);g3.connect(ctx.destination);
+    o3.frequency.value=1047;o3.type='sine';
+    g3.gain.setValueAtTime(0.3,t2+0.05);g3.gain.exponentialRampToValueAtTime(0.001,t2+0.6);
+    o3.start(t2+0.05);o3.stop(t2+0.65);
+  }catch(e){}
+}
+function playWinnerSound(){
+  try{
+    var ctx=new(window.AudioContext||window.webkitAudioContext)();
+    if(ctx.state==='suspended') ctx.resume();
+    [523,659,784,880,1047,1319,1047,1568].forEach(function(freq,i){
+      var o=ctx.createOscillator(),g=ctx.createGain();
+      o.connect(g);g.connect(ctx.destination);
+      o.frequency.value=freq;o.type='sine';
+      var t=ctx.currentTime+i*0.14;
+      g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(0.35,t+0.07);
+      g.gain.exponentialRampToValueAtTime(0.001,t+0.5);
+      o.start(t);o.stop(t+0.55);
+    });
+    var ob=ctx.createOscillator(),gb=ctx.createGain();
+    ob.connect(gb);gb.connect(ctx.destination);
+    ob.frequency.setValueAtTime(150,ctx.currentTime);
+    ob.frequency.exponentialRampToValueAtTime(40,ctx.currentTime+0.5);
+    gb.gain.setValueAtTime(0.5,ctx.currentTime);gb.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+0.5);
+    ob.start(ctx.currentTime);ob.stop(ctx.currentTime+0.55);
+    for(var i=0;i<50;i++){(function(i){
+      var buf=ctx.createBuffer(1,Math.floor(ctx.sampleRate*0.08),ctx.sampleRate);
+      var data=buf.getChannelData(0);
+      for(var j=0;j<data.length;j++) data[j]=(Math.random()*2-1)*Math.pow(1-j/data.length,1.5);
+      var src=ctx.createBufferSource(),g=ctx.createGain();
+      src.buffer=buf;g.gain.value=0.06+Math.random()*0.1;
+      src.connect(g);g.connect(ctx.destination);
+      src.start(ctx.currentTime+1.2+i*0.06+Math.random()*0.03);
+    })(i);}
+  }catch(e){}
+}
 function showDigitPublic(idx,digit){
   var wh=document.getElementById('w'+idx);
   var strip=document.getElementById('ws'+idx);
@@ -1505,6 +1562,7 @@ function showDigitPublic(idx,digit){
     strip.style.transition='none';
     strip.style.transform='translateY('+((wh.offsetHeight/2)-(dh/2))+'px)';
   }
+  playSpinSoundPublic(3000);
   var dh=Math.round(wh.offsetHeight/3);
   var wHt=wh.offsetHeight;
   var tIdx=30+digit;
@@ -1594,7 +1652,7 @@ function startSorteoPoll(){
   };
   window.addEventListener('storage', _sh);
 }
-function stopSorteoPoll(){ if(_sh){ window.removeEventListener('storage', _sh); _sh=null; } }
+function stopSorteoPoll(){ if(_sh){ window.removeEventListener('storage',_sh); _sh=null; } }
 
 async function pollSorteo(){
   try{
@@ -1701,6 +1759,7 @@ async function fetchWinner(digs){
       headers:{'apikey':SB_ANON,'Authorization':'Bearer '+SB_ANON}
     });
     var d=await r.json();
+    playWinnerSound();
     launchCelebration();
     document.getElementById('winn').classList.add('show');
     document.getElementById('wnum').textContent='Accion #'+String(num).padStart(4,'0');
