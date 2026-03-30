@@ -1137,7 +1137,7 @@ async function initTilo(){
   ld.style.display='block'; fl.style.display='none';
   ld.textContent='🔄 Cargando formulario seguro...';
   try{
-    var r=await fetch(TP_API+'/GetTokenSdk',{
+    var r=await fetch('https://app.tilopay.com/api/v2/GetTokenSdk',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({apiuser:TP_USER,apipassword:TP_PASS,apikey:TP_KEY})
@@ -1146,16 +1146,13 @@ async function initTilo(){
     var d=await r.json();
     tiloToken=d.token||null;
   } catch(e){tiloToken=null;}
-  if(!tiloToken){
-    ld.textContent='❌ Error al cargar TiloPay. Usá SINPE.';
-    return;
-  }
+  if(!tiloToken){ld.textContent='❌ Error al cargar TiloPay. Usá SINPE.';return;}
   tiloOrder='RIFA-'+Date.now();
   var nom=document.getElementById('fn').value.trim();
   var em=document.getElementById('fem').value.trim()||'sin@correo.com';
   var ced=document.getElementById('fid').value.trim().replace(/-/g,'');
   var tel=document.getElementById('ftel').value.trim().replace(/-/g,'');
-  var monto=flQty*PRICE; // En colones CRC
+  var monto=flQty*PRICE;
   var loadJS=function(src){
     return new Promise(function(res,rej){
       if(document.querySelector('script[src="'+src+'"]')){res();return;}
@@ -1165,35 +1162,24 @@ async function initTilo(){
   };
   try{
     await loadJS('https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js');
-    await loadJS('https://app.tilopay.com/sdk/v1/sdk.min.js');
+    await loadJS('https://app.tilopay.com/sdk/v2/sdk.min.js');
     ld.style.display='none'; fl.style.display='block';
     window.Tilopay.Init({
-      token:tiloToken,
-      currency:'CRC',
-      language:'es',
-      amount:parseFloat(monto),
-      typeDni:1,
-      dni:ced,
+      token:tiloToken,currency:'CRC',language:'es',amount:parseFloat(monto),
+      typeDni:1,dni:ced,
       billToFirstName:nom.split(' ')[0]||nom,
       billToLastName:nom.split(' ').slice(1).join(' ')||'-',
-      billToAddress:'Costa Rica',
-      billToCity:'San Jose',
-      billToState:'SJO',
-      billToZipPostCode:'10101',
-      billToCountry:'CR',
-      billToTelephone:tel||'00000000',
-      billToEmail:em,
-      orderNumber:tiloOrder,
-      capture:1,
+      billToAddress:'Costa Rica',billToCity:'San Jose',billToState:'SJO',
+      billToZipPostCode:'10101',billToCountry:'CR',
+      billToTelephone:tel||'00000000',billToEmail:em,
+      orderNumber:tiloOrder,capture:1,
       redirect:window.location.href.split('?')[0]+'?tp=ok',
       subscription:0
     },function(resp){
       if(resp&&resp.methods&&resp.methods.length){
         var sel=document.getElementById('method'); sel.innerHTML='';
         resp.methods.forEach(function(m){
-          var o=document.createElement('option');
-          o.value=m.id; o.textContent=m.name;
-          sel.appendChild(o);
+          var o=document.createElement('option');o.value=m.id;o.textContent=m.name;sel.appendChild(o);
         });
         document.getElementById('bcf').disabled=false;
       } else {
