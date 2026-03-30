@@ -122,7 +122,7 @@ footer strong{color:var(--gold)}
 .sd{width:8px;height:8px;border-radius:50%;background:#333;transition:background .3s}
 .sd.active{background:var(--gold)}
 .sd.done{background:var(--green)}
-.fb{overflow-y:auto;-webkit-overflow-scrolling:touch;padding:20px 24px 8px;flex:1}
+.fb{overflow-y:scroll;-webkit-overflow-scrolling:touch;touch-action:pan-y;padding:20px 24px 8px;flex:1;min-height:0}
 .fb::-webkit-scrollbar{width:4px}
 .fb::-webkit-scrollbar-thumb{background:var(--gold);border-radius:2px}
 .fg{display:grid;grid-template-columns:1fr 1fr;gap:14px}
@@ -387,7 +387,7 @@ tbody td{padding:10px 14px;vertical-align:middle}
   .ptag{font-size:52px;padding:10px 24px}
   /* FLOW MODAL */
   .fov{padding:8px}
-  .fbox{max-height:96vh;border-radius:12px}
+  .fbox{max-height:96vh;border-radius:12px;height:96vh}
   .fh{padding:14px 16px 12px}
   .fh h2{font-size:20px}
   .fb{padding:14px 16px 8px}
@@ -621,7 +621,7 @@ tbody td{padding:10px 14px;vertical-align:middle}
             <ol style="padding-left:16px;margin:0">
               <li>Abrí <strong style="color:#fff">SINPE Móvil</strong> en tu banco y transferí el monto exacto al <strong style="color:#FFD600">7059-9200</strong>.</li>
               <li>En el campo <strong style="color:#fff">detalle</strong>, escribí el código de 3 dígitos + <strong style="color:#FFD600">@</strong> que aparece en pantalla. Ej: <code style="background:rgba(255,214,0,.15);padding:1px 5px;border-radius:3px;color:#FFD600">917 @</code></li>
-              <li>El monto y detalle deben <strong style="color:#fff">coincidir exactamente</strong>.</li>
+              <li>El monto y el detalle deben <strong style="color:#fff">coincidir exactamente</strong>.</li>
               <li>Hacé clic en <strong style="color:#fff">Confirmar recepción de transferencia</strong> para completar.</li>
             </ol>
           </div>
@@ -1175,11 +1175,10 @@ async function confirmar(){
         var em2=document.getElementById('fem').value.trim()||'sin@correo.com';
         var ced2=document.getElementById('fid').value.trim().replace(/-/g,'');
         var tel2=document.getElementById('ftel').value.trim().replace(/-/g,'');
-        var monto2=flQty*PRICE;
         var form=document.createElement('form');
         form.method='POST';form.action='https://app.tilopay.com/pay';
         var fields={apikey:TP_KEY,apiuser:TP_USER,apipassword:TP_PASS,
-          currency:'CRC',language:'es',amount:monto2,
+          currency:'CRC',language:'es',amount:flQty*PRICE,
           orderNumber:tiloOrder,capture:1,subscription:0,
           billToFirstName:nom2.split(' ')[0]||nom2,
           billToLastName:nom2.split(' ').slice(1).join(' ')||'-',
@@ -1187,11 +1186,7 @@ async function confirmar(){
           billToAddress:'Costa Rica',billToCity:'San Jose',
           billToState:'SJO',billToZipPostCode:'10101',billToCountry:'CR',
           typeDni:1,dni:ced2,redirect:window.location.href.split('?')[0]+'?tp=ok'};
-        Object.keys(fields).forEach(function(k){
-          var inp=document.createElement('input');
-          inp.type='hidden';inp.name=k;inp.value=fields[k];
-          form.appendChild(inp);
-        });
+        Object.keys(fields).forEach(function(k){var i=document.createElement('input');i.type='hidden';i.name=k;i.value=fields[k];form.appendChild(i);});
         document.body.appendChild(form);form.submit();return;
       }
       var fmt=nums.map(function(n){return String(n).padStart(4,'0');});
