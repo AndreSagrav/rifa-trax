@@ -457,8 +457,8 @@ tbody td{padding:10px 14px;vertical-align:middle}
 #vs .spub{display:flex!important;flex-direction:column!important;align-items:center!important}
 #vs h1{font-size:clamp(40px,9vw,96px)!important}
 #vs .winn.show{display:block!important}
-#vs .wcard{border:3px solid #FFD600!important;border-radius:20px!important;box-shadow:0 0 80px rgba(255,214,0,.5)!important}
-#vs .wnom{font-size:clamp(28px,6vw,64px)!important}
+#vs .wcard{border:3px solid #FFD600!important;border-radius:20px!important;box-shadow:0 0 80px rgba(255,214,0,.5)!important;max-width:90vw!important;width:auto!important}
+#vs .wnom{font-size:clamp(16px,4vw,64px)!important;word-break:break-word!important;white-space:normal!important}
 #vs .wnum{font-size:clamp(16px,3.5vw,28px)!important;letter-spacing:6px!important}
 </style>
 </head>
@@ -1769,7 +1769,7 @@ async function fetchWinner(digs){
     document.getElementById('winn').classList.add('show');
     document.getElementById('wnum').textContent='Accion #'+String(num).padStart(4,'0');
     if(d&&d[0]){
-      document.getElementById('wnom').innerHTML='<div style="overflow:hidden;display:inline-block;max-width:100%"><div style="display:inline-block;overflow:hidden;white-space:nowrap;border-right:4px solid #FFD600;animation:tw 1.8s steps(30,end) forwards,bc .5s step-end infinite">'+d[0].nombre+'</div></div>';
+      document.getElementById('wnom').innerHTML='<div style="overflow:hidden;display:inline-block;max-width:100%"><div style="display:inline-block;overflow:hidden;white-space:nowrap;border-right:4px solid #FFD600;animation:tw 1.8s steps(30,end) forwards,bc .5s step-end infinite;max-width:85vw">'+d[0].nombre+'</div></div>';
       document.getElementById('wced').textContent='Cedula: '+d[0].cedula;
     } else {
       document.getElementById('wnom').innerHTML='<span style="color:#D32F2F;font-size:clamp(18px,4vw,40px)">NUMERO NO ASIGNADO</span>';
