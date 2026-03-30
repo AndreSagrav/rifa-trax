@@ -611,10 +611,20 @@ tbody td{padding:10px 14px;vertical-align:middle}
           <div class="sb2">
             <span style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-family:'Montserrat',sans-serif">Transferir exactamente</span>
             <span class="snum" id="smonto"></span>
-            <span style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-top:8px;display:block;font-family:'Montserrat',sans-serif">A nombre de</span>
+            <span style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-top:8px;display:block;font-family:'Montserrat',sans-serif">Al número SINPE Móvil</span>
             <span class="snum" style="font-size:30px">8704-3603</span>
             <span class="snm">César Andrés Batista Vargas</span><br>
             <button class="scpbtn" onclick="copySinpe()">📋 Copiar número</button>
+          </div>
+          <div style="background:rgba(255,214,0,.06);border:1px solid rgba(255,214,0,.2);border-radius:12px;padding:16px;margin:12px 0;text-align:left;font-family:'Montserrat',sans-serif;font-size:12px;color:#ccc;line-height:1.8">
+            <p style="color:#FFD600;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;font-size:11px">📱 Cómo pagar con SINPE Móvil</p>
+            <ol style="padding-left:18px;margin:0">
+              <li>Abrí la app de tu banco y seleccioná <strong style="color:#fff">SINPE Móvil</strong>.</li>
+              <li>Transferí el monto exacto al número <strong style="color:#FFD600">8704-3603</strong>.</li>
+              <li>En el campo <strong style="color:#fff">detalle</strong>, escribí tu número de cédula o nombre completo para que podamos identificarte.</li>
+              <li>Después de transferir, marcá la casilla de confirmación aquí abajo.</li>
+            </ol>
+            <p style="margin-top:10px;color:#888;font-size:11px">⚠️ El monto debe coincidir exactamente. Pagos incorrectos no serán procesados.</p>
           </div>
           <div class="scr">
             <input type="checkbox" id="spc" onchange="onSinpePaid()">
@@ -1123,7 +1133,7 @@ function onSinpePaid(){sinpeDone=document.getElementById('spc').checked;document
 
 function copySinpe(){navigator.clipboard.writeText('87043603').catch(function(){});toast('📋 Número copiado: 8704-3603');}
 
-async function initTilo(){
+async async function initTilo(){
   var ld=document.getElementById('tl'),fl=document.getElementById('tfields');
   ld.style.display='block'; fl.style.display='none';
   try{
