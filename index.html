@@ -451,8 +451,15 @@ tbody td{padding:10px 14px;vertical-align:middle}
 @keyframes cfall{0%{transform:translateY(-20px) rotate(0deg);opacity:1}100%{transform:translateY(110vh) rotate(720deg);opacity:0}}
 @keyframes flashout{0%{opacity:1}100%{opacity:0}}
 #vs .wwl{display:none!important}
+#vs .wheel{width:clamp(130px,20vw,220px)!important;height:clamp(160px,25vw,280px)!important}
+#vs .wc{gap:clamp(8px,2vw,24px)!important;justify-content:center!important}
+#vs .wsep{font-size:clamp(44px,8vw,80px)!important;color:#333!important}
 #vs .spub{display:flex!important;flex-direction:column!important;align-items:center!important}
-#vs .wc{justify-content:center!important}
+#vs h1{font-size:clamp(40px,9vw,96px)!important}
+#vs .winn.show{display:block!important}
+#vs .wcard{border:3px solid #FFD600!important;border-radius:20px!important;box-shadow:0 0 80px rgba(255,214,0,.5)!important}
+#vs .wnom{font-size:clamp(28px,6vw,64px)!important}
+#vs .wnum{font-size:clamp(16px,3.5vw,28px)!important;letter-spacing:6px!important}
 </style>
 </head>
 <body>
@@ -1363,8 +1370,7 @@ function renderSorteo(){
   var parts=sDigitos.map(function(d){return d!==null?String(d):'—';});
   document.getElementById('srn').textContent=parts.join(' · ');
   var allDone=sDigitos.every(function(d){return d!==null;});
-  document.getElementById('sbrev').disabled=!allDone||sSt==='revelado';
-  document.getElementById('sbini').disabled=sSt!=='pendiente';
+  var sbini=document.getElementById('sbini'); if(sbini) sbini.disabled=sSt!=='pendiente';
 }
 
 async function iniciarSorteo(){
@@ -1494,15 +1500,14 @@ function setWheel(w, digit, animate){
 function playSpinSoundPublic(dur){
   try{
     var ctx=new(window.AudioContext||window.webkitAudioContext)();
-    if(ctx.state==='suspended') ctx.resume();
+    if(ctx.state==='suspended')ctx.resume();
     var steps=Math.floor(dur/55);
     for(var i=0;i<steps;i++){(function(i){
       var o=ctx.createOscillator(),g=ctx.createGain();
       o.connect(g);g.connect(ctx.destination);
       o.frequency.value=900-(i/steps)*700;o.type='sine';
       var t=ctx.currentTime+i*(dur/1000/steps);
-      g.gain.setValueAtTime(0.07,t);
-      g.gain.exponentialRampToValueAtTime(0.001,t+0.05);
+      g.gain.setValueAtTime(0.07,t);g.gain.exponentialRampToValueAtTime(0.001,t+0.05);
       o.start(t);o.stop(t+0.06);
     })(i);}
     var t2=ctx.currentTime+dur/1000-0.08;
@@ -1521,7 +1526,7 @@ function playSpinSoundPublic(dur){
 function playWinnerSound(){
   try{
     var ctx=new(window.AudioContext||window.webkitAudioContext)();
-    if(ctx.state==='suspended') ctx.resume();
+    if(ctx.state==='suspended')ctx.resume();
     [523,659,784,880,1047,1319,1047,1568].forEach(function(freq,i){
       var o=ctx.createOscillator(),g=ctx.createGain();
       o.connect(g);g.connect(ctx.destination);
@@ -1540,7 +1545,7 @@ function playWinnerSound(){
     for(var i=0;i<50;i++){(function(i){
       var buf=ctx.createBuffer(1,Math.floor(ctx.sampleRate*0.08),ctx.sampleRate);
       var data=buf.getChannelData(0);
-      for(var j=0;j<data.length;j++) data[j]=(Math.random()*2-1)*Math.pow(1-j/data.length,1.5);
+      for(var j=0;j<data.length;j++)data[j]=(Math.random()*2-1)*Math.pow(1-j/data.length,1.5);
       var src=ctx.createBufferSource(),g=ctx.createGain();
       src.buffer=buf;g.gain.value=0.06+Math.random()*0.1;
       src.connect(g);g.connect(ctx.destination);
@@ -1551,19 +1556,19 @@ function playWinnerSound(){
 function showDigitPublic(idx,digit){
   var wh=document.getElementById('w'+idx);
   var strip=document.getElementById('ws'+idx);
-  if(!wh||!strip) return;
+  if(!wh||!strip)return;
   if(!strip.querySelector('.wdig')){
-    var dh=Math.round(wh.offsetHeight/3);
+    var dh=Math.max(80,Math.round(wh.offsetHeight/3));
     var h='';
     for(var rep=0;rep<5;rep++)
       for(var d=0;d<10;d++)
-        h+='<div class="wdig" style="height:'+dh+'px;font-size:'+Math.round(dh*.85)+'px;width:100%;display:flex;align-items:center;justify-content:center;font-family:Bebas Neue,sans-serif;color:#fff;flex-shrink:0;text-shadow:0 2px 8px rgba(0,0,0,.8);">'+d+'</div>';
+        h+='<div class="wdig" style="height:'+dh+'px;font-size:'+Math.round(dh*.8)+'px;width:100%;display:flex;align-items:center;justify-content:center;font-family:Bebas Neue,sans-serif;color:#fff;flex-shrink:0;text-shadow:0 2px 8px rgba(0,0,0,.8);">'+d+'</div>';
     strip.innerHTML=h;
     strip.style.transition='none';
     strip.style.transform='translateY('+((wh.offsetHeight/2)-(dh/2))+'px)';
   }
   playSpinSoundPublic(3000);
-  var dh=Math.round(wh.offsetHeight/3);
+  var dh=Math.max(80,Math.round(wh.offsetHeight/3));
   var wHt=wh.offsetHeight;
   var tIdx=30+digit;
   var startO=(wHt/2)-(dh/2);
@@ -1616,11 +1621,11 @@ var _spTimer, lastPollKey='', _sh=null, _lastDigTime=0;
 
 function startSorteoPoll(){
   stopSorteoPoll();
-  _sh = function(e){
-    if(e.key !== 'rifa_ev' || !e.newValue) return;
-    try {
-      var m = JSON.parse(e.newValue);
-      if(m.t === 'rst'){
+  _sh=function(e){
+    if(e.key!=='rifa_ev'||!e.newValue) return;
+    try{
+      var m=JSON.parse(e.newValue);
+      if(m.t==='rst'){
         document.getElementById('stb').className='stbadge pen';
         document.getElementById('stbt').textContent='Esperando inicio del sorteo';
         document.getElementById('wm').style.display='block';
@@ -1631,28 +1636,28 @@ function startSorteoPoll(){
           var ws=document.getElementById('ws'+w);
           if(ws){ws.innerHTML='';ws.style.transition='none';ws.style.transform='translateY(0)';}
         }
-      } else if(m.t === 'go'){
+      } else if(m.t==='go'){
         document.getElementById('stb').className='stbadge gir';
         document.getElementById('stbt').textContent='Sorteando...';
         document.getElementById('wm').style.display='none';
-      } else if(m.t === 'dig'){
-        _lastDigTime = Date.now();
+      } else if(m.t==='dig'){
+        _lastDigTime=Date.now();
         document.getElementById('stb').className='stbadge gir';
         document.getElementById('stbt').textContent='Sorteando...';
         document.getElementById('wm').style.display='none';
-        showDigitPublic(m.i, m.v);
-      } else if(m.t === 'rev'){
+        showDigitPublic(m.i,m.v);
+      } else if(m.t==='rev'){
         document.getElementById('stb').className='stbadge rev';
         document.getElementById('stbt').textContent='Numero ganador revelado!';
-        var elapsed = Date.now() - _lastDigTime;
-        var wait = Math.max(0, 3200 - elapsed);
-        setTimeout(function(){ fetchWinner(m.ds); }, wait);
+        var elapsed=Date.now()-_lastDigTime;
+        var wait=Math.max(0,3200-elapsed);
+        setTimeout(function(){fetchWinner(m.ds);},wait);
       }
-    } catch(x){}
+    }catch(x){}
   };
-  window.addEventListener('storage', _sh);
+  window.addEventListener('storage',_sh);
 }
-function stopSorteoPoll(){ if(_sh){ window.removeEventListener('storage',_sh); _sh=null; } }
+function stopSorteoPoll(){if(_sh){window.removeEventListener('storage',_sh);_sh=null;}}
 
 async function pollSorteo(){
   try{
@@ -1770,7 +1775,7 @@ async function fetchWinner(digs){
       document.getElementById('wnom').innerHTML='<span style="color:#D32F2F;font-size:clamp(18px,4vw,40px)">NUMERO NO ASIGNADO</span>';
       document.getElementById('wced').textContent='Se realizara nueva extraccion ante el Notario';
     }
-  }catch(e){}
+  }catch(e){console.error('fetchWinner error',e);}
 }
 function launchCelebration(){
   var cols=['#FFD600','#D32F2F','#00C853','#fff','#FF6B6B','#4FC3F7','#CE93D8','#FFB300','#76FF03','#FF4081'];
@@ -1855,6 +1860,8 @@ function buildParticles(){
   })();}
 }
 document.addEventListener('DOMContentLoaded', buildParticles);
+
+if(location.search.indexOf('v=sorteo')>=0&&!_sh){startSorteoPoll();}
 </script>
 </body>
 </html>
