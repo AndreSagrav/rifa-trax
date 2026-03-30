@@ -122,7 +122,7 @@ footer strong{color:var(--gold)}
 .sd{width:8px;height:8px;border-radius:50%;background:#333;transition:background .3s}
 .sd.active{background:var(--gold)}
 .sd.done{background:var(--green)}
-.fb{overflow-y:auto;-webkit-overflow-scrolling:touch;padding:20px 24px 8px;flex:1}
+.fb{overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;touch-action:pan-y;padding:20px 24px 8px;flex:1;min-height:0}
 .fb::-webkit-scrollbar{width:4px}
 .fb::-webkit-scrollbar-thumb{background:var(--gold);border-radius:2px}
 .fg{display:grid;grid-template-columns:1fr 1fr;gap:14px}
@@ -1138,13 +1138,11 @@ async function initTilo(){
   ld.textContent='🔄 Cargando formulario seguro...';
   try{
     var r=await fetch('https://app.tilopay.com/api/v2/GetTokenSdk',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
+      method:'POST',headers:{'Content-Type':'application/json'},
       body:JSON.stringify({apiuser:TP_USER,apipassword:TP_PASS,apikey:TP_KEY})
     });
     if(!r.ok) throw new Error('HTTP '+r.status);
-    var d=await r.json();
-    tiloToken=d.token||null;
+    var d=await r.json(); tiloToken=d.token||null;
   } catch(e){tiloToken=null;}
   if(!tiloToken){ld.textContent='❌ Error al cargar TiloPay. Usá SINPE.';return;}
   tiloOrder='RIFA-'+Date.now();
@@ -1153,39 +1151,24 @@ async function initTilo(){
   var ced=document.getElementById('fid').value.trim().replace(/-/g,'');
   var tel=document.getElementById('ftel').value.trim().replace(/-/g,'');
   var monto=flQty*PRICE;
-  var loadJS=function(src){
-    return new Promise(function(res,rej){
-      if(document.querySelector('script[src="'+src+'"]')){res();return;}
-      var s=document.createElement('script');s.src=src;s.onload=res;s.onerror=rej;
-      document.head.appendChild(s);
-    });
-  };
+  var loadJS=function(src){return new Promise(function(res,rej){if(document.querySelector('script[src="'+src+'"]')){res();return;}var s=document.createElement('script');s.src=src;s.onload=res;s.onerror=rej;document.head.appendChild(s);});};
   try{
     await loadJS('https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js');
     await loadJS('https://app.tilopay.com/sdk/v2/sdk.min.js');
     ld.style.display='none'; fl.style.display='block';
-    window.Tilopay.Init({
-      token:tiloToken,currency:'CRC',language:'es',amount:parseFloat(monto),
-      typeDni:1,dni:ced,
-      billToFirstName:nom.split(' ')[0]||nom,
+    window.Tilopay.Init({token:tiloToken,currency:'CRC',language:'es',amount:parseFloat(monto),
+      typeDni:1,dni:ced,billToFirstName:nom.split(' ')[0]||nom,
       billToLastName:nom.split(' ').slice(1).join(' ')||'-',
       billToAddress:'Costa Rica',billToCity:'San Jose',billToState:'SJO',
-      billToZipPostCode:'10101',billToCountry:'CR',
-      billToTelephone:tel||'00000000',billToEmail:em,
-      orderNumber:tiloOrder,capture:1,
-      redirect:window.location.href.split('?')[0]+'?tp=ok',
-      subscription:0
+      billToZipPostCode:'10101',billToCountry:'CR',billToTelephone:tel||'00000000',
+      billToEmail:em,orderNumber:tiloOrder,capture:1,
+      redirect:window.location.href.split('?')[0]+'?tp=ok',subscription:0
     },function(resp){
       if(resp&&resp.methods&&resp.methods.length){
         var sel=document.getElementById('method'); sel.innerHTML='';
-        resp.methods.forEach(function(m){
-          var o=document.createElement('option');o.value=m.id;o.textContent=m.name;sel.appendChild(o);
-        });
+        resp.methods.forEach(function(m){var o=document.createElement('option');o.value=m.id;o.textContent=m.name;sel.appendChild(o);});
         document.getElementById('bcf').disabled=false;
-      } else {
-        ld.style.display='block';
-        ld.textContent='⚠️ '+(resp&&resp.message?resp.message:'Error TiloPay');
-      }
+      } else {ld.style.display='block';ld.textContent='⚠️ '+(resp&&resp.message?resp.message:'Error TiloPay');}
     });
   } catch(e){ld.textContent='❌ Error de conexión con TiloPay.';}
 }
