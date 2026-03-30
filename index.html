@@ -446,27 +446,16 @@ tbody td{padding:10px 14px;vertical-align:middle}
   .dsep{font-size:34px}
 }
 
+@keyframes tw{from{width:0}to{width:100%}}
+@keyframes bc{from,to{border-color:transparent}50%{border-color:#FFD600}}
 @keyframes cfall{0%{transform:translateY(-20px) rotate(0deg);opacity:1}100%{transform:translateY(110vh) rotate(720deg);opacity:0}}
 @keyframes flashout{0%{opacity:1}100%{opacity:0}}
-@keyframes winner-glow{from{box-shadow:0 0 60px rgba(255,214,0,.4)}to{box-shadow:0 0 120px rgba(255,214,0,.8)}}
 #vs .wwl{display:none!important}
-#vs .wheel{width:clamp(110px,18vw,200px)!important;height:clamp(140px,22vw,250px)!important}
-#vs .wheel::before{background:transparent!important;border-color:transparent!important}
-#vs .wcard{animation:winner-glow 1.5s ease-in-out infinite alternate!important}
-#vs .wnom{font-size:clamp(28px,7vw,68px)!important}
+#vs .spub{display:flex!important;flex-direction:column!important;align-items:center!important}
+#vs .wc{justify-content:center!important}
 </style>
 </head>
 <body>
-<script>
-if(location.search.indexOf('v=sorteo')>=0){
-  document.addEventListener('DOMContentLoaded',function(){
-    document.getElementById('vl').style.cssText='display:none!important';
-    document.getElementById('va').style.cssText='display:none!important';
-    document.getElementById('vs').style.cssText='display:flex!important;position:fixed;inset:0;z-index:9999;background:#0A0A0A;flex-direction:column;align-items:center;justify-content:center;overflow:hidden';
-    if(typeof startSorteoPoll==='function') startSorteoPoll();
-  });
-}
-</script>
 
 <!-- ════════════ VIEW: LANDING ════════════ -->
 <div id="vl">
@@ -761,10 +750,8 @@ if(location.search.indexOf('v=sorteo')>=0){
             <div class="wad" id="swd">—</div>
             <div class="wanum" id="swnum">—</div>
           </div>
-          <div class="sbtns">
-            <button class="s1 pub" onclick="showSorteo()">📺 Ver pantalla pública</button>
+          <div class="sbtns"><p style="width:100%;text-align:center;font-size:11px;color:var(--muted);letter-spacing:2px;font-family:'Montserrat',sans-serif;margin-bottom:6px">ENTER → Iniciar &nbsp;·&nbsp; ESPACIO → Reiniciar</p>
             <button class="s1 go" id="sbini" onclick="iniciarSorteo()">🎲 Iniciar sorteo</button>
-            <button class="s1 rev2" id="sbrev" onclick="revelarGanador()" disabled>🏆 Revelar al público</button>
             <button class="s1 rst" onclick="resetSorteo()">↺ Reiniciar</button>
           </div>
         </div>
@@ -964,6 +951,12 @@ document.addEventListener('DOMContentLoaded', function() {
     startSorteoPoll();
     return;
   }
+  document.addEventListener('keydown', function(e){
+    var ts=document.getElementById('ts');
+    if(!ts||!ts.classList.contains('active')) return;
+    if(e.key==='Enter'&&!e.repeat){e.preventDefault();var b=document.getElementById('sbini');if(b&&!b.disabled)iniciarSorteo();}
+    if((e.key===' '||e.code==='Space')&&!e.repeat){e.preventDefault();resetSorteo();}
+  });
   // Carousel
   initCarousel();
   // Countdown
@@ -1391,7 +1384,6 @@ async function iniciarSorteo(){
   }
   var patch={estado:'girando',digito_0:sDigitos[0],digito_1:sDigitos[1],digito_2:sDigitos[2],digito_3:sDigitos[3]};
   await fetch(SB_URL+'/rest/v1/sorteo?id=eq.1',{method:'PATCH',headers:aHeaders(true),body:JSON.stringify(patch)});
-  // Auto reveal
   await fetch(SB_URL+'/rest/v1/sorteo?id=eq.1',{method:'PATCH',headers:aHeaders(true),body:JSON.stringify({estado:'revelado'})});
   sSt='revelado'; renderSorteo();
   try{localStorage.setItem('rifa_ev',JSON.stringify({t:'rev',ds:sDigitos.slice(),ts:Date.now()}));}catch(e){}
@@ -1452,7 +1444,6 @@ async function revelarGanador(){
 }
 
 async function resetSorteo(){
-  if(!confirm('¿Reiniciar el sorteo? Se borrarán los dígitos.')) return;
   sDigitos=[null,null,null,null]; sSt='pendiente';
   await fetch(SB_URL+'/rest/v1/sorteo?id=eq.1',{method:'PATCH',headers:aHeaders(true),body:JSON.stringify({estado:'pendiente',digito_0:null,digito_1:null,digito_2:null,digito_3:null})});
   document.getElementById('swca').classList.remove('show');
@@ -1517,99 +1508,21 @@ function showDigitPublic(idx,digit){
   var dh=Math.round(wh.offsetHeight/3);
   var wHt=wh.offsetHeight;
   var tIdx=30+digit;
-  var startO=-(0*dh)+(wHt/2)-(dh/2);
+  var startO=(wHt/2)-(dh/2);
   var endO=-(tIdx*dh)+(wHt/2)-(dh/2);
   strip.style.transition='none';
   strip.style.transform='translateY('+startO+'px)';
   strip.getBoundingClientRect();
   strip.style.transition='transform 3000ms cubic-bezier(.08,.82,.17,1)';
   strip.style.transform='translateY('+endO+'px)';
-  // Play sound
-  playSpinSoundPublic(3000);
+  wh.style.borderColor='#FFD600';
   setTimeout(function(){
     strip.querySelectorAll('.wdig').forEach(function(el,i){
       el.style.color=(i===tIdx)?'#FFD600':'rgba(255,255,255,.2)';
       el.style.textShadow=(i===tIdx)?'0 0 30px rgba(255,214,0,.9)':'none';
     });
+    wh.style.boxShadow='0 0 40px rgba(255,214,0,.6)';
   },3000);
-}
-function playSpinSoundPublic(dur){
-  try{
-    var ctx=new(window.AudioContext||window.webkitAudioContext)();
-    if(ctx.state==='suspended') ctx.resume();
-    var steps=Math.floor(dur/55);
-    for(var i=0;i<steps;i++){(function(i){
-      var o=ctx.createOscillator(),g=ctx.createGain();
-      o.connect(g);g.connect(ctx.destination);
-      o.frequency.value=900-(i/steps)*700;o.type='sine';
-      var t=ctx.currentTime+i*(dur/1000/steps);
-      g.gain.setValueAtTime(0.07,t);g.gain.exponentialRampToValueAtTime(0.001,t+0.05);
-      o.start(t);o.stop(t+0.06);
-    })(i);}
-    var t2=ctx.currentTime+dur/1000-0.08;
-    var o2=ctx.createOscillator(),g2=ctx.createGain();
-    o2.connect(g2);g2.connect(ctx.destination);
-    o2.frequency.value=180;o2.type='sawtooth';
-    g2.gain.setValueAtTime(0.25,t2);g2.gain.exponentialRampToValueAtTime(0.001,t2+0.3);
-    o2.start(t2);o2.stop(t2+0.35);
-    var o3=ctx.createOscillator(),g3=ctx.createGain();
-    o3.connect(g3);g3.connect(ctx.destination);
-    o3.frequency.value=1047;o3.type='sine';
-    g3.gain.setValueAtTime(0.3,t2+0.05);g3.gain.exponentialRampToValueAtTime(0.001,t2+0.6);
-    o3.start(t2+0.05);o3.stop(t2+0.65);
-  }catch(e){}
-}
-function playWinnerSound(){
-  try{
-    var ctx=new(window.AudioContext||window.webkitAudioContext)();
-    if(ctx.state==='suspended') ctx.resume();
-    [523,659,784,880,1047,1319,1047,1568].forEach(function(freq,i){
-      var o=ctx.createOscillator(),g=ctx.createGain();
-      o.connect(g);g.connect(ctx.destination);
-      o.frequency.value=freq;o.type='sine';
-      var t=ctx.currentTime+i*0.14;
-      g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(0.35,t+0.07);
-      g.gain.exponentialRampToValueAtTime(0.001,t+0.5);
-      o.start(t);o.stop(t+0.55);
-    });
-    var ob=ctx.createOscillator(),gb=ctx.createGain();
-    ob.connect(gb);gb.connect(ctx.destination);
-    ob.frequency.setValueAtTime(150,ctx.currentTime);ob.frequency.exponentialRampToValueAtTime(40,ctx.currentTime+0.5);
-    gb.gain.setValueAtTime(0.5,ctx.currentTime);gb.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+0.5);
-    ob.start(ctx.currentTime);ob.stop(ctx.currentTime+0.55);
-    for(var i=0;i<50;i++){(function(i){
-      var buf=ctx.createBuffer(1,Math.floor(ctx.sampleRate*0.08),ctx.sampleRate);
-      var data=buf.getChannelData(0);
-      for(var j=0;j<data.length;j++) data[j]=(Math.random()*2-1)*Math.pow(1-j/data.length,1.5);
-      var src=ctx.createBufferSource(),g=ctx.createGain();
-      src.buffer=buf;g.gain.value=0.06+Math.random()*0.1;
-      src.connect(g);g.connect(ctx.destination);
-      src.start(ctx.currentTime+1.2+i*0.06+Math.random()*0.03);
-    })(i);}
-  }catch(e){}
-}
-function launchCelebration(){
-  var flash=document.createElement('div');
-  flash.style.cssText='position:fixed;inset:0;background:rgba(255,214,0,.5);z-index:8998;pointer-events:none;animation:flashout .4s ease forwards;';
-  document.body.appendChild(flash);
-  setTimeout(function(){if(flash.parentNode)flash.parentNode.removeChild(flash);},500);
-  var cols=['#FFD600','#D32F2F','#00C853','#fff','#FF6B6B','#4FC3F7','#CE93D8','#FFB300','#76FF03','#FF4081'];
-  for(var i=0;i<300;i++){(function(i){
-    setTimeout(function(){
-      var el=document.createElement('div');
-      var sz=Math.random()*14+5;
-      var isRect=Math.random()>.4;
-      el.style.cssText='position:fixed;pointer-events:none;z-index:9999;'
-        +'left:'+Math.random()*100+'vw;top:-20px;'
-        +'width:'+sz+'px;height:'+(isRect?sz*.4:sz)+'px;'
-        +'background:'+cols[Math.floor(Math.random()*cols.length)]+';'
-        +'border-radius:'+(isRect?'2px':'50%')+';'
-        +'animation:cfall '+(Math.random()*3+2)+'s linear forwards;'
-        +'transform:rotate('+Math.random()*360+'deg);';
-      document.body.appendChild(el);
-      setTimeout(function(){if(el.parentNode)el.parentNode.removeChild(el);},5500);
-    },i*12);
-  })(i);}
 }
 function spinWheelPublic(w, finalDigit, duration, cb){
   var strip = document.getElementById('ws'+w); if(!strip) return;
@@ -1641,61 +1554,47 @@ function spinWheelPublic(w, finalDigit, duration, cb){
   }, duration);
 }
 
-var _spTimer, lastPollKey='', _sh=null, _winnerDs=null, _lastDigIdx=-1;
+var _spTimer, lastPollKey='', _sh=null, _lastDigTime=0;
 
 function startSorteoPoll(){
   stopSorteoPoll();
-  _winnerDs    = null;
-  _lastDigIdx  = -1;
   _sh = function(e){
     if(e.key !== 'rifa_ev' || !e.newValue) return;
-    try{
+    try {
       var m = JSON.parse(e.newValue);
       if(m.t === 'rst'){
         document.getElementById('stb').className='stbadge pen';
         document.getElementById('stbt').textContent='Esperando inicio del sorteo';
         document.getElementById('wm').style.display='block';
         document.getElementById('winn').classList.remove('show');
-        _winnerDs=null; _lastDigIdx=-1;
+        for(var w=0;w<4;w++){
+          var wb=document.getElementById('w'+w);
+          if(wb){wb.style.borderColor='#222';wb.style.boxShadow='inset 0 20px 40px rgba(0,0,0,.8)';}
+          var ws=document.getElementById('ws'+w);
+          if(ws){ws.innerHTML='';ws.style.transition='none';ws.style.transform='translateY(0)';}
+        }
       } else if(m.t === 'go'){
         document.getElementById('stb').className='stbadge gir';
         document.getElementById('stbt').textContent='Sorteando...';
         document.getElementById('wm').style.display='none';
-        _winnerDs=null; _lastDigIdx=-1;
       } else if(m.t === 'dig'){
+        _lastDigTime = Date.now();
         document.getElementById('stb').className='stbadge gir';
         document.getElementById('stbt').textContent='Sorteando...';
         document.getElementById('wm').style.display='none';
-        _lastDigIdx = m.i;
         showDigitPublic(m.i, m.v);
-        // If this is digit 3 (last) and winner already waiting, show after spin
-        if(m.i === 3 && _winnerDs !== null){
-          var ds = _winnerDs;
-          setTimeout(function(){
-            document.getElementById('stb').className='stbadge rev';
-            document.getElementById('stbt').textContent='Numero ganador revelado!';
-            fetchWinner(ds);
-          }, 3200);
-        }
       } else if(m.t === 'rev'){
-        _winnerDs = m.ds;
-        // Only show winner AFTER last digit (idx 3) finishes spinning
-        if(_lastDigIdx === 3){
-          // Digit 3 already arrived - it's spinning now, wait for it
-          var ds = m.ds;
-          setTimeout(function(){
-            document.getElementById('stb').className='stbadge rev';
-            document.getElementById('stbt').textContent='Numero ganador revelado!';
-            fetchWinner(ds);
-          }, 3200);
-        }
-        // else: digit 3 hasn't arrived yet - wait for dig m.i===3 to trigger
+        document.getElementById('stb').className='stbadge rev';
+        document.getElementById('stbt').textContent='Numero ganador revelado!';
+        var elapsed = Date.now() - _lastDigTime;
+        var wait = Math.max(0, 3200 - elapsed);
+        setTimeout(function(){ fetchWinner(m.ds); }, wait);
       }
-    }catch(x){}
+    } catch(x){}
   };
   window.addEventListener('storage', _sh);
 }
-function stopSorteoPoll(){if(_sh){window.removeEventListener('storage',_sh);_sh=null;}}
+function stopSorteoPoll(){ if(_sh){ window.removeEventListener('storage', _sh); _sh=null; } }
 
 async function pollSorteo(){
   try{
@@ -1802,18 +1701,33 @@ async function fetchWinner(digs){
       headers:{'apikey':SB_ANON,'Authorization':'Bearer '+SB_ANON}
     });
     var d=await r.json();
-    playWinnerSound();
     launchCelebration();
     document.getElementById('winn').classList.add('show');
     document.getElementById('wnum').textContent='Accion #'+String(num).padStart(4,'0');
     if(d&&d[0]){
-      document.getElementById('wnom').textContent=d[0].nombre;
+      document.getElementById('wnom').innerHTML='<div style="overflow:hidden;display:inline-block;max-width:100%"><div style="display:inline-block;overflow:hidden;white-space:nowrap;border-right:4px solid #FFD600;animation:tw 1.8s steps(30,end) forwards,bc .5s step-end infinite">'+d[0].nombre+'</div></div>';
       document.getElementById('wced').textContent='Cedula: '+d[0].cedula;
     } else {
-      document.getElementById('wnom').innerHTML='<span style="color:#D32F2F">NUMERO NO ASIGNADO</span>';
+      document.getElementById('wnom').innerHTML='<span style="color:#D32F2F;font-size:clamp(18px,4vw,40px)">NUMERO NO ASIGNADO</span>';
       document.getElementById('wced').textContent='Se realizara nueva extraccion ante el Notario';
     }
   }catch(e){}
+}
+function launchCelebration(){
+  var cols=['#FFD600','#D32F2F','#00C853','#fff','#FF6B6B','#4FC3F7','#CE93D8','#FFB300','#76FF03','#FF4081'];
+  var flash=document.createElement('div');
+  flash.style.cssText='position:fixed;inset:0;background:rgba(255,214,0,.5);z-index:8998;pointer-events:none;animation:flashout .4s ease forwards;';
+  document.body.appendChild(flash);
+  setTimeout(function(){if(flash.parentNode)flash.parentNode.removeChild(flash);},500);
+  for(var i=0;i<300;i++){(function(i){
+    setTimeout(function(){
+      var el=document.createElement('div');
+      var sz=Math.random()*14+5;
+      el.style.cssText='position:fixed;pointer-events:none;z-index:9999;left:'+Math.random()*100+'vw;top:-20px;width:'+sz+'px;height:'+(Math.random()>.4?sz*.4:sz)+'px;background:'+cols[Math.floor(Math.random()*cols.length)]+';border-radius:'+(Math.random()>.4?'2px':'50%')+';animation:cfall '+(Math.random()*3+2)+'s linear forwards;transform:rotate('+Math.random()*360+'deg);';
+      document.body.appendChild(el);
+      setTimeout(function(){if(el.parentNode)el.parentNode.removeChild(el);},5500);
+    },i*12);
+  })(i);}
 }
 
 function launchConfetti(){
