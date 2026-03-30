@@ -551,7 +551,7 @@ tbody td{padding:10px 14px;vertical-align:middle}
 <footer>
   <p>Rifa Chevrolet Trax 2013</p>
   <p style="margin-top:6px">Organizado por: <strong>César Andrés Batista Vargas</strong> &nbsp;·&nbsp; Cédula <strong>2-0539-0118</strong></p>
-  <p style="margin-top:8px">Consultas: <strong><a href="mailto:batisvar@gmail.com" style="color:var(--gold);text-decoration:none">batisvar@gmail.com</a></strong></p>
+  <p style="margin-top:8px">Consultas: <strong><a href="/cdn-cgi/l/email-protection#284a495c415b5e495a684f45494144064b4745" style="color:var(--gold);text-decoration:none"><span class="__cf_email__" data-cfemail="741615001d07021506341319151d185a171b19">[email&#160;protected]</span></a></strong></p>
   <p style="margin-top:14px;font-size:11px;color:#555">La fecha puede adelantarse si se venden todas las acciones antes.</p>
 </footer>
 </div><!-- /vl -->
@@ -808,7 +808,7 @@ tbody td{padding:10px 14px;vertical-align:middle}
 
 <div class="toast" id="toast"></div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // ════════════════════════════════════════
 // CONSTANTS (declared ONCE)
 // ════════════════════════════════════════
@@ -1173,7 +1173,9 @@ async function confirmar(){
     notas:payMethod==='card'?'TiloPay:'+tiloOrder:'SINPE manual'
   };
   try{
+    console.log('Enviando venta:', JSON.stringify(body));
     var r=await fetch(SB_URL+'/rest/v1/ventas',{method:'POST',headers:aHeaders(false),body:JSON.stringify(body)});
+    if(!r.ok){var errTxt=await r.text();console.error('Supabase error:',r.status,errTxt);}
     if(r.ok){
       if(payMethod==='card'){
         var nom=document.getElementById('fn').value.trim();
@@ -1869,13 +1871,4 @@ function buildParticles(){
     el.style.animationDuration=(Math.random()*8+6)+'s';
     el.style.animationDelay=(Math.random()*8)+'s';
     el.style.width=el.style.height=(Math.random()*4+1)+'px';
-    el.style.background=cols[Math.floor(Math.random()*cols.length)];
-    pc.appendChild(el);
-  })();}
-}
-document.addEventListener('DOMContentLoaded', buildParticles);
-
-if(location.search.indexOf('v=sorteo')>=0&&!_sh){startSorteoPoll();}
-</script>
-</body>
-</html>
+    el.style.backgroun
