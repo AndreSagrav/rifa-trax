@@ -608,20 +608,22 @@ tbody td{padding:10px 14px;vertical-align:middle}
           <div class="pmc" id="pm-card" onclick="selPay('card')"><div class="pmi">💳</div><div class="pmn">Tarjeta</div><div class="pmd">Crédito o débito · TiloPay</div></div>
         </div>
         <div id="sinpe-p" style="display:none">
-          <div class="sb2">
-            <span style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-family:'Montserrat',sans-serif">Transferir exactamente</span>
-            <span class="snum" id="smonto"></span>
-            <span style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-top:8px;display:block;font-family:'Montserrat',sans-serif">Al número SINPE Móvil</span>
-            <span class="snum" style="font-size:30px">7059-9200</span>
-            <span class="snm">TiloPay — Procesador de pagos</span><br>
-            <button class="scpbtn" onclick="copySinpe()">📋 Copiar número</button>
+          <div style="background:#1a1a1a;border-radius:10px;padding:10px 14px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap">
+            <div>
+              <div style="font-size:9px;letter-spacing:2px;color:var(--muted);font-family:'Montserrat',sans-serif;text-transform:uppercase">Monto exacto</div>
+              <div class="snum" id="smonto" style="font-size:clamp(20px,4vw,28px);line-height:1.2"></div>
+              <div style="font-size:9px;letter-spacing:2px;color:var(--muted);font-family:'Montserrat',sans-serif;text-transform:uppercase;margin-top:4px">SINPE Móvil</div>
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:#fff;letter-spacing:2px">7059-9200</div>
+              <div style="font-size:10px;color:var(--muted);font-family:'Montserrat',sans-serif">TiloPay</div>
+            </div>
+            <button class="scpbtn" onclick="copySinpe()">📋 Copiar</button>
           </div>
-          <div style="background:rgba(255,214,0,.06);border:1px solid rgba(255,214,0,.2);border-radius:10px;padding:10px 14px;margin:10px 0;font-family:'Montserrat',sans-serif;font-size:11px;color:#bbb;line-height:1.6">
-            <p style="color:#FFD600;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;font-size:10px">📱 Cómo pagar</p>
-            <p style="margin:3px 0">1. Abrí tu banco → <strong style="color:#fff">SINPE Móvil</strong> → transferí al <strong style="color:#FFD600">7059-9200</strong></p>
-            <p style="margin:3px 0">2. En el <strong style="color:#fff">detalle</strong> escribí el código de 3 dígitos + <strong style="color:#FFD600">@</strong> que aparece en pantalla. Ej: <code style="background:rgba(255,214,0,.15);padding:1px 4px;border-radius:3px;color:#FFD600">917 @</code></p>
-            <p style="margin:3px 0">3. Monto y detalle deben <strong style="color:#fff">coincidir exactamente</strong></p>
-            <p style="margin:3px 0">4. Marcá la casilla abajo para confirmar</p>
+          <div style="background:rgba(255,214,0,.06);border:1px solid rgba(255,214,0,.2);border-radius:10px;padding:10px 14px;margin-bottom:8px;font-family:'Montserrat',sans-serif;font-size:11px;color:#bbb;line-height:1.7">
+            <p style="color:#FFD600;font-weight:700;font-size:10px;letter-spacing:1px;text-transform:uppercase;margin:0 0 6px">📱 Cómo pagar con SINPE Móvil</p>
+            <p style="margin:2px 0">1. Abrí tu banco → <strong style="color:#fff">SINPE Móvil</strong> → transferí al <strong style="color:#FFD600">7059-9200</strong></p>
+            <p style="margin:2px 0">2. En <strong style="color:#fff">detalle</strong> escribí el código de 3 dígitos + <strong style="color:#FFD600">@</strong>. Ej: <code style="background:rgba(255,214,0,.15);padding:1px 4px;border-radius:3px;color:#FFD600">917 @</code></p>
+            <p style="margin:2px 0">3. Monto y detalle deben <strong style="color:#fff">coincidir exactamente</strong></p>
+            <p style="margin:2px 0">4. Marcá la casilla abajo para confirmar</p>
           </div>
           <div class="scr">
             <input type="checkbox" id="spc" onchange="onSinpePaid()">
@@ -1134,7 +1136,7 @@ function copySinpe(){navigator.clipboard.writeText('87043603').catch(function(){
 async function initTilo(){
   var ld=document.getElementById('tl'),fl=document.getElementById('tfields');
   ld.style.display='block'; fl.style.display='none';
-  ld.innerHTML='<div style="text-align:center;padding:16px;background:rgba(255,100,0,.08);border:1px solid rgba(255,100,0,.3);border-radius:10px"><p style="color:#FF8C00;font-size:13px;margin-bottom:8px;font-weight:700">⚠️ Pago con tarjeta temporalmente no disponible</p><p style="color:#ccc;font-size:12px;line-height:1.6">Usá SINPE Móvil para completar tu compra.</p></div>';
+  ld.innerHTML='<div style="text-align:center;padding:16px;background:rgba(255,100,0,.08);border:1px solid rgba(255,100,0,.3);border-radius:10px"><p style="color:#FF8C00;font-size:13px;font-weight:700;margin-bottom:6px">⚠️ Pago con tarjeta no disponible</p><p style="color:#ccc;font-size:12px">Usá SINPE Móvil para completar tu compra.</p></div>';
   document.getElementById('bcf').disabled=true;
 }
 
