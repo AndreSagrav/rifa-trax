@@ -111,7 +111,7 @@ footer strong{color:var(--gold)}
 /* ── FLOW MODAL ── */
 .fov{display:none;position:fixed;inset:0;z-index:800;background:rgba(0,0,0,.92);align-items:center;justify-content:center;padding:16px}
 .fov.open{display:flex}
-.fbox{background:var(--dark);border:1px solid var(--border);border-radius:14px;max-width:580px;width:100%;max-height:94vh;display:flex;flex-direction:column;box-shadow:0 30px 80px rgba(0,0,0,.9);animation:min .35s cubic-bezier(.23,1,.32,1)}
+.fbox{background:var(--dark);border:1px solid var(--border);border-radius:14px;max-width:580px;width:100%;height:90vh;max-height:90vh;display:flex;flex-direction:column;box-shadow:0 30px 80px rgba(0,0,0,.9);animation:min .35s cubic-bezier(.23,1,.32,1)}
 @keyframes min{from{opacity:0;transform:translateY(28px) scale(.97)}to{opacity:1;transform:none}}
 .fh{padding:20px 24px 14px;border-bottom:1px solid #222;display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-shrink:0}
 .fh h2{font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--gold);letter-spacing:2px;margin-top:6px}
@@ -122,7 +122,7 @@ footer strong{color:var(--gold)}
 .sd{width:8px;height:8px;border-radius:50%;background:#333;transition:background .3s}
 .sd.active{background:var(--gold)}
 .sd.done{background:var(--green)}
-.fb{overflow-y:auto;padding:20px 24px 8px;flex:1}
+.fb{overflow-y:auto;padding:20px 24px 8px;flex:1;min-height:0}
 .fb::-webkit-scrollbar{width:4px}
 .fb::-webkit-scrollbar-thumb{background:var(--gold);border-radius:2px}
 .fg{display:grid;grid-template-columns:1fr 1fr;gap:14px}
@@ -387,10 +387,10 @@ tbody td{padding:10px 14px;vertical-align:middle}
   .ptag{font-size:52px;padding:10px 24px}
   /* FLOW MODAL */
   .fov{padding:8px}
-  .fbox{max-height:96vh;border-radius:12px;display:flex;flex-direction:column;overflow:hidden}#s3{display:flex;flex-direction:column;flex:1;min-height:0}#s3 .fb{overflow-y:auto;-webkit-overflow-scrolling:touch;min-height:0;flex:1}
+  .fbox{height:90vh;max-height:90vh;border-radius:12px}
   .fh{padding:14px 16px 12px}
   .fh h2{font-size:20px}
-  .fb{padding:14px 16px 8px}
+  .fb{padding:14px 16px 8px;overflow-y:auto;min-height:0;flex:1}
   .fg{grid-template-columns:1fr}
   .ff input{font-size:16px}
   .qb button{width:44px;height:44px}
@@ -616,18 +616,14 @@ tbody td{padding:10px 14px;vertical-align:middle}
             <span class="snm">TiloPay — Procesador de pagos</span><br>
             <button class="scpbtn" onclick="copySinpe()">📋 Copiar número</button>
           </div>
-          <div style="background:rgba(255,214,0,.06);border:1px solid rgba(255,214,0,.2);border-radius:10px;margin:10px 0;overflow:hidden;font-family:'Montserrat',sans-serif">
-            <button onclick="var d=this.nextElementSibling;d.style.display=d.style.display==='block'?'none':'block';this.querySelector('span').textContent=d.style.display==='block'?'▲':'▼'" style="width:100%;background:none;border:none;padding:10px 14px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;color:#FFD600;font-weight:700;font-size:10px;letter-spacing:1px;text-transform:uppercase">
-              📱 Cómo pagar con SINPE Móvil <span>▼</span>
-            </button>
-            <div style="display:none;padding:0 14px 12px;font-size:11px;color:#bbb;line-height:1.7">
-              <ol style="padding-left:16px;margin:0">
-                <li>Abrí <strong style="color:#fff">SINPE Móvil</strong> en tu banco y transferí el monto exacto al <strong style="color:#FFD600">7059-9200</strong>.</li>
-                <li>En el campo <strong style="color:#fff">detalle</strong>, escribí el código de 3 dígitos + <strong style="color:#FFD600">@</strong>. Ej: <code style="background:rgba(255,214,0,.15);padding:1px 5px;border-radius:3px;color:#FFD600">917 @</code></li>
-                <li>El monto y detalle deben <strong style="color:#fff">coincidir exactamente</strong>.</li>
-                <li>Hacé clic en <strong style="color:#fff">Confirmar recepción de transferencia</strong> para completar.</li>
-              </ol>
-            </div>
+          <div style="background:rgba(255,214,0,.06);border:1px solid rgba(255,214,0,.2);border-radius:10px;padding:12px 14px;margin:10px 0;font-family:'Montserrat',sans-serif;font-size:11px;color:#bbb;line-height:1.8">
+            <p style="color:#FFD600;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;font-size:10px">📱 Cómo pagar con SINPE Móvil</p>
+            <ol style="padding-left:16px;margin:0">
+              <li>Abrí <strong style="color:#fff">SINPE Móvil</strong> en tu banco y transferí el monto exacto al <strong style="color:#FFD600">7059-9200</strong>.</li>
+              <li>En el campo <strong style="color:#fff">detalle</strong>, escribí el código de 3 dígitos + <strong style="color:#FFD600">@</strong>. Ej: <code style="background:rgba(255,214,0,.15);padding:1px 5px;border-radius:3px;color:#FFD600">917 @</code></li>
+              <li>El monto y detalle deben <strong style="color:#fff">coincidir exactamente</strong>.</li>
+              <li>Después, hacé clic en <strong style="color:#fff">Confirmar recepción de transferencia</strong>.</li>
+            </ol>
           </div>
           <div class="scr">
             <input type="checkbox" id="spc" onchange="onSinpePaid()">
@@ -1140,9 +1136,8 @@ function copySinpe(){navigator.clipboard.writeText('87043603').catch(function(){
 async function initTilo(){
   var ld=document.getElementById('tl'),fl=document.getElementById('tfields');
   ld.style.display='block'; fl.style.display='none';
-  ld.innerHTML='<div style="text-align:center;padding:12px"><p style="color:#ccc;font-size:13px;margin-bottom:10px;line-height:1.6">Al confirmar serás redirigido al formulario seguro de TiloPay.</p><p style="color:#FFD600;font-size:11px;font-weight:700">🔒 PCI DSS · 3DS 2.0</p></div>';
-  tiloOrder='RIFA-'+Date.now();
-  document.getElementById('bcf').disabled=false;
+  ld.innerHTML='<div style="text-align:center;padding:16px;background:rgba(255,100,0,.08);border:1px solid rgba(255,100,0,.3);border-radius:10px"><p style="color:#FF8C00;font-size:13px;margin-bottom:8px;font-weight:700">⚠️ Pago con tarjeta temporalmente no disponible</p><p style="color:#ccc;font-size:12px;line-height:1.6">Usá SINPE Móvil para completar tu compra. Si querés pagar con tarjeta, escribinos a <strong style="color:#FFD600">batisvar@gmail.com</strong>.</p></div>';
+  document.getElementById('bcf').disabled=true;
 }
 
 async function asignarNums(qty){
@@ -1174,26 +1169,7 @@ async function confirmar(){
   try{
     var r=await fetch(SB_URL+'/rest/v1/ventas',{method:'POST',headers:aHeaders(false),body:JSON.stringify(body)});
     if(r.ok){
-      if(payMethod==='tarjeta'){
-        var n=document.getElementById('fn').value.trim();
-        var e=document.getElementById('fem').value.trim()||'sin@correo.com';
-        var c=document.getElementById('fid').value.trim().replace(/-/g,'');
-        var t=document.getElementById('ftel').value.trim().replace(/-/g,'');
-        var form=document.createElement('form');
-        form.method='POST';form.action='https://app.tilopay.com/api/v1/charge';
-        var fields={apikey:TP_KEY,apiuser:TP_USER,apipassword:TP_PASS,
-          currency:'CRC',language:'es',amount:flQty*PRICE,
-          orderNumber:tiloOrder,capture:1,subscription:0,
-          billToFirstName:n.split(' ')[0]||n,
-          billToLastName:n.split(' ').slice(1).join(' ')||'-',
-          billToEmail:e,billToTelephone:t||'00000000',
-          billToAddress:'Costa Rica',billToCity:'San Jose',
-          billToState:'SJO',billToZipPostCode:'10101',billToCountry:'CR',
-          typeDni:1,dni:c,
-          redirect:window.location.href.split('?')[0]+'?tp=ok'};
-        Object.keys(fields).forEach(function(k){var i=document.createElement('input');i.type='hidden';i.name=k;i.value=fields[k];form.appendChild(i);});
-        document.body.appendChild(form);form.submit();return;
-      }
+      if(payMethod==='tarjeta'){var fmt2=nums.map(function(n){return String(n).padStart(4,'0');});document.getElementById('cnums').textContent=fmt2.join(' · ');showStep('c');return;}
       var fmt=nums.map(function(n){return String(n).padStart(4,'0');});
       document.getElementById('cnums').textContent=fmt.join(' · ');
       showStep('c');
