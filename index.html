@@ -122,7 +122,7 @@ footer strong{color:var(--gold)}
 .sd{width:8px;height:8px;border-radius:50%;background:#333;transition:background .3s}
 .sd.active{background:var(--gold)}
 .sd.done{background:var(--green)}
-.fb{overflow-y:auto;padding:12px 16px 8px;flex:1;min-height:0}
+.fb{overflow-y:auto;padding:10px 14px 8px;flex:1;min-height:0}
 .fb::-webkit-scrollbar{width:4px}
 .fb::-webkit-scrollbar-thumb{background:var(--gold);border-radius:2px}
 .fg{display:grid;grid-template-columns:1fr 1fr;gap:14px}
@@ -158,7 +158,7 @@ footer strong{color:var(--gold)}
 .pm{display:flex;gap:14px;margin:16px 0;flex-wrap:wrap}
 .pmc{flex:1;min-width:180px;background:var(--card);border:2px solid #333;border-radius:10px;padding:20px;cursor:pointer;transition:border-color .3s,transform .2s;text-align:center}
 .pmc:hover,.pmc.sel{border-color:var(--gold);transform:translateY(-3px)}
-.pmi{font-size:22px;margin-bottom:2px}
+.pmi{font-size:20px;margin-bottom:2px}
 .pmn{font-family:'Montserrat',sans-serif;font-weight:800;font-size:15px;letter-spacing:2px;text-transform:uppercase;color:var(--gold)}
 .pmd{font-size:12px;color:var(--muted);margin-top:4px;font-style:italic;font-family:'Crimson Text',serif}
 /* SINPE box */
@@ -390,7 +390,7 @@ tbody td{padding:10px 14px;vertical-align:middle}
   .fbox{height:90vh;max-height:90vh;border-radius:12px}
   .fh{padding:14px 16px 12px}
   .fh h2{font-size:20px}
-  .fb{padding:10px 14px 8px;overflow-y:auto;min-height:0}
+  .fb{padding:8px 12px 6px;overflow-y:auto;min-height:0}
   .fg{grid-template-columns:1fr}
   .ff input{font-size:16px}
   .qb button{width:44px;height:44px}
@@ -602,29 +602,28 @@ tbody td{padding:10px 14px;vertical-align:middle}
     <div id="s3" style="display:none">
       <div class="fh"><div><div class="sdots"><span class="sd done"></span><span class="sd done"></span><span class="sd active"></span></div><h2>💳 Pago</h2><p>Paso 3 de 3 — Elegí cómo pagar</p></div><button class="fx" onclick="closeFlow()">&#215;</button></div>
       <div class="fb">
-        <p style="font-size:13px;color:var(--muted);margin-bottom:14px;font-family:'Montserrat',sans-serif">Total: <strong id="ptl" style="color:var(--gold);font-size:16px;font-family:'Bebas Neue',sans-serif;letter-spacing:2px"></strong></p>
+        <p style="font-size:12px;color:var(--muted);margin-bottom:8px;font-family:'Montserrat',sans-serif">Total: <strong id="ptl" style="color:var(--gold);font-size:16px;font-family:'Bebas Neue',sans-serif;letter-spacing:2px"></strong></p>
         <div class="pm">
           <div class="pmc" id="pm-sinpe" onclick="selPay('sinpe')"><div class="pmi">📱</div><div class="pmn">SINPE Móvil</div><div class="pmd">Transferencia instantánea</div></div>
           <div class="pmc" id="pm-card" onclick="selPay('card')"><div class="pmi">💳</div><div class="pmn">Tarjeta</div><div class="pmd">Crédito o débito · TiloPay</div></div>
         </div>
         <div id="sinpe-p" style="display:none">
-          <div style="background:#1a1a1a;border-radius:10px;padding:10px 14px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap">
+          <div style="background:#1a1a1a;border-radius:10px;padding:8px 12px;margin-bottom:6px;display:flex;justify-content:space-between;align-items:center;gap:8px">
             <div>
-              <div style="font-size:9px;letter-spacing:2px;color:var(--muted);font-family:'Montserrat',sans-serif;text-transform:uppercase">Monto exacto</div>
-              <div class="snum" id="smonto" style="font-size:clamp(18px,4vw,26px);line-height:1.2"></div>
-              <div style="font-size:9px;letter-spacing:2px;color:var(--muted);font-family:'Montserrat',sans-serif;text-transform:uppercase;margin-top:2px">SINPE Móvil</div>
-              <div style="font-family:'Bebas Neue',sans-serif;font-size:24px;color:#fff;letter-spacing:2px">7059-9200</div>
+              <div style="font-size:9px;letter-spacing:1px;color:var(--muted);font-family:'Montserrat',sans-serif;text-transform:uppercase">Monto · SINPE Móvil</div>
+              <div class="snum" id="smonto" style="font-size:clamp(16px,3.5vw,22px);line-height:1.2"></div>
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#fff;letter-spacing:2px">7059-9200</div>
             </div>
             <button class="scpbtn" onclick="copySinpe()">📋 Copiar</button>
           </div>
-          <div style="background:rgba(255,214,0,.06);border:1px solid rgba(255,214,0,.2);border-radius:10px;padding:10px 14px;margin-bottom:8px;font-family:'Montserrat',sans-serif;font-size:11px;color:#bbb;line-height:1.6">
-            <p style="color:#FFD600;font-weight:700;font-size:10px;letter-spacing:1px;text-transform:uppercase;margin:0 0 5px">📱 Cómo pagar con SINPE Móvil</p>
-            <p style="margin:2px 0">1. Abrí tu banco → <strong style="color:#fff">SINPE Móvil</strong> → transferí al <strong style="color:#FFD600">7059-9200</strong></p>
-            <p style="margin:2px 0">2. En <strong style="color:#fff">detalle</strong> escribí el código de 3 dígitos + <strong style="color:#FFD600">@</strong>. Ej: <code style="background:rgba(255,214,0,.15);padding:1px 4px;border-radius:3px;color:#FFD600">917 @</code></p>
-            <p style="margin:2px 0">3. Monto y detalle deben <strong style="color:#fff">coincidir exactamente</strong></p>
-            <p style="margin:2px 0">4. Marcá la casilla abajo y confirmá</p>
+          <div style="background:rgba(255,214,0,.06);border:1px solid rgba(255,214,0,.2);border-radius:10px;padding:8px 12px;margin-bottom:6px;font-family:'Montserrat',sans-serif;font-size:11px;color:#bbb;line-height:1.55">
+            <p style="color:#FFD600;font-weight:700;font-size:10px;letter-spacing:1px;text-transform:uppercase;margin:0 0 4px">📱 Cómo pagar con SINPE Móvil</p>
+            <p style="margin:1px 0">1. Abrí tu banco → <strong style="color:#fff">SINPE Móvil</strong> → transferí al <strong style="color:#FFD600">7059-9200</strong></p>
+            <p style="margin:1px 0">2. En <strong style="color:#fff">detalle</strong> escribí el código de 3 dígitos + <strong style="color:#FFD600">@</strong>. Ej: <code style="background:rgba(255,214,0,.15);padding:1px 4px;border-radius:3px;color:#FFD600">917 @</code></p>
+            <p style="margin:1px 0">3. Monto y detalle deben <strong style="color:#fff">coincidir exactamente</strong></p>
+            <p style="margin:1px 0">4. Marcá la casilla abajo y confirmá</p>
           </div>
-          <div class="scr" style="font-size:11px;margin:4px 0">
+          <div class="scr" style="font-size:11px;padding:6px 0">
             <input type="checkbox" id="spc" onchange="onSinpePaid()">
             <label for="spc">Confirmo que ya realicé la transferencia del monto exacto al 8704-3603 a nombre de César Andrés Batista Vargas.</label>
           </div>
