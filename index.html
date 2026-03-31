@@ -390,7 +390,7 @@ tbody td{padding:10px 14px;vertical-align:middle}
   .fbox{height:90vh;max-height:90vh;border-radius:12px}
   .fh{padding:14px 16px 12px}
   .fh h2{font-size:20px}
-  .fb{padding:14px 16px 8px;overflow-y:auto;min-height:0;flex:1}
+  .fb{padding:14px 16px 8px;overflow-y:auto;min-height:0}
   .fg{grid-template-columns:1fr}
   .ff input{font-size:16px}
   .qb button{width:44px;height:44px}
@@ -616,14 +616,12 @@ tbody td{padding:10px 14px;vertical-align:middle}
             <span class="snm">TiloPay — Procesador de pagos</span><br>
             <button class="scpbtn" onclick="copySinpe()">📋 Copiar número</button>
           </div>
-          <div style="background:rgba(255,214,0,.06);border:1px solid rgba(255,214,0,.2);border-radius:10px;padding:12px 14px;margin:10px 0;font-family:'Montserrat',sans-serif;font-size:11px;color:#bbb;line-height:1.8">
-            <p style="color:#FFD600;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;font-size:10px">📱 Cómo pagar con SINPE Móvil</p>
-            <ol style="padding-left:16px;margin:0">
-              <li>Abrí <strong style="color:#fff">SINPE Móvil</strong> en tu banco y transferí el monto exacto al <strong style="color:#FFD600">7059-9200</strong>.</li>
-              <li>En el campo <strong style="color:#fff">detalle</strong>, escribí el código de 3 dígitos + <strong style="color:#FFD600">@</strong>. Ej: <code style="background:rgba(255,214,0,.15);padding:1px 5px;border-radius:3px;color:#FFD600">917 @</code></li>
-              <li>El monto y detalle deben <strong style="color:#fff">coincidir exactamente</strong>.</li>
-              <li>Después, hacé clic en <strong style="color:#fff">Confirmar recepción de transferencia</strong>.</li>
-            </ol>
+          <div style="background:rgba(255,214,0,.06);border:1px solid rgba(255,214,0,.2);border-radius:10px;padding:10px 14px;margin:10px 0;font-family:'Montserrat',sans-serif;font-size:11px;color:#bbb;line-height:1.6">
+            <p style="color:#FFD600;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;font-size:10px">📱 Cómo pagar</p>
+            <p style="margin:3px 0">1. Abrí tu banco → <strong style="color:#fff">SINPE Móvil</strong> → transferí al <strong style="color:#FFD600">7059-9200</strong></p>
+            <p style="margin:3px 0">2. En el <strong style="color:#fff">detalle</strong> escribí el código de 3 dígitos + <strong style="color:#FFD600">@</strong> que aparece en pantalla. Ej: <code style="background:rgba(255,214,0,.15);padding:1px 4px;border-radius:3px;color:#FFD600">917 @</code></p>
+            <p style="margin:3px 0">3. Monto y detalle deben <strong style="color:#fff">coincidir exactamente</strong></p>
+            <p style="margin:3px 0">4. Marcá la casilla abajo para confirmar</p>
           </div>
           <div class="scr">
             <input type="checkbox" id="spc" onchange="onSinpePaid()">
@@ -1136,7 +1134,7 @@ function copySinpe(){navigator.clipboard.writeText('87043603').catch(function(){
 async function initTilo(){
   var ld=document.getElementById('tl'),fl=document.getElementById('tfields');
   ld.style.display='block'; fl.style.display='none';
-  ld.innerHTML='<div style="text-align:center;padding:16px;background:rgba(255,100,0,.08);border:1px solid rgba(255,100,0,.3);border-radius:10px"><p style="color:#FF8C00;font-size:13px;margin-bottom:8px;font-weight:700">⚠️ Pago con tarjeta temporalmente no disponible</p><p style="color:#ccc;font-size:12px;line-height:1.6">Usá SINPE Móvil para completar tu compra. Si querés pagar con tarjeta, escribinos a <strong style="color:#FFD600">batisvar@gmail.com</strong>.</p></div>';
+  ld.innerHTML='<div style="text-align:center;padding:16px;background:rgba(255,100,0,.08);border:1px solid rgba(255,100,0,.3);border-radius:10px"><p style="color:#FF8C00;font-size:13px;margin-bottom:8px;font-weight:700">⚠️ Pago con tarjeta temporalmente no disponible</p><p style="color:#ccc;font-size:12px;line-height:1.6">Usá SINPE Móvil para completar tu compra.</p></div>';
   document.getElementById('bcf').disabled=true;
 }
 
