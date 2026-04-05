@@ -826,7 +826,7 @@ function showAdmin() {
   document.getElementById('ash').classList.remove('vis');
 }
 function showSorteo() {
-  var url = window.location.href.split('?')[0] + '?v=sorteo';
+  var url = window.location.href.split('?')[0] + '?view=sorteo';
   window.open(url, '_blank', 'width=1280,height=800,menubar=no,toolbar=no,location=no');
 }
 function hideSorteo() {
@@ -1915,7 +1915,6 @@ function buildParticles(){
 }
 document.addEventListener('DOMContentLoaded', buildParticles);
 
-if(location.search.indexOf('v=sorteo')>=0&&!_sh){startSorteoPoll();}
 
 async function spinDFinal(idx,finalDigit,elId){
   var el=document.getElementById(elId); if(!el) return;
