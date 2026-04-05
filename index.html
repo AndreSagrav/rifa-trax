@@ -1388,26 +1388,66 @@ function renderSorteo(){
 }
 
 async function iniciarSorteo(){
-  if(!confirm('¿Iniciar el sorteo? Los 4 dígitos girarán automáticamente.')) return;
+  if(!confirm('¿Iniciar el sorteo? Se seleccionará un número de acción real al azar.')) return;
   document.getElementById('sbini').disabled=true;
+
+  // ── Cargar acciones confirmadas ──
+  toast('⏳ Cargando acciones...');
+  var resp=await fetch(SB_URL+'/rest/v1/ventas?estado=eq.confirmado&select=nombre,numeros_accion',{headers:aHeaders(false)});
+  var ventas=await resp.json();
+
+  // Expandir en lista plana — cada número de acción es una entrada
+  var acciones=[];
+  ventas.forEach(function(v){
+    if(!v.numeros_accion||!v.numeros_accion.length) return;
+    v.numeros_accion.forEach(function(n){
+      var num=parseInt(n);
+      if(!isNaN(num)&&num>0) acciones.push({numero:num,nombre:v.nombre});
+    });
+  });
+
+  if(acciones.length===0){
+    toast('⚠️ No hay acciones confirmadas para sortear',true);
+    document.getElementById('sbini').disabled=false;
+    return;
+  }
+
+  toast('✅ '+acciones.length+' acciones participando');
+
+  // ── Mezcla criptográfica Fisher-Yates ──
+  for(var i=acciones.length-1;i>0;i--){
+    var arr=new Uint32Array(1);
+    crypto.getRandomValues(arr);
+    var j=arr[0]%(i+1);
+    var tmp=acciones[i];acciones[i]=acciones[j];acciones[j]=tmp;
+  }
+
+  // ── Selección ganadora ──
+  var arr2=new Uint32Array(1);
+  crypto.getRandomValues(arr2);
+  var ganador=acciones[arr2[0]%acciones.length];
+  var numStr=String(ganador.numero).padStart(4,'0');
+  var digits=[parseInt(numStr[0]),parseInt(numStr[1]),parseInt(numStr[2]),parseInt(numStr[3])];
+
   sDigitos=[null,null,null,null];
   document.getElementById('swca').classList.remove('show');
   ['sd0','sd1','sd2b','sd3'].forEach(function(id){var e=document.getElementById(id);if(e){e.textContent='—';e.className='dn';}});
   await fetch(SB_URL+'/rest/v1/sorteo?id=eq.1',{method:'PATCH',headers:aHeaders(true),body:JSON.stringify({estado:'girando',digito_0:null,digito_1:null,digito_2:null,digito_3:null})});
-  sSt='girando'; document.getElementById('sev').textContent='GIRANDO...'; document.getElementById('sev').className='ssv gir';
+  sSt='girando';document.getElementById('sev').textContent='GIRANDO...';document.getElementById('sev').className='ssv gir';
   try{localStorage.setItem('rifa_ev',JSON.stringify({t:'go',ts:Date.now()}));}catch(e){}
-  var ranges=[6,10,10,10];
+
   var ids=['sd0','sd1','sd2b','sd3'];
   for(var i=0;i<4;i++){
-    await spinD(i,ranges[i],ids[i]);
+    await spinDFinal(i,digits[i],ids[i]);
     await sleep(500);
   }
-  var patch={estado:'girando',digito_0:sDigitos[0],digito_1:sDigitos[1],digito_2:sDigitos[2],digito_3:sDigitos[3]};
+
+  var patch={estado:'girando',digito_0:digits[0],digito_1:digits[1],digito_2:digits[2],digito_3:digits[3]};
   await fetch(SB_URL+'/rest/v1/sorteo?id=eq.1',{method:'PATCH',headers:aHeaders(true),body:JSON.stringify(patch)});
   await fetch(SB_URL+'/rest/v1/sorteo?id=eq.1',{method:'PATCH',headers:aHeaders(true),body:JSON.stringify({estado:'revelado'})});
-  sSt='revelado'; renderSorteo();
-  try{localStorage.setItem('rifa_ev',JSON.stringify({t:'rev',ds:sDigitos.slice(),ts:Date.now()}));}catch(e){}
-  toast('🏆 Ganador revelado automáticamente');
+  sSt='revelado';renderSorteo();
+  try{localStorage.setItem('rifa_ev',JSON.stringify({t:'rev',ds:digits.slice(),ts:Date.now()}));}catch(e){}
+  toast('🏆 Ganador: #'+numStr+' — '+ganador.nombre);
   buscarGanadorAdmin();
 }
 
@@ -1876,6 +1916,28 @@ function buildParticles(){
 document.addEventListener('DOMContentLoaded', buildParticles);
 
 if(location.search.indexOf('v=sorteo')>=0&&!_sh){startSorteoPoll();}
+
+async function spinDFinal(idx,finalDigit,elId){
+  var el=document.getElementById(elId); if(!el) return;
+  el.className='dn sp';
+  return new Promise(function(resolve){
+    var dur=2200, start=Date.now();
+    var iv=setInterval(function(){
+      var elapsed=Date.now()-start;
+      if(elapsed%Math.max(40,40+elapsed/dur*200)<20) el.textContent=Math.floor(Math.random()*10);
+      if(elapsed>=dur){
+        clearInterval(iv);
+        el.textContent=finalDigit; el.className='dn dn2';
+        sDigitos[idx]=finalDigit;
+        var parts=sDigitos.map(function(d){return d!==null?String(d):'—';});
+        document.getElementById('srn').textContent=parts.join(' · ');
+        try{localStorage.setItem('rifa_ev',JSON.stringify({t:'dig',i:idx,v:finalDigit,ds:sDigitos.slice(),ts:Date.now()}));}catch(e){}
+        resolve();
+      }
+    },20);
+  });
+}
+
 
 async function sendCertificado(v){
   if(!v.correo||v.correo==='sin@correo.com'||v.correo.indexOf('@')<0){toast('⚠️ Sin correo registrado');return false;}
