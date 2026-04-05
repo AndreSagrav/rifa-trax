@@ -158,7 +158,7 @@ footer strong{color:var(--gold)}
 .pm{display:flex;gap:14px;margin:16px 0;flex-wrap:wrap}
 .pmc{flex:1;min-width:180px;background:var(--card);border:2px solid #333;border-radius:10px;padding:20px;cursor:pointer;transition:border-color .3s,transform .2s;text-align:center}
 .pmc:hover,.pmc.sel{border-color:var(--gold);transform:translateY(-3px)}
-.pmi{font-size:20px;margin-bottom:2px}
+.pmi{font-size:32px;margin-bottom:8px}
 .pmn{font-family:'Montserrat',sans-serif;font-weight:800;font-size:15px;letter-spacing:2px;text-transform:uppercase;color:var(--gold)}
 .pmd{font-size:12px;color:var(--muted);margin-top:4px;font-style:italic;font-family:'Crimson Text',serif}
 /* SINPE box */
@@ -603,27 +603,57 @@ tbody td{padding:10px 14px;vertical-align:middle}
       <div class="fh"><div><div class="sdots"><span class="sd done"></span><span class="sd done"></span><span class="sd active"></span></div><h2>💳 Pago</h2><p>Paso 3 de 3 — Elegí cómo pagar</p></div><button class="fx" onclick="closeFlow()">&#215;</button></div>
       <div class="fb">
         <p style="font-size:12px;color:var(--muted);margin-bottom:8px;font-family:'Montserrat',sans-serif">Total: <strong id="ptl" style="color:var(--gold);font-size:16px;font-family:'Bebas Neue',sans-serif;letter-spacing:2px"></strong></p>
+        <div style="background:rgba(255,214,0,.06);border:1px solid rgba(255,214,0,.2);border-radius:12px;padding:20px;text-align:center;margin-bottom:8px">
+          <p style="font-size:32px;margin:0 0 8px">🔒</p>
+          <p style="color:#fff;font-family:'Montserrat',sans-serif;font-weight:700;font-size:14px;margin:0 0 6px">Pago seguro con OnvoPay</p>
+          <p style="color:#aaa;font-family:'Montserrat',sans-serif;font-size:12px;margin:0 0 12px;line-height:1.6">Al confirmar serás redirigido al formulario seguro donde podés pagar con <strong style="color:#fff">tarjeta de crédito/débito</strong> o <strong style="color:#fff">SINPE Móvil</strong>.</p>
+          <p style="color:#FFD600;font-size:11px;font-family:'Montserrat',sans-serif;font-weight:700;margin:0">PCI DSS · 3DS 2.0 · Encriptado SSL</p>
+        </div>
+      </div>
+      <div class="ff2"><button class="fbn" onclick="goS(2)">Siguiente →</button></div>
+    </div>
+    <!-- PASO 2 -->
+    <div id="s2" style="display:none">
+      <div class="fh"><div><div class="sdots"><span class="sd done"></span><span class="sd active"></span><span class="sd"></span></div><h2>📋 Reglamento</h2><p>Paso 2 de 3 — Leé y aceptá</p></div><button class="fx" onclick="closeFlow()">&#215;</button></div>
+      <div class="fb">
+        <div class="rs" id="rscr" onscroll="onRegScroll()">
+          <div class="ra"><div class="rt">Art. 1 — El Premio</div><p>El premio es un vehículo usado Chevrolet Trax 2013, Automático, 1800cc. El ganador acepta que el vehículo se entrega en su estado actual con los desgastes propios de su antigüedad. El organizador queda libre de responsabilidad por reparaciones futuras una vez firmado el recibido.</p></div>
+          <div class="ra"><div class="rt">Art. 2 — Condición de Venta</div><p>La entrega del vehículo está condicionada a la venta del 100% de las acciones. Si NO se venden todas, el premio será el monto acumulado en efectivo publicado en el sitio web. Al participar, aceptás esta condición.</p></div>
+          <div class="ra"><div class="rt">Art. 3 — Derecho de Elección</div><p>Si el ganador —tras revisar el vehículo— no está de acuerdo, podrá elegir recibir el monto acumulado en efectivo. Una vez elegido el dinero, renuncia a cualquier reclamo futuro sobre el automóvil.</p></div>
+          <div class="ra"><div class="rt">Art. 4 — Sorteo y Notificación</div><p>La fecha podrá adelantarse al agotarse las acciones. Se notificará por correo con al menos una semana de anticipación. El sorteo se realizará ante Notario Público.</p></div>
+          <div class="ra"><div class="rt">Art. 5 — Entrega y Gastos</div><p>El ganador tiene 30 días naturales para retirar su premio. Todos los costos de traspaso, honorarios del notario, timbres e impuestos corren por cuenta del ganador. El vehículo se entrega libre de gravámenes y multas previas.</p></div>
+          <div class="ra"><div class="rt">Art. 6 — Uso de Imagen</div><p>El ganador autoriza el uso de su nombre y fotografías para publicidad en redes sociales, sin remuneración adicional.</p></div>
+          <div class="ra"><div class="rt">Art. 7 — Premio Desierto</div><p>Si el número favorecido no fue vendido, se realizará nueva extracción inmediata ante el Notario hasta que el premio quede en manos de un poseedor de una acción efectivamente pagada.</p></div>
+          <div class="ra"><div class="rt">Art. 8 — Reserva de Acciones</div><p>Los números se reservan 24 horas desde el registro. Si el pago no se confirma en ese plazo, los números se liberan automáticamente. La asignación definitiva ocurre solo al confirmarse el pago.</p></div>
+        </div>
+        <div class="rpt"><div class="rpf" id="rpf"></div></div>
+        <div class="rh" id="rh">⬇️ Desplazate para leer el reglamento completo</div>
+        <div class="ar" id="ar">
+          <input type="checkbox" id="arc" onchange="onAcc()">
+          <label for="arc">He leído y acepto el <strong>Reglamento Oficial del Sorteo</strong>, incluyendo que mis números son una reserva de 24 horas hasta confirmar el pago.</label>
+        </div>
+      </div>
+      <div class="ff2"><button class="fbb" onclick="goS(1)">← Volver</button><button class="fbn" id="bs3" onclick="goS(3)" disabled>Continuar →</button></div>
+    </div>
+    <!-- PASO 3 -->
+    <div id="s3" style="display:none">
+      <div class="fh"><div><div class="sdots"><span class="sd done"></span><span class="sd done"></span><span class="sd active"></span></div><h2>💳 Pago</h2><p>Paso 3 de 3 — Elegí cómo pagar</p></div><button class="fx" onclick="closeFlow()">&#215;</button></div>
+      <div class="fb">
+        <p style="font-size:12px;color:var(--muted);margin-bottom:8px;font-family:'Montserrat',sans-serif">Total: <strong id="ptl" style="color:var(--gold);font-size:16px;font-family:'Bebas Neue',sans-serif;letter-spacing:2px"></strong></p>
         <div class="pm">
           <div class="pmc" id="pm-sinpe" onclick="selPay('sinpe')"><div class="pmi">📱</div><div class="pmn">SINPE Móvil</div><div class="pmd">Transferencia instantánea</div></div>
           <div class="pmc" id="pm-card" onclick="selPay('card')"><div class="pmi">💳</div><div class="pmn">Tarjeta</div><div class="pmd">Crédito o débito · OnvoPay</div></div>
         </div>
         <div id="sinpe-p" style="display:none">
-          <div style="background:#1a1a1a;border-radius:10px;padding:8px 12px;margin-bottom:6px;display:flex;justify-content:space-between;align-items:center;gap:8px">
-            <div>
-              <div style="font-size:9px;letter-spacing:1px;color:var(--muted);font-family:'Montserrat',sans-serif;text-transform:uppercase">Monto · SINPE Móvil</div>
-              <div class="snum" id="smonto" style="font-size:clamp(16px,3.5vw,22px);line-height:1.2"></div>
-              <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#fff;letter-spacing:2px">7059-9200</div>
-            </div>
-            <button class="scpbtn" onclick="copySinpe()">📋 Copiar</button>
+          <div class="sb2">
+            <span style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-family:'Montserrat',sans-serif">Transferir exactamente</span>
+            <span class="snum" id="smonto"></span>
+            <span style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-top:8px;display:block;font-family:'Montserrat',sans-serif">A nombre de</span>
+            <span class="snum" style="font-size:30px">8704-3603</span>
+            <span class="snm">César Andrés Batista Vargas</span><br>
+            <button class="scpbtn" onclick="copySinpe()">📋 Copiar número</button>
           </div>
-          <div style="background:rgba(255,214,0,.06);border:1px solid rgba(255,214,0,.2);border-radius:10px;padding:8px 12px;margin-bottom:6px;font-family:'Montserrat',sans-serif;font-size:11px;color:#bbb;line-height:1.6">
-            <p style="color:#FFD600;font-weight:700;font-size:10px;letter-spacing:1px;text-transform:uppercase;margin:0 0 4px">📱 Cómo pagar con SINPE Móvil</p>
-            <p style="margin:1px 0">1. Abrí tu banco → <strong style="color:#fff">SINPE Móvil</strong> → transferí al <strong style="color:#FFD600">7059-9200</strong></p>
-            <p style="margin:1px 0">2. En <strong style="color:#fff">detalle</strong> escribí el código de 3 dígitos + <strong style="color:#FFD600">@</strong>. Ej: <code style="background:rgba(255,214,0,.15);padding:1px 4px;border-radius:3px;color:#FFD600">917 @</code></p>
-            <p style="margin:1px 0">3. Monto y detalle deben <strong style="color:#fff">coincidir exactamente</strong></p>
-            <p style="margin:1px 0">4. Marcá la casilla abajo y confirmá</p>
-          </div>
-          <div class="scr" style="font-size:11px;padding:6px 0">
+          <div class="scr">
             <input type="checkbox" id="spc" onchange="onSinpePaid()">
             <label for="spc">Confirmo que ya realicé la transferencia del monto exacto al 8704-3603 a nombre de César Andrés Batista Vargas.</label>
           </div>
@@ -644,7 +674,7 @@ tbody td{padding:10px 14px;vertical-align:middle}
           </div>
         </div>
       </div>
-      <div class="ff2"><button class="fbb" onclick="goS(2)">← Volver</button><button class="fbn" id="bcf" onclick="confirmar()" disabled>✅ Confirmar compra</button></div>
+      <div class="ff2"><button class="fbb" onclick="goS(2)">← Volver</button><button class="fbn" id="bcf" onclick="confirmar()">✅ Confirmar compra</button></div>
     </div>
     <!-- CONFIRMACIÓN -->
     <div id="sc" style="display:none">
@@ -1118,13 +1148,12 @@ function onRegScroll(){
 function onAcc(){regAcc=document.getElementById('arc').checked;document.getElementById('bs3').disabled=!regAcc;}
 
 function selPay(m){
-  payMethod=(m==='card')?'tarjeta':m;
-  sinpeDone=false;
+  payMethod=m; sinpeDone=false;
   document.getElementById('spc').checked=false;
   ['pm-sinpe','pm-card'].forEach(function(id){document.getElementById(id).classList.remove('sel');});
   document.getElementById('pm-'+m).classList.add('sel');
-  document.getElementById('sinpe-p').style.display=(m==='sinpe')?'block':'none';
-  document.getElementById('card-p').style.display=(m==='card')?'block':'none';
+  document.getElementById('sinpe-p').style.display=m==='sinpe'?'block':'none';
+  document.getElementById('card-p').style.display=m==='card'?'block':'none';
   document.getElementById('bcf').disabled=true;
   if(m==='card') initTilo();
 }
@@ -1136,8 +1165,30 @@ function copySinpe(){navigator.clipboard.writeText('87043603').catch(function(){
 async function initTilo(){
   var ld=document.getElementById('tl'),fl=document.getElementById('tfields');
   ld.style.display='block'; fl.style.display='none';
-  ld.innerHTML='<div style="text-align:center;padding:12px"><p style="color:#ccc;font-size:13px;margin-bottom:8px;line-height:1.6">Al confirmar serás redirigido al formulario seguro de pago para completar con tarjeta de crédito o débito.</p><p style="color:#FFD600;font-size:11px;font-weight:700">🔒 Pago seguro · PCI DSS · 3DS 2.0</p></div>';
-  document.getElementById('bcf').disabled=false;
+  try{
+    var r=await fetch(TP_API+'/GetTokenSdk',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({apiuser:TP_USER,apipassword:TP_PASS,apikey:TP_KEY})});
+    var d=await r.json(); tiloToken=d.token||null;
+  } catch(e){tiloToken=null;}
+  if(!tiloToken){return;return;}
+  tiloOrder='RIFA-'+Date.now();
+  var nom=document.getElementById('fn').value.trim();
+  var em=document.getElementById('fem').value.trim()||'sin@correo.com';
+  var ced=document.getElementById('fid').value.trim();
+  var tel=document.getElementById('ftel').value.trim();
+  var monto=(flQty*PRICE/500).toFixed(2);
+  var loadJS=function(src){return new Promise(function(res,rej){if(document.querySelector('script[src="'+src+'"]')){res();return;}var s=document.createElement('script');s.src=src;s.onload=res;s.onerror=rej;document.head.appendChild(s);});};
+  try{
+    await loadJS('https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js');
+    await loadJS('https://app.tilopay.com/sdk/v1/sdk.min.js');
+    ld.style.display='none'; fl.style.display='block';
+    window.Tilopay.Init({token:tiloToken,currency:'USD',language:'es',amount:parseFloat(monto),typeDni:1,dni:ced,billToFirstName:nom.split(' ')[0]||nom,billToLastName:nom.split(' ').slice(1).join(' ')||'-',billToAddress:'Costa Rica',billToCity:'San Jose',billToState:'SJO',billToZipPostCode:'10101',billToCountry:'CR',billToTelephone:tel,billToEmail:em,orderNumber:tiloOrder,capture:1,redirect:window.location.href.split('?')[0]+'?tp=ok',subscription:0},function(resp){
+      if(resp&&resp.methods&&resp.methods.length){
+        var sel=document.getElementById('method');sel.innerHTML='';
+        resp.methods.forEach(function(m){var o=document.createElement('option');o.value=m.id;o.textContent=m.name;sel.appendChild(o);});
+        document.getElementById('bcf').disabled=false;
+      } else {return;}
+    });
+  } catch(e){return;}
 }
 
 async function asignarNums(qty){
@@ -1164,13 +1215,13 @@ async function confirmar(){
     correo:document.getElementById('fem').value.trim()||null,
     cantidad:flQty, metodo_pago:payMethod, estado:'pendiente',
     numeros_accion:nums,
-    notas:payMethod==='tarjeta'?'OnvoPay pendiente':'SINPE'
+    notas:'OnvoPay pendiente'
   };
   try{
     var r=await fetch(SB_URL+'/rest/v1/ventas',{method:'POST',headers:aHeaders(false),body:JSON.stringify(body)});
     var d=await r.json();
     if(r.ok){
-      if(payMethod==='tarjeta'){
+      if(true){
         var ventaId=d&&d[0]?d[0].id:null;
         var ventaData={
           ventaId:ventaId,
@@ -1194,8 +1245,6 @@ async function confirmar(){
       var fmt=nums.map(function(n){return String(n).padStart(4,'0');});
       document.getElementById('cnums').textContent=fmt.join(' · ');
       showStep('c');
-      var vn={nombre:document.getElementById('fn').value.trim(),cedula:document.getElementById('fid').value.trim(),telefono:document.getElementById('ftel').value.trim(),correo:document.getElementById('fem').value.trim(),cantidad:flQty,metodo_pago:payMethod,numeros_accion:nums,created_at:new Date().toISOString()};
-      sendAdminNotif(vn);
     } else {throw new Error();}
   } catch(e){toast('Error al procesar. Intentá de nuevo.',true);btn.disabled=false;btn.textContent='✅ Confirmar compra';}
 }
@@ -1934,7 +1983,7 @@ async function simularVenta(){
   var nums=[];
   for(var i=0;i<cantidad;i++) nums.push(Math.floor(Math.random()*9000)+1000);
   var venta={nombre:nombre,cedula:cedula,telefono:telefono,correo:correo,cantidad:cantidad,
-    metodo_pago:'sinpe',numeros_accion:nums,estado:'confirmado',created_at:new Date().toISOString()};
+    metodo_pago:'onvopay',numeros_accion:nums,estado:'confirmado',created_at:new Date().toISOString()};
   toast('📤 Enviando...');
   await sendCertificado(venta);
   await sendAdminNotif(venta);
