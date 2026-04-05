@@ -1159,7 +1159,7 @@ async function confirmar(){
     correo:document.getElementById('fem').value.trim()||null,
     cantidad:flQty, metodo_pago:payMethod, estado:'pendiente',
     numeros_accion:nums,
-    metodo_pago:'onvopay',notas:'OnvoPay pendiente'
+    metodo_pago:'tarjeta',notas:'OnvoPay pendiente'
   };
   try{
     var r=await fetch(SB_URL+'/rest/v1/ventas',{method:'POST',headers:aHeaders(false),body:JSON.stringify(body)});
@@ -1899,7 +1899,7 @@ async function simularVenta(){
   var cantidad=parseInt(document.getElementById('vqt').value)||1;
   if(!correo||correo.indexOf('@')<0){toast('⚠️ Correo válido requerido',true);return;}
   var nums=[];for(var i=0;i<cantidad;i++) nums.push(Math.floor(Math.random()*9000)+1000);
-  var venta={nombre:document.getElementById('vnm').value.trim()||'Prueba',cedula:document.getElementById('vcd').value.trim()||'0-0000-0000',telefono:document.getElementById('vtel').value.trim()||'0000-0000',correo:correo,cantidad:cantidad,metodo_pago:'onvopay',numeros_accion:nums,estado:'confirmado',created_at:new Date().toISOString()};
+  var venta={nombre:document.getElementById('vnm').value.trim()||'Prueba',cedula:document.getElementById('vcd').value.trim()||'0-0000-0000',telefono:document.getElementById('vtel').value.trim()||'0000-0000',correo:correo,cantidad:cantidad,metodo_pago:'tarjeta',numeros_accion:nums,estado:'confirmado',created_at:new Date().toISOString()};
   toast('📤 Enviando...');
   await sendCertificado(venta);
   await sendAdminNotif(venta);
