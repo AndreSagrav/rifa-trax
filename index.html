@@ -1071,7 +1071,7 @@ function goS(n){
   if(n===3){
     if(!regAcc){toast('⚠️ Aceptá el reglamento',true);return;}
     document.getElementById('ptl').textContent=fmtCRC(flQty*PRICE);
-    document.getElementById('smonto').textContent=fmtCRC(flQty*PRICE);
+    var smonto=document.getElementById('smonto'); if(smonto) smonto.textContent=fmtCRC(flQty*PRICE);
   }
   showStep(n);
 }
