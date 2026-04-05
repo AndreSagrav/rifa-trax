@@ -1038,9 +1038,7 @@ function openFlow(){
   document.getElementById('rh').textContent='⬇️ Desplazate para leer el reglamento completo';
   document.getElementById('rh').classList.remove('done');
   document.getElementById('rscr').scrollTop=0;
-  document.getElementById('sinpe-p').style.display='none';
-  document.getElementById('card-p').style.display='none';
-  document.getElementById('bcf').disabled=true;
+  var bcf=document.getElementById('bcf'); if(bcf) bcf.disabled=false;
   ['pm-sinpe','pm-card'].forEach(function(id){document.getElementById(id).classList.remove('sel');});
   showStep(1);
   document.getElementById('fov').classList.add('open');
@@ -1099,8 +1097,7 @@ function selPay(m){
   document.getElementById('spc').checked=false;
   ['pm-sinpe','pm-card'].forEach(function(id){document.getElementById(id).classList.remove('sel');});
   document.getElementById('pm-'+m).classList.add('sel');
-  document.getElementById('sinpe-p').style.display=m==='sinpe'?'block':'none';
-  document.getElementById('card-p').style.display=m==='card'?'block':'none';
+
   document.getElementById('bcf').disabled=true;
   if(m==='card') initTilo();
 }
@@ -1171,10 +1168,7 @@ async function confirmar(){
       if(true){
         var ventaId=d&&d[0]?d[0].id:null;
         btn.textContent='⏳ Redirigiendo...';
-        fetch(SB_URL+'/functions/v1/create-checkout',{
-          method:'POST',
-          headers:{'Authorization':'Bearer '+SB_ANON,'Content-Type':'application/json','apikey':SB_ANON},
-          body:JSON.stringify({venta:{ventaId:ventaId,nombre:document.getElementById('fn').value.trim(),correo:document.getElementById('fem').value.trim(),telefono:document.getElementById('ftel').value.trim(),cantidad:flQty,numeros_accion:nums}})
+        fetch(SB_URL+'/functions/v1/create-checkout',{method:'POST',headers:{'Authorization':'Bearer '+SB_ANON,'Content-Type':'application/json','apikey':SB_ANON},body:JSON.stringify({venta:{ventaId:ventaId,nombre:document.getElementById('fn').value.trim(),correo:document.getElementById('fem').value.trim(),telefono:document.getElementById('ftel').value.trim(),cantidad:flQty,numeros_accion:nums}})
         }).then(function(cr){return cr.json();}).then(function(cd){
           if(cd.ok&&cd.url){window.location.href=cd.url;}
           else{toast('❌ Error: '+(cd.error||''),true);btn.disabled=false;btn.textContent='✅ Confirmar compra';}
