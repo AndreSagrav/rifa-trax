@@ -722,7 +722,7 @@ tbody td{padding:10px 14px;vertical-align:middle}
             <div class="fi"><label>Correo</label><input type="email" id="vem" placeholder="correo@ejemplo.com"></div>
             <div class="fi"><label>Cantidad *</label><input type="number" id="vqt" min="1" max="50" value="1"></div>
             <div class="fi"><label>Método *</label><select id="vmt"><option value="sinpe">SINPE</option><option value="tarjeta">Tarjeta</option></select></div>
-            <div class="fi"><label>Estado</label><select id="vst"><option value="confirmado">Confirmado</option><option value="pendiente">Pendiente</option></select></div>
+            <div class="fi"><label>Estado</label><select id="vst"><option value="pendiente">Pendiente</option></select></div>
             <div class="fi" style="grid-column:1/-1"><label>Notas</label><textarea id="vnt" rows="2" placeholder="Comprobante #123..."></textarea></div>
           </div>
           <div class="fa">
@@ -1185,18 +1185,17 @@ async function confirmar(){
 var accessToken=null, allVentas=[];
 
 async function doLogin(){
-  var isLocal=location.protocol==='file:';
-  if(isLocal){
+  if(location.protocol==='file:'){
     var em2=document.getElementById('lem').value.trim();
     var pw2=document.getElementById('lpw').value;
-    var err2=document.getElementById('lerr'); err2.style.display='none';
+    var err2=document.getElementById('lerr');err2.style.display='none';
     if(em2==='batisvar@gmail.com'&&pw2==='Cbva050579.'){
       accessToken=SB_ANON;
       document.getElementById('tu').textContent=em2;
       document.getElementById('ls').style.display='none';
       document.getElementById('ash').classList.add('vis');
       loadAll();
-    } else { err2.style.display='block'; }
+    }else{err2.style.display='block';}
     return;
   }
   var em=document.getElementById('lem').value.trim();
