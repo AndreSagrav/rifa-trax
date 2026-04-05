@@ -1164,15 +1164,16 @@ async function confirmar(){
     correo:document.getElementById('fem').value.trim()||null,
     cantidad:flQty, metodo_pago:payMethod, estado:'pendiente',
     numeros_accion:nums,
-    notas:payMethod==='tarjeta'?'OnvoPay:'+tiloOrder:'SINPE'
+    notas:payMethod==='tarjeta'?'OnvoPay pendiente':'SINPE'
   };
   try{
     var r=await fetch(SB_URL+'/rest/v1/ventas',{method:'POST',headers:aHeaders(false),body:JSON.stringify(body)});
+    var d=await r.json();
     if(r.ok){
       if(payMethod==='tarjeta'){
-        // Call create-checkout Edge Function
+        var ventaId=d&&d[0]?d[0].id:null;
         var ventaData={
-          ventaId:d&&d[0]?d[0].id:null,
+          ventaId:ventaId,
           nombre:document.getElementById('fn').value.trim(),
           correo:document.getElementById('fem').value.trim(),
           telefono:document.getElementById('ftel').value.trim(),
