@@ -1279,7 +1279,14 @@ function renderTabla(vs){
 async function cambiar(id,est){
   if(!confirm(est==='confirmado'?'¿Confirmar esta venta?':'¿Cancelar esta venta?')) return;
   var r=await fetch(SB_URL+'/rest/v1/ventas?id=eq.'+id,{method:'PATCH',headers:aHeaders(false),body:JSON.stringify({estado:est})});
-  if(r.ok){toast(est==='confirmado'?'✅ Confirmada':'❌ Cancelada',est==='cancelado');await loadAll();}
+  if(r.ok){
+    toast(est==='confirmado'?'✅ Confirmada':'❌ Cancelada',est==='cancelado');
+    if(est==='confirmado'){
+      var ventaConf=allVentas.find(function(v){return v.id===id;});
+      if(ventaConf){sendCertificado(ventaConf);sendAdminNotif(ventaConf);}
+    }
+    await loadAll();
+  }
   else toast('Error',true);
 }
 
@@ -1882,7 +1889,6 @@ async function sendCertificado(v){
     else{toast('❌ Error: '+(d.error||'Intente de nuevo'),true);return false;}
   }catch(e){toast('❌ Error de conexión',true);return false;}
 }
-
 async function sendAdminNotif(v){
   try{
     await fetch(SB_URL+'/functions/v1/send-email',{
@@ -1892,7 +1898,6 @@ async function sendAdminNotif(v){
     });
   }catch(e){console.error('Error notif admin:',e);}
 }
-
 async function simularVenta(){
   var nombre=document.getElementById('vnm').value.trim()||'Comprador de Prueba';
   var cedula=document.getElementById('vcd').value.trim()||'1-0000-0000';
