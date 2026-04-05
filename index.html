@@ -603,11 +603,34 @@ tbody td{padding:10px 14px;vertical-align:middle}
       <div class="fh"><div><div class="sdots"><span class="sd done"></span><span class="sd done"></span><span class="sd active"></span></div><h2>💳 Pago</h2><p>Paso 3 de 3 — Elegí cómo pagar</p></div><button class="fx" onclick="closeFlow()">&#215;</button></div>
       <div class="fb">
         <p style="font-size:12px;color:var(--muted);margin-bottom:8px;font-family:'Montserrat',sans-serif">Total: <strong id="ptl" style="color:var(--gold);font-size:16px;font-family:'Bebas Neue',sans-serif;letter-spacing:2px"></strong></p>
-        <div style="background:rgba(255,214,0,.06);border:1px solid rgba(255,214,0,.2);border-radius:12px;padding:20px;text-align:center;margin-bottom:8px">
-          <p style="font-size:32px;margin:0 0 8px">🔒</p>
-          <p style="color:#fff;font-family:'Montserrat',sans-serif;font-weight:700;font-size:14px;margin:0 0 6px">Pago seguro con OnvoPay</p>
-          <p style="color:#aaa;font-family:'Montserrat',sans-serif;font-size:12px;margin:0 0 12px;line-height:1.6">Al confirmar serás redirigido al formulario seguro donde podés pagar con <strong style="color:#fff">tarjeta de crédito/débito</strong> o <strong style="color:#fff">SINPE Móvil</strong>.</p>
-          <p style="color:#FFD600;font-size:11px;font-family:'Montserrat',sans-serif;font-weight:700;margin:0">PCI DSS · 3DS 2.0 · Encriptado SSL</p>
+        <div style="font-family:'Montserrat',sans-serif;margin-bottom:8px">
+          <div style="background:rgba(255,214,0,.06);border:1px solid rgba(255,214,0,.2);border-radius:12px;padding:16px;text-align:center;margin-bottom:12px">
+            <p style="font-size:26px;margin:0 0 6px">🔒</p>
+            <p style="color:#fff;font-weight:700;font-size:14px;margin:0 0 4px">Pago seguro con OnvoPay</p>
+            <p style="color:#aaa;font-size:11px;margin:0 0 8px;line-height:1.5">Al confirmar serás redirigido al formulario seguro donde podés pagar con <strong style="color:#fff">tarjeta de crédito/débito</strong> o <strong style="color:#fff">SINPE Móvil</strong>.</p>
+            <p style="color:#FFD600;font-size:10px;font-weight:700;margin:0">PCI DSS · 3DS 2.0 · Encriptado SSL</p>
+          </div>
+          <div style="background:#111;border:1px solid #222;border-radius:12px;padding:14px">
+            <p style="color:#FFD600;font-weight:700;font-size:11px;letter-spacing:1px;text-transform:uppercase;margin:0 0 10px">📱 Si pagás con SINPE Móvil, tené en cuenta:</p>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <div style="display:flex;gap:10px;align-items:flex-start">
+                <span style="color:#FFD600;font-weight:700;min-width:18px">1.</span>
+                <span style="color:#bbb;font-size:12px;line-height:1.5">En el formulario de OnvoPay, ingresá tu <strong style="color:#fff">número de teléfono</strong> vinculado a SINPE Móvil.</span>
+              </div>
+              <div style="display:flex;gap:10px;align-items:flex-start">
+                <span style="color:#FFD600;font-weight:700;min-width:18px">2.</span>
+                <span style="color:#bbb;font-size:12px;line-height:1.5">Recibirás una <strong style="color:#fff">solicitud de cobro</strong> en tu app bancaria. Aprobala desde ahí.</span>
+              </div>
+              <div style="display:flex;gap:10px;align-items:flex-start">
+                <span style="color:#FFD600;font-weight:700;min-width:18px">3.</span>
+                <span style="color:#bbb;font-size:12px;line-height:1.5">La confirmación es <strong style="color:#fff">automática</strong> — recibirás tu certificado al correo una vez aprobado el pago.</span>
+              </div>
+              <div style="display:flex;gap:10px;align-items:flex-start">
+                <span style="color:#FFD600;font-weight:700;min-width:18px">⚠️</span>
+                <span style="color:#bbb;font-size:12px;line-height:1.5">No cerrés la ventana de OnvoPay hasta que el pago sea <strong style="color:#fff">confirmado</strong>.</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <div class="ff2"><button class="fbn" onclick="goS(2)">Siguiente →</button></div>
@@ -1169,7 +1192,7 @@ async function initTilo(){
     var r=await fetch(TP_API+'/GetTokenSdk',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({apiuser:TP_USER,apipassword:TP_PASS,apikey:TP_KEY})});
     var d=await r.json(); tiloToken=d.token||null;
   } catch(e){tiloToken=null;}
-  if(!tiloToken){return;return;}
+  
   tiloOrder='RIFA-'+Date.now();
   var nom=document.getElementById('fn').value.trim();
   var em=document.getElementById('fem').value.trim()||'sin@correo.com';
@@ -1186,9 +1209,9 @@ async function initTilo(){
         var sel=document.getElementById('method');sel.innerHTML='';
         resp.methods.forEach(function(m){var o=document.createElement('option');o.value=m.id;o.textContent=m.name;sel.appendChild(o);});
         document.getElementById('bcf').disabled=false;
-      } else {return;}
+      }
     });
-  } catch(e){return;}
+  } catch(e){}
 }
 
 async function asignarNums(qty){
@@ -1223,19 +1246,18 @@ async function confirmar(){
     if(r.ok){
       if(true){
         var ventaId=d&&d[0]?d[0].id:null;
-        var ventaData={
-          ventaId:ventaId,
-          nombre:document.getElementById('fn').value.trim(),
-          correo:document.getElementById('fem').value.trim(),
-          telefono:document.getElementById('ftel').value.trim(),
-          cantidad:flQty,
-          numeros_accion:nums
-        };
         btn.textContent='⏳ Redirigiendo...';
         fetch(SB_URL+'/functions/v1/create-checkout',{
           method:'POST',
           headers:{'Authorization':'Bearer '+SB_ANON,'Content-Type':'application/json','apikey':SB_ANON},
-          body:JSON.stringify({venta:ventaData})
+          body:JSON.stringify({venta:{
+            ventaId:ventaId,
+            nombre:document.getElementById('fn').value.trim(),
+            correo:document.getElementById('fem').value.trim(),
+            telefono:document.getElementById('ftel').value.trim(),
+            cantidad:flQty,
+            numeros_accion:nums
+          }})
         }).then(function(cr){return cr.json();}).then(function(cd){
           if(cd.ok&&cd.url){window.location.href=cd.url;}
           else{toast('❌ Error al crear checkout: '+(cd.error||''),true);btn.disabled=false;btn.textContent='✅ Confirmar compra';}
