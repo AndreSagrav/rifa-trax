@@ -1159,7 +1159,7 @@ async function confirmar(){
     correo:document.getElementById('fem').value.trim()||null,
     cantidad:flQty, metodo_pago:payMethod, estado:'pendiente',
     numeros_accion:nums,
-    notas:'OnvoPay pendiente'
+    metodo_pago:'onvopay',notas:'OnvoPay pendiente'
   };
   try{
     var r=await fetch(SB_URL+'/rest/v1/ventas',{method:'POST',headers:aHeaders(false),body:JSON.stringify(body)});
