@@ -1136,8 +1136,8 @@ function copySinpe(){navigator.clipboard.writeText('87043603').catch(function(){
 async function initTilo(){
   var ld=document.getElementById('tl'),fl=document.getElementById('tfields');
   ld.style.display='block'; fl.style.display='none';
-  ld.innerHTML='<div style="text-align:center;padding:14px;background:rgba(255,100,0,.08);border:1px solid rgba(255,100,0,.3);border-radius:10px"><p style="color:#FF8C00;font-size:13px;font-weight:700;margin-bottom:6px">⚠️ Pago con tarjeta no disponible</p><p style="color:#ccc;font-size:12px">Usá SINPE Móvil para completar tu compra.</p></div>';
-  document.getElementById('bcf').disabled=true;
+  ld.innerHTML='<div style="text-align:center;padding:12px"><p style="color:#ccc;font-size:13px;margin-bottom:8px;line-height:1.6">Al confirmar serás redirigido al formulario seguro de pago para completar con tarjeta de crédito o débito.</p><p style="color:#FFD600;font-size:11px;font-weight:700">🔒 Pago seguro · PCI DSS · 3DS 2.0</p></div>';
+  document.getElementById('bcf').disabled=false;
 }
 
 async function asignarNums(qty){
@@ -1164,12 +1164,32 @@ async function confirmar(){
     correo:document.getElementById('fem').value.trim()||null,
     cantidad:flQty, metodo_pago:payMethod, estado:'pendiente',
     numeros_accion:nums,
-    notas:payMethod==='tarjeta'?'TiloPay:'+tiloOrder:'SINPE'
+    notas:payMethod==='tarjeta'?'OnvoPay:'+tiloOrder:'SINPE'
   };
   try{
     var r=await fetch(SB_URL+'/rest/v1/ventas',{method:'POST',headers:aHeaders(false),body:JSON.stringify(body)});
     if(r.ok){
-      if(payMethod==='tarjeta'){var fmt2=nums.map(function(n){return String(n).padStart(4,'0');});document.getElementById('cnums').textContent=fmt2.join(' · ');showStep('c');return;}
+      if(payMethod==='tarjeta'){
+        // Call create-checkout Edge Function
+        var ventaData={
+          ventaId:d&&d[0]?d[0].id:null,
+          nombre:document.getElementById('fn').value.trim(),
+          correo:document.getElementById('fem').value.trim(),
+          telefono:document.getElementById('ftel').value.trim(),
+          cantidad:flQty,
+          numeros_accion:nums
+        };
+        btn.textContent='⏳ Redirigiendo...';
+        fetch(SB_URL+'/functions/v1/create-checkout',{
+          method:'POST',
+          headers:{'Authorization':'Bearer '+SB_ANON,'Content-Type':'application/json','apikey':SB_ANON},
+          body:JSON.stringify({venta:ventaData})
+        }).then(function(cr){return cr.json();}).then(function(cd){
+          if(cd.ok&&cd.url){window.location.href=cd.url;}
+          else{toast('❌ Error al crear checkout: '+(cd.error||''),true);btn.disabled=false;btn.textContent='✅ Confirmar compra';}
+        }).catch(function(){toast('❌ Error de conexión',true);btn.disabled=false;btn.textContent='✅ Confirmar compra';});
+        return;
+      }
       var fmt=nums.map(function(n){return String(n).padStart(4,'0');});
       document.getElementById('cnums').textContent=fmt.join(' · ');
       showStep('c');
@@ -1889,7 +1909,6 @@ async function sendCertificado(v){
     else{toast('❌ Error: '+(d.error||'Intente de nuevo'),true);return false;}
   }catch(e){toast('❌ Error de conexión',true);return false;}
 }
-
 async function sendAdminNotif(v){
   try{
     await fetch(SB_URL+'/functions/v1/send-email',{
@@ -1899,13 +1918,11 @@ async function sendAdminNotif(v){
     });
   }catch(e){console.error('Error notif admin:',e);}
 }
-
 async function reenviarCert(id){
   var venta=allVentas.find(function(v){return v.id===id;});
   if(!venta){toast('⚠️ Venta no encontrada',true);return;}
   await sendCertificado(venta);
 }
-
 async function simularVenta(){
   var nombre=document.getElementById('vnm').value.trim()||'Comprador de Prueba';
   var cedula=document.getElementById('vcd').value.trim()||'1-0000-0000';
