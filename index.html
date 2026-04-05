@@ -1039,7 +1039,7 @@ function openFlow(){
   document.getElementById('rh').classList.remove('done');
   document.getElementById('rscr').scrollTop=0;
   var bcf=document.getElementById('bcf'); if(bcf) bcf.disabled=false;
-  ['pm-sinpe','pm-card'].forEach(function(id){document.getElementById(id).classList.remove('sel');});
+
   showStep(1);
   document.getElementById('fov').classList.add('open');
   document.body.style.overflow='hidden';
@@ -1095,7 +1095,7 @@ function onAcc(){regAcc=document.getElementById('arc').checked;document.getEleme
 function selPay(m){
   payMethod=m; sinpeDone=false;
   document.getElementById('spc').checked=false;
-  ['pm-sinpe','pm-card'].forEach(function(id){document.getElementById(id).classList.remove('sel');});
+
   document.getElementById('pm-'+m).classList.add('sel');
 
   document.getElementById('bcf').disabled=true;
