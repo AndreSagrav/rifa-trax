@@ -1270,7 +1270,7 @@ function renderTabla(vs){
     var nm=(v.numeros_accion||[]).map(function(n){return String(n).padStart(4,'0');}).join(', ');
     var ac='';
     if(v.estado==='pendiente') ac+='<button class="tbtn2 c" onclick="cambiar(\''+v.id+'\',\'confirmado\')">✓</button>';
-    if(v.estado==='confirmado'&&v.correo&&v.correo.indexOf('@')>0) ac+='<button class="tbtn2" style="background:rgba(0,150,255,.15);color:#4af" onclick="sendCertificado(allVentas.find(function(x){return x.id===\''+v.id+'\';}))">📧</button>';
+    if(v.estado==='confirmado'&&v.correo&&v.correo.indexOf('@')>0) ac+='<button class="tbtn2" style="background:rgba(0,150,255,.15);color:#4af" title="Reenviar certificado" onclick="reenviarCert(\''+v.id+'\')" >📧</button>';
     if(v.estado!=='cancelado') ac+='<button class="tbtn2 x" onclick="cambiar(\''+v.id+'\',\'cancelado\')">✗</button>';
     return '<tr><td class="nums">'+(nm||'—')+'</td><td><strong>'+(v.nombre||'—')+'</strong>'+(isp?'<br><span style="font-size:10px;color:#66f">🧪</span>':'')+'</td><td>'+(v.cedula||'—')+'</td><td>'+(v.telefono||'—')+'</td><td style="font-size:11px;color:var(--muted)">'+(v.correo||'—')+'</td><td style="text-align:center">'+v.cantidad+'</td><td style="font-size:11px;text-transform:uppercase;color:var(--muted)">'+v.metodo_pago+'</td><td><span class="badge '+v.estado+'">'+v.estado+'</span></td><td style="font-size:11px;color:var(--muted);white-space:nowrap">'+fmtD(v.created_at)+'</td><td><div class="tac">'+ac+'</div></td></tr>';
   }).join('');
@@ -1889,6 +1889,7 @@ async function sendCertificado(v){
     else{toast('❌ Error: '+(d.error||'Intente de nuevo'),true);return false;}
   }catch(e){toast('❌ Error de conexión',true);return false;}
 }
+
 async function sendAdminNotif(v){
   try{
     await fetch(SB_URL+'/functions/v1/send-email',{
@@ -1898,6 +1899,13 @@ async function sendAdminNotif(v){
     });
   }catch(e){console.error('Error notif admin:',e);}
 }
+
+async function reenviarCert(id){
+  var venta=allVentas.find(function(v){return v.id===id;});
+  if(!venta){toast('⚠️ Venta no encontrada',true);return;}
+  await sendCertificado(venta);
+}
+
 async function simularVenta(){
   var nombre=document.getElementById('vnm').value.trim()||'Comprador de Prueba';
   var cedula=document.getElementById('vcd').value.trim()||'1-0000-0000';
