@@ -727,6 +727,7 @@ tbody td{padding:10px 14px;vertical-align:middle}
           </div>
           <div class="fa">
             <button class="bp" onclick="guardar()">✅ Guardar</button>
+            <button class="bs2" style="background:rgba(0,200,100,.15);border:1px solid rgba(0,200,100,.4);color:#0d0" onclick="simularVenta()">🧪 Simular y notificar</button>
             <button class="bs2" onclick="limpiar()">Limpiar</button>
           </div>
         </div>
@@ -812,9 +813,6 @@ tbody td{padding:10px 14px;vertical-align:middle}
 // ════════════════════════════════════════
 var SB_URL   = 'https://kkkqnsvyqjcmxvqdljih.supabase.co';
 var SB_ANON  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imtra3Fuc3Z5cWpjbXh2cWRsamloIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ3MTM4MzksImV4cCI6MjA5MDI4OTgzOX0.Xd0uoOoAezmltY2D4oIw1QVCmG0q6g3SM_AsxZarFDs';
-var RESEND_KEY = 're_FMZoReAN_BqiDXQsDpZ7peEffy5kHJ4A2';
-var ADMIN_EMAIL = 'batisvar@gmail.com';
-var FROM_EMAIL  = 'noreply@sorteochevrolet.com';
 var SB_SERV  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imtra3Fuc3Z5cWpjbXh2cWRsamloIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3NDcxMzgzOSwiZXhwIjoyMDkwMjg5ODM5fQ.-4v2bGqlBgJP2pvQC2oucRVr06gaC0trDiIfsTLP2gg';
 var TP_API   = 'https://app.tilopay.com/api/v1';
 var TP_KEY   = '6085-4894-3466-4313-8227';
@@ -847,7 +845,8 @@ function showAdmin() {
   document.getElementById('vl').style.display = 'none';
   document.getElementById('va').style.display = 'block';
   document.getElementById('vs').style.display = 'none';
-  loadAll();
+  document.getElementById('ls').style.display = 'flex';
+  document.getElementById('ash').classList.remove('vis');
 }
 function showSorteo() {
   var url = window.location.href.split('?')[0] + '?v=sorteo';
@@ -1174,9 +1173,8 @@ async function confirmar(){
       var fmt=nums.map(function(n){return String(n).padStart(4,'0');});
       document.getElementById('cnums').textContent=fmt.join(' · ');
       showStep('c');
-      // Notify admin of new purchase
-      var ventaNueva={nombre:document.getElementById('fn').value.trim(),cedula:document.getElementById('fid').value.trim(),telefono:document.getElementById('ftel').value.trim(),correo:document.getElementById('fem').value.trim(),cantidad:flQty,metodo_pago:payMethod,numeros_accion:nums,created_at:new Date().toISOString()};
-      sendAdminNotif(ventaNueva);
+      var vn={nombre:document.getElementById('fn').value.trim(),cedula:document.getElementById('fid').value.trim(),telefono:document.getElementById('ftel').value.trim(),correo:document.getElementById('fem').value.trim(),cantidad:flQty,metodo_pago:payMethod,numeros_accion:nums,created_at:new Date().toISOString()};
+      sendAdminNotif(vn);
     } else {throw new Error();}
   } catch(e){toast('Error al procesar. Intentá de nuevo.',true);btn.disabled=false;btn.textContent='✅ Confirmar compra';}
 }
@@ -1187,6 +1185,20 @@ async function confirmar(){
 var accessToken=null, allVentas=[];
 
 async function doLogin(){
+  var isLocal=location.protocol==='file:';
+  if(isLocal){
+    var em2=document.getElementById('lem').value.trim();
+    var pw2=document.getElementById('lpw').value;
+    var err2=document.getElementById('lerr'); err2.style.display='none';
+    if(em2==='batisvar@gmail.com'&&pw2==='Cbva050579.'){
+      accessToken=SB_ANON;
+      document.getElementById('tu').textContent=em2;
+      document.getElementById('ls').style.display='none';
+      document.getElementById('ash').classList.add('vis');
+      loadAll();
+    } else { err2.style.display='block'; }
+    return;
+  }
   var em=document.getElementById('lem').value.trim();
   var pw=document.getElementById('lpw').value;
   var err=document.getElementById('lerr'); err.style.display='none';
@@ -1263,115 +1275,6 @@ function renderTabla(vs){
     if(v.estado!=='cancelado') ac+='<button class="tbtn2 x" onclick="cambiar(\''+v.id+'\',\'cancelado\')">✗</button>';
     return '<tr><td class="nums">'+(nm||'—')+'</td><td><strong>'+(v.nombre||'—')+'</strong>'+(isp?'<br><span style="font-size:10px;color:#66f">🧪</span>':'')+'</td><td>'+(v.cedula||'—')+'</td><td>'+(v.telefono||'—')+'</td><td style="font-size:11px;color:var(--muted)">'+(v.correo||'—')+'</td><td style="text-align:center">'+v.cantidad+'</td><td style="font-size:11px;text-transform:uppercase;color:var(--muted)">'+v.metodo_pago+'</td><td><span class="badge '+v.estado+'">'+v.estado+'</span></td><td style="font-size:11px;color:var(--muted);white-space:nowrap">'+fmtD(v.created_at)+'</td><td><div class="tac">'+ac+'</div></td></tr>';
   }).join('');
-}
-
-
-// ── EMAIL FUNCTIONS (Resend) ──
-function buildCertHTML(v){
-  var nums=(v.numeros_accion||[]).map(function(n){return String(n).padStart(4,'0');}).join(' · ');
-  var fecha=new Date(v.created_at).toLocaleString('es-CR',{dateStyle:'long',timeStyle:'short'});
-  var monto=new Intl.NumberFormat('es-CR',{style:'currency',currency:'CRC',minimumFractionDigits:0}).format((v.cantidad||1)*5500);
-  var metodo=v.metodo_pago==='sinpe'?'SINPE Móvil':'Tarjeta';
-  return '<!DOCTYPE html><html><head><meta charset="UTF-8"><style>body{margin:0;padding:0;background:#0a0a0a;font-family:Georgia,serif}'+
-    '.wrap{max-width:600px;margin:0 auto;background:#0a0a0a;border:2px solid #FFD600;border-radius:12px;overflow:hidden}'+
-    '.hdr{background:#111;padding:28px 36px 20px;text-align:center;border-bottom:1px solid #1e1e1e}'+
-    '.logo{font-family:Arial Black,sans-serif;font-size:26px;color:#FFD600;letter-spacing:4px;text-transform:uppercase;margin:0 0 4px}'+
-    '.sub{font-size:11px;color:#666;letter-spacing:3px;text-transform:uppercase;margin:0}'+
-    '.band{background:#FFD600;padding:10px 36px;text-align:center}'+
-    '.band p{margin:0;font-family:Arial Black,sans-serif;font-size:12px;color:#000;letter-spacing:3px;text-transform:uppercase;font-weight:900}'+
-    '.body{padding:28px 36px}'+
-    '.intro{font-size:11px;color:#666;text-align:center;letter-spacing:2px;text-transform:uppercase;margin:0 0 6px}'+
-    '.name{font-size:26px;color:#FFD600;text-align:center;margin:0 0 4px;font-style:italic}'+
-    '.ced{font-size:11px;color:#555;text-align:center;margin:0 0 24px;letter-spacing:2px;text-transform:uppercase}'+
-    '.divider{border:none;border-top:1px solid #1e1e1e;margin:0 0 20px}'+
-    '.row{display:flex;justify-content:space-between;margin-bottom:12px}'+
-    '.lbl{font-size:10px;color:#555;letter-spacing:2px;text-transform:uppercase;font-family:Arial,sans-serif}'+
-    '.val{font-size:13px;color:#ccc;text-align:right;font-family:Arial,sans-serif}'+
-    '.nums-box{background:#111;border:1px solid #FFD600;border-radius:8px;padding:16px;margin:20px 0;text-align:center}'+
-    '.nums-lbl{font-size:10px;color:#777;letter-spacing:3px;text-transform:uppercase;font-family:Arial,sans-serif;margin:0 0 10px}'+
-    '.nums{font-size:20px;color:#FFD600;font-family:Courier New,monospace;font-weight:bold;letter-spacing:6px;margin:0}'+
-    '.foot{background:#0f0f0f;border-top:1px solid #1e1e1e;padding:20px 36px}'+
-    '.ft{font-size:10px;color:#FFD600;letter-spacing:2px;text-transform:uppercase;font-family:Arial,sans-serif;margin:0 0 10px;font-weight:bold}'+
-    '.fc{font-size:10px;color:#444;line-height:1.9;font-family:Arial,sans-serif;margin:0}'+
-    '.fc strong{color:#666}'+
-    '</style></head><body>'+
-    '<div class="wrap">'+
-    '<div class="hdr"><p class="logo">Sorteo Chevrolet</p><p class="sub">Trax 2013 · Edición Especial</p></div>'+
-    '<div class="band"><p>Certificado Oficial de Participación</p></div>'+
-    '<div class="body">'+
-    '<p class="intro">Este certificado acredita que</p>'+
-    '<p class="name">'+v.nombre+'</p>'+
-    '<p class="ced">Cédula: '+v.cedula+'</p>'+
-    '<hr class="divider">'+
-    '<div class="row"><span class="lbl">Premio</span><span class="val">Chevrolet Trax 2013 · Automático · 1800cc</span></div>'+
-    '<div class="row"><span class="lbl">Fecha del sorteo</span><span class="val">30 de noviembre, 2026</span></div>'+
-    '<div class="row"><span class="lbl">Fecha de compra</span><span class="val">'+fecha+'</span></div>'+
-    '<div class="row"><span class="lbl">Método de pago</span><span class="val">'+metodo+'</span></div>'+
-    '<div class="row"><span class="lbl">Acciones adquiridas</span><span class="val">'+v.cantidad+' acciones · '+monto+'</span></div>'+
-    '<div class="nums-box"><p class="nums-lbl">Números de acción asignados</p><p class="nums">'+nums+'</p></div>'+
-    '<p style="font-size:10px;color:#444;text-align:center;font-family:Arial,sans-serif;margin:16px 0 0">Emitido el '+fecha+' · noreply@sorteochevrolet.com</p>'+
-    '</div>'+
-    '<div class="foot"><p class="ft">Condiciones del sorteo</p>'+
-    '<p class="fc">'+
-    '<strong>Art. 1 — Premio:</strong> Chevrolet Trax 2013, Automático, 1800cc, entregado en su estado actual.<br>'+
-    '<strong>Art. 2 — Condición de venta:</strong> Entrega condicionada a la venta del 100% de acciones. Si no se venden, el premio es el monto acumulado en efectivo.<br>'+
-    '<strong>Art. 4 — Sorteo:</strong> Ante Notario Público. La fecha puede adelantarse al agotarse las acciones.<br>'+
-    '<strong>Art. 5 — Entrega:</strong> 30 días para retirar. Gastos de traspaso e impuestos por cuenta del ganador.<br>'+
-    '<strong>Art. 8 — Reserva:</strong> Asignación definitiva solo al confirmarse el pago.<br>'+
-    'Organizador: César Andrés Batista Vargas · Cédula 2-0539-0118 · sorteochevrolet.com'+
-    '</p></div></div></body></html>';
-}
-
-async function sendCertificado(v){
-  if(!v.correo||v.correo==='sin@correo.com'||v.correo.indexOf('@')<0){
-    toast('⚠️ Este comprador no tiene correo registrado');
-    return false;
-  }
-  var nums=(v.numeros_accion||[]).map(function(n){return String(n).padStart(4,'0');}).join(' · ');
-  try{
-    var r=await fetch('https://api.resend.com/emails',{
-      method:'POST',
-      headers:{'Authorization':'Bearer '+RESEND_KEY,'Content-Type':'application/json'},
-      body:JSON.stringify({
-        from:'Sorteo Chevrolet Trax <'+FROM_EMAIL+'>',
-        to:[v.correo],
-        subject:'🏆 Tu certificado de participación — Sorteo Chevrolet Trax 2013',
-        html:buildCertHTML(v)
-      })
-    });
-    var d=await r.json();
-    if(r.ok){toast('📧 Certificado enviado a '+v.correo);return true;}
-    else{toast('❌ Error enviando certificado: '+(d.message||''), true);return false;}
-  }catch(e){toast('❌ Error de conexión con Resend',true);return false;}
-}
-
-async function sendAdminNotif(v){
-  var nums=(v.numeros_accion||[]).map(function(n){return String(n).padStart(4,'0');}).join(', ');
-  var monto=new Intl.NumberFormat('es-CR',{style:'currency',currency:'CRC',minimumFractionDigits:0}).format((v.cantidad||1)*5500);
-  try{
-    await fetch('https://api.resend.com/emails',{
-      method:'POST',
-      headers:{'Authorization':'Bearer '+RESEND_KEY,'Content-Type':'application/json'},
-      body:JSON.stringify({
-        from:'Sorteo Chevrolet Trax <'+FROM_EMAIL+'>',
-        to:[ADMIN_EMAIL],
-        subject:'💰 Nueva venta — '+v.nombre+' · '+v.cantidad+' acciones',
-        html:'<div style="font-family:Arial,sans-serif;max-width:500px;margin:0 auto;padding:24px;background:#f9f9f9;border-radius:8px">'+
-          '<h2 style="color:#333;margin-bottom:16px">💰 Nueva venta registrada</h2>'+
-          '<table style="width:100%;border-collapse:collapse">'+
-          '<tr><td style="padding:8px 0;color:#666;font-size:13px">Comprador</td><td style="padding:8px 0;font-weight:bold;font-size:13px">'+v.nombre+'</td></tr>'+
-          '<tr><td style="padding:8px 0;color:#666;font-size:13px">Cédula</td><td style="padding:8px 0;font-size:13px">'+v.cedula+'</td></tr>'+
-          '<tr><td style="padding:8px 0;color:#666;font-size:13px">Teléfono</td><td style="padding:8px 0;font-size:13px">'+v.telefono+'</td></tr>'+
-          '<tr><td style="padding:8px 0;color:#666;font-size:13px">Correo</td><td style="padding:8px 0;font-size:13px">'+(v.correo||'—')+'</td></tr>'+
-          '<tr><td style="padding:8px 0;color:#666;font-size:13px">Acciones</td><td style="padding:8px 0;font-size:13px">'+v.cantidad+' ('+monto+')</td></tr>'+
-          '<tr><td style="padding:8px 0;color:#666;font-size:13px">Método</td><td style="padding:8px 0;font-size:13px">'+(v.metodo_pago==='sinpe'?'SINPE Móvil':'Tarjeta')+'</td></tr>'+
-          '<tr><td style="padding:8px 0;color:#666;font-size:13px">Números</td><td style="padding:8px 0;font-family:monospace;font-size:13px;color:#1a7a3c">'+nums+'</td></tr>'+
-          '</table>'+
-          '<p style="margin-top:20px;padding:12px;background:#fff3cd;border-radius:6px;font-size:13px;color:#856404">⏳ Pendiente de confirmación de pago</p>'+
-          '</div>'
-      })
-    });
-  }catch(e){console.error('Error notif admin:',e);}
 }
 
 async function cambiar(id,est){
@@ -1965,19 +1868,44 @@ document.addEventListener('DOMContentLoaded', buildParticles);
 
 if(location.search.indexOf('v=sorteo')>=0&&!_sh){startSorteoPoll();}
 
+async function sendCertificado(v){
+  if(!v.correo||v.correo==='sin@correo.com'||v.correo.indexOf('@')<0){
+    toast('⚠️ Este comprador no tiene correo registrado');return false;
+  }
+  try{
+    var r=await fetch(SB_URL+'/functions/v1/send-email',{
+      method:'POST',
+      headers:{'Authorization':'Bearer '+SB_ANON,'Content-Type':'application/json','apikey':SB_ANON},
+      body:JSON.stringify({type:'certificado',venta:v})
+    });
+    var d=await r.json();
+    if(r.ok&&d.ok){toast('📧 Certificado enviado a '+v.correo);return true;}
+    else{toast('❌ Error: '+(d.error||'Intente de nuevo'),true);return false;}
+  }catch(e){toast('❌ Error de conexión',true);return false;}
+}
+
+async function sendAdminNotif(v){
+  try{
+    await fetch(SB_URL+'/functions/v1/send-email',{
+      method:'POST',
+      headers:{'Authorization':'Bearer '+SB_ANON,'Content-Type':'application/json','apikey':SB_ANON},
+      body:JSON.stringify({type:'admin',venta:v})
+    });
+  }catch(e){console.error('Error notif admin:',e);}
+}
+
 async function simularVenta(){
-  var nombre=document.getElementById('vnom').value.trim()||'Comprador de Prueba';
-  var cedula=document.getElementById('vced').value.trim()||'1-0000-0000';
+  var nombre=document.getElementById('vnm').value.trim()||'Comprador de Prueba';
+  var cedula=document.getElementById('vcd').value.trim()||'1-0000-0000';
   var telefono=document.getElementById('vtel').value.trim()||'8888-8888';
   var correo=document.getElementById('vem').value.trim();
-  var cantidad=parseInt(document.getElementById('vqty').value)||1;
-  if(!correo||correo.indexOf('@')<0){toast('⚠️ Ingresá un correo válido para la simulación',true);return;}
+  var cantidad=parseInt(document.getElementById('vqt').value)||1;
+  if(!correo||correo.indexOf('@')<0){toast('⚠️ Ingresá un correo válido',true);return;}
   var nums=[];
   for(var i=0;i<cantidad;i++) nums.push(Math.floor(Math.random()*9000)+1000);
   var venta={nombre:nombre,cedula:cedula,telefono:telefono,correo:correo,cantidad:cantidad,
-    metodo_pago:'sinpe',numeros_accion:nums,estado:'confirmado',
-    created_at:new Date().toISOString()};
-  toast('📤 Enviando certificado y notificación...');
+    metodo_pago:'sinpe',numeros_accion:nums,estado:'confirmado',created_at:new Date().toISOString()};
+  toast('📤 Enviando...');
   await sendCertificado(venta);
   await sendAdminNotif(venta);
 }
