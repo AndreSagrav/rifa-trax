@@ -23,16 +23,13 @@ body{background:var(--black);color:var(--white);font-family:'Crimson Text',Georg
 #vs{display:none;position:fixed;inset:0;z-index:900;background:#0A0A0A;flex-direction:column;align-items:center;justify-content:center;overflow:hidden}
 
 /* ══════════════ LANDING CSS ══════════════ */
-/* NAV */
 nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(10,10,10,.95);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;padding:0 32px;height:60px}
 .nl{font-family:'Montserrat',sans-serif;font-size:14px;color:var(--gold);letter-spacing:4px;font-weight:800;text-transform:uppercase;cursor:default;user-select:none}
 .nlinks{display:flex;gap:24px;list-style:none}
 .nlinks a{color:var(--muted);text-decoration:none;font-size:11px;letter-spacing:3px;text-transform:uppercase;font-weight:700;font-family:'Montserrat',sans-serif;transition:color .2s}
 .nlinks a:hover{color:var(--gold)}
-/* URGENCY */
 .ustrip{background:var(--red);text-align:center;padding:10px 24px;font-family:'Montserrat',sans-serif;font-weight:800;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:#fff;margin-top:60px;animation:spulse 3s ease-in-out infinite}
 @keyframes spulse{0%,100%{background:var(--red)}50%{background:#B71C1C}}
-/* HERO */
 .hero{min-height:100vh;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(211,47,47,.35) 0%,transparent 70%),var(--black);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:60px 24px;position:relative;overflow:hidden}
 .badge{display:inline-block;background:var(--red);color:#fff;font-family:'Montserrat',sans-serif;font-weight:800;font-size:11px;letter-spacing:3px;text-transform:uppercase;padding:6px 18px;border-radius:2px;margin-bottom:24px;animation:pbadge 2s ease-in-out infinite}
 @keyframes pbadge{0%,100%{box-shadow:0 0 0 0 rgba(211,47,47,.7)}50%{box-shadow:0 0 0 10px rgba(211,47,47,0)}}
@@ -41,7 +38,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(10,10,10,.95
 .hsub{font-family:'Montserrat',sans-serif;font-size:clamp(11px,2.5vw,15px);font-weight:700;letter-spacing:5px;text-transform:uppercase;color:var(--muted);margin-bottom:28px}
 .hcta{display:inline-block;background:linear-gradient(135deg,var(--red),#B71C1C);color:#fff;font-family:'Montserrat',sans-serif;font-weight:800;font-size:15px;letter-spacing:3px;text-transform:uppercase;padding:18px 40px;border-radius:4px;text-decoration:none;margin-top:24px;transition:transform .2s,box-shadow .2s;box-shadow:0 8px 30px rgba(211,47,47,.5);border:none;cursor:pointer;width:100%;max-width:360px}
 .hcta:hover{transform:translateY(-3px);box-shadow:0 14px 40px rgba(211,47,47,.7)}
-/* CAROUSEL */
 .cw{width:100%;max-width:760px;margin:28px auto 0;position:relative}
 .co{overflow:hidden;border-radius:10px;border:2px solid var(--border);box-shadow:0 16px 60px rgba(0,0,0,.6)}
 .ct{display:flex;transition:transform .5s cubic-bezier(.23,1,.32,1)}
@@ -56,7 +52,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(10,10,10,.95
 .cdot{width:8px;height:8px;border-radius:50%;background:#444;cursor:pointer;transition:background .3s,transform .3s;border:none}
 .cdot.active{background:var(--gold);transform:scale(1.35)}
 .cctr{text-align:center;margin-top:8px;font-size:11px;color:var(--muted);letter-spacing:2px;font-family:'Montserrat',sans-serif}
-/* COUNTDOWN */
 .cdb{background:var(--dark);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:28px 24px;text-align:center}
 .cdlbl{font-family:'Montserrat',sans-serif;font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--muted);margin-bottom:16px;font-weight:600}
 .cdnote{font-size:13px;color:var(--muted);margin-top:10px;font-style:italic;font-family:'Crimson Text',serif}
@@ -65,7 +60,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(10,10,10,.95
 .cdn{font-family:'Bebas Neue',sans-serif;font-size:clamp(40px,8vw,64px);color:var(--gold);line-height:1;display:block;text-shadow:0 0 30px rgba(255,214,0,.4)}
 .cdu{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);font-family:'Montserrat',sans-serif;font-weight:600}
 .cdsep{font-family:'Bebas Neue',sans-serif;font-size:52px;color:var(--red);line-height:1.1;align-self:flex-start;padding-top:4px}
-/* PROGRESS */
 .ps{background:var(--dark);padding:60px 24px;text-align:center}
 .sl{font-family:'Montserrat',sans-serif;font-size:11px;letter-spacing:5px;text-transform:uppercase;color:var(--red);margin-bottom:12px;font-weight:700}
 .st{font-family:'Bebas Neue',sans-serif;font-size:clamp(36px,7vw,64px);color:var(--white);margin-bottom:40px}
@@ -78,7 +72,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(10,10,10,.95
 .ac{display:inline-block;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:24px 48px;margin-top:28px}
 .av{font-family:'Bebas Neue',sans-serif;font-size:48px;color:var(--gold);display:block}
 .al{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--muted);margin-top:4px;font-family:'Montserrat',sans-serif;font-weight:600}
-/* SPECS */
 .sps{padding:80px 24px;background:radial-gradient(ellipse 80% 50% at 50% 100%,rgba(255,214,0,.08) 0%,transparent 70%),var(--black);text-align:center}
 .spg{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:16px;max-width:760px;margin:40px auto 0}
 .spi{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:20px 16px;transition:border-color .3s,transform .3s}
@@ -86,12 +79,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(10,10,10,.95
 .spic{font-size:28px;margin-bottom:8px}
 .spn{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);font-family:'Montserrat',sans-serif;font-weight:600}
 .spv{font-family:'Montserrat',sans-serif;font-weight:700;font-size:16px;color:var(--white);margin-top:4px}
-/* BUY */
 .bs{background:radial-gradient(ellipse 100% 60% at 50% 0%,rgba(211,47,47,.2) 0%,transparent 60%),var(--dark);padding:80px 24px;text-align:center}
 .ptag{display:inline-block;background:var(--gold);color:var(--black);font-family:'Bebas Neue',sans-serif;font-size:72px;line-height:1;padding:12px 32px;border-radius:6px;margin:24px 0;box-shadow:0 8px 40px rgba(255,214,0,.4)}
 .psub{font-size:12px;color:var(--muted);letter-spacing:3px;text-transform:uppercase;font-family:'Montserrat',sans-serif;font-weight:600}
 .bsdesc{color:var(--muted);max-width:520px;margin:0 auto;font-size:18px;line-height:1.7;font-family:'Crimson Text',serif}
-/* FAQ */
 .fqs{padding:80px 24px;background:var(--black);max-width:800px;margin:0 auto}
 .fqi{border-bottom:1px solid #2a2a2a}
 .fqq{width:100%;background:none;border:none;color:var(--white);font-family:'Montserrat',sans-serif;font-weight:700;font-size:15px;text-align:left;padding:22px 0;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;transition:color .2s}
@@ -100,10 +91,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(10,10,10,.95
 .fqa{max-height:0;overflow:hidden;transition:max-height .4s ease;font-size:16px;color:#aaa;line-height:1.8;font-family:'Crimson Text',serif}
 .fqa.open{max-height:300px;padding-bottom:20px}
 .fqic.open{transform:rotate(45deg)}
-/* FOOTER */
 footer{background:var(--dark);border-top:1px solid var(--border);text-align:center;padding:32px 24px;font-size:13px;color:var(--muted);letter-spacing:1px;font-family:'Montserrat',sans-serif}
 footer strong{color:var(--gold)}
-/* TOAST */
 .toast{position:fixed;bottom:32px;left:50%;transform:translateX(-50%) translateY(100px);background:var(--green);color:#000;font-family:'Montserrat',sans-serif;font-weight:700;font-size:14px;padding:12px 28px;border-radius:4px;transition:transform .4s cubic-bezier(.23,1,.32,1);z-index:9999;letter-spacing:1px;pointer-events:none}
 .toast.show{transform:translateX(-50%) translateY(0)}
 .toast.err{background:var(--red);color:#fff}
@@ -138,7 +127,6 @@ footer strong{color:var(--gold)}
 .qb button:hover{background:#444}
 .qb span{background:#111;color:var(--gold);font-family:'Bebas Neue',sans-serif;font-size:24px;width:52px;text-align:center;padding:4px 0;display:block}
 .qtl{font-size:15px;color:var(--green);font-weight:700;font-family:'Montserrat',sans-serif}
-/* Reg scroll */
 .rs{max-height:220px;overflow-y:auto;background:#111;border:1px solid #2a2a2a;border-radius:6px;padding:16px;margin-bottom:8px}
 .rs::-webkit-scrollbar{width:4px}
 .rs::-webkit-scrollbar-thumb{background:var(--gold);border-radius:2px}
@@ -154,27 +142,12 @@ footer strong{color:var(--gold)}
 .ar input[type=checkbox]{width:17px;height:17px;accent-color:var(--green);cursor:pointer;flex-shrink:0;margin-top:3px}
 .ar label{font-size:15px;color:#ccc;line-height:1.6;cursor:pointer;font-family:'Crimson Text',serif}
 .ar label strong{color:var(--gold)}
-/* Pay step */
 .pm{display:flex;gap:14px;margin:16px 0;flex-wrap:wrap}
 .pmc{flex:1;min-width:180px;background:var(--card);border:2px solid #333;border-radius:10px;padding:20px;cursor:pointer;transition:border-color .3s,transform .2s;text-align:center}
 .pmc:hover,.pmc.sel{border-color:var(--gold);transform:translateY(-3px)}
 .pmi{font-size:32px;margin-bottom:8px}
 .pmn{font-family:'Montserrat',sans-serif;font-weight:800;font-size:15px;letter-spacing:2px;text-transform:uppercase;color:var(--gold)}
 .pmd{font-size:12px;color:var(--muted);margin-top:4px;font-style:italic;font-family:'Crimson Text',serif}
-/* SINPE box */
-.sb2{background:#111;border:1px solid rgba(255,214,0,.2);border-radius:8px;padding:16px 20px;margin:12px 0}
-.snum{font-family:'Bebas Neue',sans-serif;font-size:36px;color:var(--white);letter-spacing:4px;display:block;margin:6px 0 2px}
-.snm{font-size:13px;color:var(--muted);font-family:'Montserrat',sans-serif}
-.scpbtn{background:transparent;border:1px solid var(--gold);color:var(--gold);font-family:'Montserrat',sans-serif;font-weight:700;font-size:12px;letter-spacing:2px;text-transform:uppercase;padding:7px 16px;border-radius:4px;cursor:pointer;margin-top:10px;transition:background .2s,color .2s}
-.scpbtn:hover{background:var(--gold);color:var(--black)}
-.scr{display:flex;align-items:flex-start;gap:10px;margin-top:14px;background:rgba(0,200,83,.08);border:1px solid rgba(0,200,83,.2);border-radius:6px;padding:12px}
-.scr input{width:17px;height:17px;accent-color:var(--green);cursor:pointer;flex-shrink:0;margin-top:2px}
-.scr label{font-size:15px;color:#ccc;line-height:1.5;cursor:pointer;font-family:'Crimson Text',serif}
-/* TiloPay */
-.tw{background:#111;border:1px solid #2a2a2a;border-radius:8px;padding:20px;margin-top:8px}
-.tfl{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px;font-family:'Montserrat',sans-serif;font-weight:600}
-.tfi{width:100%;background:#1a1a1a;border:1px solid #333;color:var(--white);padding:12px 13px;border-radius:6px;font-family:'Montserrat',sans-serif;font-size:16px;outline:none;margin-bottom:12px}
-/* Confirm */
 .cfm{text-align:center;padding:24px 16px}
 .cfi{font-size:56px;margin-bottom:12px}
 .cft{font-family:'Bebas Neue',sans-serif;font-size:32px;color:var(--gold);letter-spacing:2px;margin-bottom:8px}
@@ -182,7 +155,6 @@ footer strong{color:var(--gold)}
 .nres{background:#111;border:1px solid rgba(255,214,0,.2);border-radius:8px;padding:16px;margin:16px 0}
 .nl2{font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--gold);letter-spacing:3px;word-break:break-all}
 .rw{background:rgba(255,214,0,.08);border:1px solid rgba(255,214,0,.2);border-radius:6px;padding:12px 16px;font-size:15px;color:#ccc;line-height:1.7;margin-top:12px;text-align:left;font-family:'Crimson Text',serif}
-/* Flow footer */
 .ff2{padding:14px 24px 20px;border-top:1px solid #222;display:flex;gap:10px;flex-shrink:0}
 .fbn{flex:1;background:linear-gradient(135deg,var(--red),#B71C1C);color:#fff;font-family:'Montserrat',sans-serif;font-weight:800;font-size:15px;letter-spacing:2px;text-transform:uppercase;padding:14px;border-radius:6px;border:none;cursor:pointer;transition:box-shadow .2s,transform .2s;box-shadow:0 4px 16px rgba(211,47,47,.4)}
 .fbn:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 8px 24px rgba(211,47,47,.6)}
@@ -269,7 +241,7 @@ tbody td{padding:10px 14px;vertical-align:middle}
 .es div{font-size:48px;margin-bottom:12px}
 .ld{text-align:center;padding:40px;color:var(--muted);font-size:13px;letter-spacing:2px;font-family:'Montserrat',sans-serif}
 
-/* SORTEO TAB in admin */
+/* SORTEO TAB */
 .sp2{max-width:680px;margin:0 auto}
 .ssc{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;text-align:center;margin-bottom:18px}
 .ssl{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--muted);margin-bottom:6px;font-weight:700;font-family:'Montserrat',sans-serif}
@@ -337,55 +309,47 @@ tbody td{padding:10px 14px;vertical-align:middle}
 .wnom{font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,6vw,56px);color:#fff;line-height:1}
 .wced{font-size:13px;color:#888;letter-spacing:2px;margin-bottom:14px;font-family:'Montserrat',sans-serif}
 .wnum{font-family:'Bebas Neue',sans-serif;font-size:clamp(16px,3vw,24px);color:var(--gold);letter-spacing:6px}
-/* particles */
 .parts{position:fixed;inset:0;pointer-events:none;z-index:0}
 .part{position:absolute;width:3px;height:3px;border-radius:50%;opacity:0;animation:fup linear infinite}
 @keyframes fup{0%{transform:translateY(100vh) scale(0);opacity:0}10%{opacity:.6}90%{opacity:.3}100%{transform:translateY(-10vh) scale(1.5);opacity:0}}
-/* confetti */
 .conf{position:fixed;pointer-events:none;z-index:100;border-radius:2px;animation:cfall linear forwards}
 @keyframes cfall{0%{transform:translateY(-20px) rotate(0deg);opacity:1}100%{transform:translateY(110vh) rotate(720deg);opacity:0}}
-/* back btn */
 .bkbtn{position:fixed;top:16px;left:16px;z-index:999;background:rgba(10,10,10,.8);border:1px solid rgba(255,214,0,.3);color:var(--gold);font-family:'Montserrat',sans-serif;font-weight:700;font-size:11px;letter-spacing:2px;text-transform:uppercase;padding:8px 16px;border-radius:4px;cursor:pointer;transition:background .2s}
 .bkbtn:hover{background:rgba(255,214,0,.15)}
 
+/* ══════════════ PAGO OK BANNER ══════════════ */
+.pago-ok{position:fixed;top:70px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,var(--gd),var(--green));color:#fff;font-family:'Montserrat',sans-serif;font-weight:800;font-size:14px;letter-spacing:2px;padding:14px 28px;border-radius:8px;z-index:9000;box-shadow:0 8px 30px rgba(0,200,83,.5);text-align:center;animation:slidedown .5s cubic-bezier(.23,1,.32,1)}
+@keyframes slidedown{from{opacity:0;transform:translateX(-50%) translateY(-20px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+
 /* ══════════════ RESPONSIVE ══════════════ */
 @media(max-width:768px){
-  /* NAV */
   nav{padding:0 16px}
   .nlinks{display:none}
   .nl{font-size:12px;letter-spacing:2px}
-  /* URGENCY */
   .ustrip{font-size:10px;letter-spacing:1px;padding:8px 12px}
-  /* HERO */
   .hero{padding:48px 16px 40px;min-height:auto}
   .hero h1{font-size:clamp(52px,16vw,90px)}
   .hsub{font-size:11px;letter-spacing:3px;margin-bottom:20px}
   .hcta{font-size:13px;padding:16px 28px}
-  /* CAROUSEL */
   .cw{max-width:100%}
   #cprev{left:6px}#cnext{right:6px}
   .cbtn{width:36px;height:36px;font-size:20px}
-  /* COUNTDOWN */
   .cdb{padding:20px 14px}
   .cdn{font-size:clamp(32px,10vw,52px)}
   .cdsep{font-size:32px;padding-top:6px}
   .cdi{min-width:52px}
-  /* PROGRESS */
   .ps{padding:40px 16px}
   .st{font-size:clamp(28px,9vw,48px);margin-bottom:20px}
   .pp{font-size:40px}
   .ac{padding:16px 24px;width:100%}
   .av{font-size:36px}
-  /* SPECS */
   .sps{padding:40px 16px}
   .spg{grid-template-columns:repeat(2,1fr);gap:10px;max-width:100%;margin-top:20px}
   .spi{padding:14px 10px}
   .spn{font-size:9px}
   .spv{font-size:14px}
-  /* BUY */
   .bs{padding:40px 16px}
   .ptag{font-size:52px;padding:10px 24px}
-  /* FLOW MODAL */
   .fov{padding:8px}
   .fbox{height:90vh;max-height:90vh;border-radius:12px}
   .fh{padding:14px 16px 12px}
@@ -400,12 +364,9 @@ tbody td{padding:10px 14px;vertical-align:middle}
   .ff2{padding:10px 16px 16px}
   .fbn{font-size:14px;padding:13px}
   .fbb{font-size:12px;padding:13px 14px}
-  /* FAQ */
   .fqs{padding:40px 16px}
   .fqq{font-size:14px;padding:18px 0}
-  /* FOOTER */
   footer{padding:24px 16px;font-size:12px}
-  /* ADMIN */
   .topbar{padding:0 12px;height:auto;min-height:56px;flex-wrap:wrap;padding:8px 12px;gap:6px}
   .tlogo{font-size:10px;letter-spacing:2px}
   .tbtn,.sbtn2{font-size:10px;padding:6px 10px}
@@ -421,14 +382,12 @@ tbody td{padding:10px 14px;vertical-align:middle}
   .tw2{font-size:12px}
   thead th{font-size:9px;padding:8px 10px}
   tbody td{padding:8px 10px}
-  /* SORTEO TAB */
   .dr{gap:6px}
   .dn{width:72px;height:98px;font-size:62px}
   .dsep{font-size:40px;padding-bottom:22px}
   .rn{font-size:34px;letter-spacing:4px}
   .sbtns{gap:8px}
   .s1{font-size:12px;padding:11px 14px}
-  /* SORTEO PÚBLICO */
   .wc{gap:5px}
   .wheel{width:clamp(58px,16vw,90px);height:clamp(76px,20vw,118px)}
   .wdig{font-size:clamp(30px,10vw,54px);height:clamp(30px,10vw,46px)}
@@ -448,7 +407,6 @@ tbody td{padding:10px 14px;vertical-align:middle}
 
 @keyframes tw{from{width:0}to{width:100%}}
 @keyframes bc{from,to{border-color:transparent}50%{border-color:#FFD600}}
-@keyframes cfall{0%{transform:translateY(-20px) rotate(0deg);opacity:1}100%{transform:translateY(110vh) rotate(720deg);opacity:0}}
 @keyframes flashout{0%{opacity:1}100%{opacity:0}}
 #vs .wwl{display:none!important}
 #vs .wheel{width:clamp(130px,20vw,220px)!important;height:clamp(160px,25vw,280px)!important}
@@ -481,13 +439,14 @@ tbody td{padding:10px 14px;vertical-align:middle}
   <p class="hsub">2013 · Automático · 1800cc · Usado · 150,000 km</p>
   <div class="cw">
     <div class="co">
-      <div class="ct" id="ct"><div class="cs" data-i="0"><img src="https://kkkqnsvyqjcmxvqdljih.supabase.co/storage/v1/object/public/rifa-imagenes/Imagenes/descarga%201.jpg" alt="Exterior – Frontal derecha" loading="lazy"><div class="sc">Exterior – Frontal derecha</div></div>
-<div class="cs" data-i="1"><img src="https://kkkqnsvyqjcmxvqdljih.supabase.co/storage/v1/object/public/rifa-imagenes/Imagenes/descarga%202.jpg" alt="Exterior – Frontal izquierda" loading="lazy"><div class="sc">Exterior – Frontal izquierda</div></div>
-<div class="cs" data-i="2"><img src="https://kkkqnsvyqjcmxvqdljih.supabase.co/storage/v1/object/public/rifa-imagenes/Imagenes/descarga%203.jpg" alt="Interior – Conductor" loading="lazy"><div class="sc">Interior – Conductor</div></div>
-<div class="cs" data-i="3"><img src="https://kkkqnsvyqjcmxvqdljih.supabase.co/storage/v1/object/public/rifa-imagenes/Imagenes/descarga%204.jpg" alt="Interior – Panel central" loading="lazy"><div class="sc">Interior – Panel central</div></div>
-<div class="cs" data-i="4"><img src="https://kkkqnsvyqjcmxvqdljih.supabase.co/storage/v1/object/public/rifa-imagenes/Imagenes/descarga%205.jpg" alt="Interior – Vista lateral" loading="lazy"><div class="sc">Interior – Vista lateral</div></div>
-<div class="cs" data-i="5"><img src="https://kkkqnsvyqjcmxvqdljih.supabase.co/storage/v1/object/public/rifa-imagenes/Imagenes/descarga%206.jpg" alt="Maletero – Espacio de carga" loading="lazy"><div class="sc">Maletero – Espacio de carga</div></div>
-</div>
+      <div class="ct" id="ct">
+        <div class="cs" data-i="0"><img src="https://kkkqnsvyqjcmxvqdljih.supabase.co/storage/v1/object/public/rifa-imagenes/Imagenes/descarga%201.jpg" alt="Exterior – Frontal derecha" loading="lazy"><div class="sc">Exterior – Frontal derecha</div></div>
+        <div class="cs" data-i="1"><img src="https://kkkqnsvyqjcmxvqdljih.supabase.co/storage/v1/object/public/rifa-imagenes/Imagenes/descarga%202.jpg" alt="Exterior – Frontal izquierda" loading="lazy"><div class="sc">Exterior – Frontal izquierda</div></div>
+        <div class="cs" data-i="2"><img src="https://kkkqnsvyqjcmxvqdljih.supabase.co/storage/v1/object/public/rifa-imagenes/Imagenes/descarga%203.jpg" alt="Interior – Conductor" loading="lazy"><div class="sc">Interior – Conductor</div></div>
+        <div class="cs" data-i="3"><img src="https://kkkqnsvyqjcmxvqdljih.supabase.co/storage/v1/object/public/rifa-imagenes/Imagenes/descarga%204.jpg" alt="Interior – Panel central" loading="lazy"><div class="sc">Interior – Panel central</div></div>
+        <div class="cs" data-i="4"><img src="https://kkkqnsvyqjcmxvqdljih.supabase.co/storage/v1/object/public/rifa-imagenes/Imagenes/descarga%205.jpg" alt="Interior – Vista lateral" loading="lazy"><div class="sc">Interior – Vista lateral</div></div>
+        <div class="cs" data-i="5"><img src="https://kkkqnsvyqjcmxvqdljih.supabase.co/storage/v1/object/public/rifa-imagenes/Imagenes/descarga%206.jpg" alt="Maletero – Espacio de carga" loading="lazy"><div class="sc">Maletero – Espacio de carga</div></div>
+      </div>
     </div>
     <button class="cbtn" id="cprev">&#8249;</button>
     <button class="cbtn" id="cnext">&#8250;</button>
@@ -679,7 +638,6 @@ tbody td{padding:10px 14px;vertical-align:middle}
         <button class="tab" onclick="swTab('p')">🧪 Pruebas</button>
         <button class="tab" onclick="swTab('s')">🎰 Sorteo</button>
       </div>
-      <!-- TAB COMPRADORES -->
       <div class="tp active" id="tv">
         <div class="sb3">
           <input type="text" id="si" placeholder="Buscar nombre, cédula, teléfono..." oninput="filtrar()">
@@ -688,7 +646,6 @@ tbody td{padding:10px 14px;vertical-align:middle}
         </div>
         <div class="tw2"><table><thead><tr><th>#</th><th>Nombre</th><th>Cédula</th><th>Tel</th><th>Correo</th><th>Cant</th><th>Método</th><th>Estado</th><th>Fecha</th><th>Acciones</th></tr></thead><tbody id="vtb"><tr><td colspan="10"><div class="ld">Cargando...</div></td></tr></tbody></table></div>
       </div>
-      <!-- TAB NUEVA VENTA -->
       <div class="tp" id="tn">
         <div class="vf">
           <div class="vh">➕ Registrar Nueva Venta</div>
@@ -709,7 +666,6 @@ tbody td{padding:10px 14px;vertical-align:middle}
           </div>
         </div>
       </div>
-      <!-- TAB PRUEBAS -->
       <div class="tp" id="tp2">
         <div class="vf">
           <div class="vh">🧪 Datos de Prueba</div>
@@ -721,7 +677,6 @@ tbody td{padding:10px 14px;vertical-align:middle}
           <div id="pr" style="font-size:14px;color:var(--muted);font-family:'Montserrat',sans-serif"></div>
         </div>
       </div>
-      <!-- TAB SORTEO -->
       <div class="tp" id="ts">
         <div class="sp2">
           <div class="sinst"><strong>Instrucciones:</strong><br>1. Abrí la pantalla pública (proyectala en pantalla grande).<br>2. Presioná <strong>Iniciar sorteo</strong> — los 4 dígitos giran automáticamente.<br>3. El sistema identifica al ganador en la base de datos.<br>4. Presioná <strong>Revelar al público</strong> para mostrar el resultado.</div>
@@ -750,7 +705,7 @@ tbody td{padding:10px 14px;vertical-align:middle}
       </div>
     </div>
   </div>
-</div><!-- /va -->
+</div>
 
 <!-- ════════════ VIEW: SORTEO PÚBLICO ════════════ -->
 <div id="vs" style="display:none;position:fixed;inset:0;z-index:9999;background:#0A0A0A;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;">
@@ -780,21 +735,17 @@ tbody td{padding:10px 14px;vertical-align:middle}
     </div>
   </div>
   <button class="bkbtn" onclick="window.close()">✕ Cerrar</button>
-</div><!-- /vs -->
+</div>
 
 <div class="toast" id="toast"></div>
 
 <script>
 // ════════════════════════════════════════
-// CONSTANTS (declared ONCE)
+// CONSTANTS
 // ════════════════════════════════════════
 var SB_URL   = 'https://kkkqnsvyqjcmxvqdljih.supabase.co';
 var SB_ANON  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imtra3Fuc3Z5cWpjbXh2cWRsamloIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ3MTM4MzksImV4cCI6MjA5MDI4OTgzOX0.Xd0uoOoAezmltY2D4oIw1QVCmG0q6g3SM_AsxZarFDs';
 var SB_SERV  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imtra3Fuc3Z5cWpjbXh2cWRsamloIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3NDcxMzgzOSwiZXhwIjoyMDkwMjg5ODM5fQ.-4v2bGqlBgJP2pvQC2oucRVr06gaC0trDiIfsTLP2gg';
-var TP_API   = 'https://app.tilopay.com/api/v1';
-var TP_KEY   = '6085-4894-3466-4313-8227';
-var TP_USER  = 'TlvmEF';
-var TP_PASS  = 'ARdkBv';
 var PRICE    = 5500;
 var TOTAL    = 6000;
 var MAX_ACUM = 2000000;
@@ -808,6 +759,7 @@ var IMGS=[
   "https://kkkqnsvyqjcmxvqdljih.supabase.co/storage/v1/object/public/rifa-imagenes/Imagenes/descarga%205.jpg",
   "https://kkkqnsvyqjcmxvqdljih.supabase.co/storage/v1/object/public/rifa-imagenes/Imagenes/descarga%206.jpg",
 ];
+
 const TEST_DATA = [{"nombre": "Andrés Solano Mora", "cedula": "6-7310-8810", "telefono": "81568731", "correo": "prueba1@test.com", "cantidad": 1, "metodo_pago": "tarjeta", "estado": "confirmado", "numeros_accion": [5223], "notas": "DATO DE PRUEBA"}, {"nombre": "Valeria Jiménez Castro", "cedula": "2-3564-2977", "telefono": "72294397", "correo": "prueba2@test.com", "cantidad": 4, "metodo_pago": "sinpe", "estado": "confirmado", "numeros_accion": [15, 1144, 2898, 4785], "notas": "DATO DE PRUEBA"}, {"nombre": "Carlos Herrera Vega", "cedula": "8-1503-1961", "telefono": "63843292", "correo": "prueba3@test.com", "cantidad": 3, "metodo_pago": "sinpe", "estado": "confirmado", "numeros_accion": [29, 1692, 3381], "notas": "DATO DE PRUEBA"}, {"nombre": "María Fernández Rojas", "cedula": "3-3710-8003", "telefono": "81154168", "correo": "prueba4@test.com", "cantidad": 2, "metodo_pago": "tarjeta", "estado": "confirmado", "numeros_accion": [4025, 5991], "notas": "DATO DE PRUEBA"}, {"nombre": "José Quesada Núñez", "cedula": "4-7667-1192", "telefono": "85402154", "correo": "prueba5@test.com", "cantidad": 3, "metodo_pago": "tarjeta", "estado": "confirmado", "numeros_accion": [201, 244, 5834], "notas": "DATO DE PRUEBA"}, {"nombre": "Laura Brenes Montoya", "cedula": "1-6274-2584", "telefono": "82932441", "correo": "prueba6@test.com", "cantidad": 2, "metodo_pago": "tarjeta", "estado": "confirmado", "numeros_accion": [563, 1500], "notas": "DATO DE PRUEBA"}, {"nombre": "Diego Araya Ulate", "cedula": "6-8737-4337", "telefono": "86218736", "correo": "prueba7@test.com", "cantidad": 1, "metodo_pago": "sinpe", "estado": "confirmado", "numeros_accion": [1027], "notas": "DATO DE PRUEBA"}, {"nombre": "Sofía Vargas Madrigal", "cedula": "1-2932-7346", "telefono": "75482320", "correo": "prueba8@test.com", "cantidad": 3, "metodo_pago": "sinpe", "estado": "confirmado", "numeros_accion": [3715, 3954, 3958], "notas": "DATO DE PRUEBA"}, {"nombre": "Luis Camacho Soto", "cedula": "9-9161-6862", "telefono": "72694558", "correo": "prueba9@test.com", "cantidad": 2, "metodo_pago": "sinpe", "estado": "confirmado", "numeros_accion": [858, 2214], "notas": "DATO DE PRUEBA"}, {"nombre": "Daniela Chaves Prado", "cedula": "1-2036-5969", "telefono": "65046757", "correo": "prueba10@test.com", "cantidad": 5, "metodo_pago": "tarjeta", "estado": "confirmado", "numeros_accion": [338, 2713, 4585, 4605, 5537], "notas": "DATO DE PRUEBA"}, {"nombre": "Pablo Rodríguez Mora", "cedula": "4-8969-2601", "telefono": "65487659", "correo": "prueba11@test.com", "cantidad": 5, "metodo_pago": "sinpe", "estado": "confirmado", "numeros_accion": [341, 2021, 2794, 3389, 3882], "notas": "DATO DE PRUEBA"}, {"nombre": "Gabriela Acuña Fonseca", "cedula": "8-3517-3994", "telefono": "71046430", "correo": "prueba12@test.com", "cantidad": 1, "metodo_pago": "tarjeta", "estado": "confirmado", "numeros_accion": [1757], "notas": "DATO DE PRUEBA"}, {"nombre": "Andrés Ulate Blanco", "cedula": "4-3726-2427", "telefono": "69391161", "correo": "prueba13@test.com", "cantidad": 4, "metodo_pago": "sinpe", "estado": "confirmado", "numeros_accion": [1262, 2741, 3518, 4842], "notas": "DATO DE PRUEBA"}, {"nombre": "Carolina Vega Jiménez", "cedula": "3-7375-1911", "telefono": "84003537", "correo": "prueba14@test.com", "cantidad": 1, "metodo_pago": "tarjeta", "estado": "confirmado", "numeros_accion": [2295], "notas": "DATO DE PRUEBA"}, {"nombre": "Marco Mora Herrera", "cedula": "6-7165-5343", "telefono": "89119274", "correo": "prueba15@test.com", "cantidad": 2, "metodo_pago": "tarjeta", "estado": "confirmado", "numeros_accion": [3691, 3775], "notas": "DATO DE PRUEBA"}, {"nombre": "Isabella Soto Castro", "cedula": "4-2062-3096", "telefono": "77937775", "correo": "prueba16@test.com", "cantidad": 4, "metodo_pago": "sinpe", "estado": "confirmado", "numeros_accion": [386, 2711, 3797, 5851], "notas": "DATO DE PRUEBA"}, {"nombre": "Ricardo Hidalgo López", "cedula": "8-9756-6700", "telefono": "87785347", "correo": "prueba17@test.com", "cantidad": 3, "metodo_pago": "sinpe", "estado": "confirmado", "numeros_accion": [1469, 2716, 3548], "notas": "DATO DE PRUEBA"}, {"nombre": "Natalia Romero Aguilar", "cedula": "8-6692-1154", "telefono": "76250701", "correo": "prueba18@test.com", "cantidad": 1, "metodo_pago": "tarjeta", "estado": "confirmado", "numeros_accion": [1471], "notas": "DATO DE PRUEBA"}, {"nombre": "Felipe Salazar Zamora", "cedula": "3-2606-3579", "telefono": "66146942", "correo": "prueba19@test.com", "cantidad": 1, "metodo_pago": "tarjeta", "estado": "confirmado", "numeros_accion": [2233], "notas": "DATO DE PRUEBA"}, {"nombre": "Andrea Campos Ruiz", "cedula": "1-5139-4075", "telefono": "75603434", "correo": "prueba20@test.com", "cantidad": 3, "metodo_pago": "tarjeta", "estado": "confirmado", "numeros_accion": [2840, 3428, 5034], "notas": "DATO DE PRUEBA"}, {"nombre": "Sebastián Núñez Vargas", "cedula": "9-8419-9379", "telefono": "82841323", "correo": "prueba21@test.com", "cantidad": 1, "metodo_pago": "tarjeta", "estado": "confirmado", "numeros_accion": [3664], "notas": "DATO DE PRUEBA"}, {"nombre": "Camila Madrigal Brenes", "cedula": "8-4354-7151", "telefono": "74025664", "correo": "prueba22@test.com", "cantidad": 3, "metodo_pago": "sinpe", "estado": "confirmado", "numeros_accion": [1673, 1839, 4038], "notas": "DATO DE PRUEBA"}, {"nombre": "Fernando Rojas Quirós", "cedula": "9-6835-3814", "telefono": "87061076", "correo": "prueba23@test.com", "cantidad": 2, "metodo_pago": "sinpe", "estado": "confirmado", "numeros_accion": [660, 5280], "notas": "DATO DE PRUEBA"}, {"nombre": "Valeria Castro Mora", "cedula": "9-1755-1722", "telefono": "79429916", "correo": "prueba24@test.com", "cantidad": 4, "metodo_pago": "tarjeta", "estado": "confirmado", "numeros_accion": [684, 3100, 4834, 5552], "notas": "DATO DE PRUEBA"}, {"nombre": "Alejandro Blanco Soto", "cedula": "3-8529-3859", "telefono": "65757974", "correo": "prueba25@test.com", "cantidad": 1, "metodo_pago": "sinpe", "estado": "confirmado", "numeros_accion": [3322], "notas": "DATO DE PRUEBA"}, {"nombre": "Melissa Prado Herrera", "cedula": "4-6949-1483", "telefono": "86120595", "correo": "prueba26@test.com", "cantidad": 5, "metodo_pago": "sinpe", "estado": "confirmado", "numeros_accion": [324, 1339, 3972, 4255, 5377], "notas": "DATO DE PRUEBA"}, {"nombre": "Rodrigo Zúñiga Fernández", "cedula": "4-6448-4972", "telefono": "62392682", "correo": "prueba27@test.com", "cantidad": 1, "metodo_pago": "tarjeta", "estado": "confirmado", "numeros_accion": [4943], "notas": "DATO DE PRUEBA"}, {"nombre": "Stephanie Mora Ulate", "cedula": "9-5174-3420", "telefono": "64997677", "correo": "prueba28@test.com", "cantidad": 4, "metodo_pago": "tarjeta", "estado": "confirmado", "numeros_accion": [1303, 1368, 2293, 4441], "notas": "DATO DE PRUEBA"}, {"nombre": "Manuel Fonseca Vega", "cedula": "8-4052-7489", "telefono": "88819973", "correo": "prueba29@test.com", "cantidad": 5, "metodo_pago": "tarjeta", "estado": "confirmado", "numeros_accion": [1866, 2508, 2546, 4561, 5076], "notas": "DATO DE PRUEBA"}, {"nombre": "Lucía Aguilar Jiménez", "cedula": "4-9869-3749", "telefono": "79954519", "correo": "prueba30@test.com", "cantidad": 1, "metodo_pago": "tarjeta", "estado": "confirmado", "numeros_accion": [3583], "notas": "DATO DE PRUEBA"}, {"nombre": "Javier Zamora Rodríguez", "cedula": "5-8845-7784", "telefono": "64290063", "correo": "prueba31@test.com", "cantidad": 2, "metodo_pago": "sinpe", "estado": "confirmado", "numeros_accion": [2431, 3780], "notas": "DATO DE PRUEBA"}, {"nombre": "Mariela Quirós Chaves", "cedula": "4-1971-7331", "telefono": "71395780", "correo": "prueba32@test.com", "cantidad": 3, "metodo_pago": "sinpe", "estado": "confirmado", "numeros_accion": [2246, 2738, 3825], "notas": "DATO DE PRUEBA"}, {"nombre": "Oscar Ruiz Camacho", "cedula": "2-3008-5061", "telefono": "88595227", "correo": "prueba33@test.com", "cantidad": 4, "metodo_pago": "tarjeta", "estado": "confirmado", "numeros_accion": [722, 1532, 5385, 5915], "notas": "DATO DE PRUEBA"}, {"nombre": "Patricia López Solano", "cedula": "9-4710-3431", "telefono": "68866450", "correo": "prueba34@test.com", "cantidad": 2, "metodo_pago": "tarjeta", "estado": "confirmado", "numeros_accion": [3633, 3645], "notas": "DATO DE PRUEBA"}, {"nombre": "Eduardo Montoya Brenes", "cedula": "8-4005-9953", "telefono": "81832158", "correo": "prueba35@test.com", "cantidad": 2, "metodo_pago": "tarjeta", "estado": "confirmado", "numeros_accion": [2757, 5275], "notas": "DATO DE PRUEBA"}, {"nombre": "Silvia Ulate Vargas", "cedula": "9-1846-5995", "telefono": "64946587", "correo": "prueba36@test.com", "cantidad": 2, "metodo_pago": "tarjeta", "estado": "confirmado", "numeros_accion": [3524, 5674], "notas": "DATO DE PRUEBA"}, {"nombre": "Raúl Herrera Soto", "cedula": "6-8512-4416", "telefono": "69601031", "correo": "prueba37@test.com", "cantidad": 5, "metodo_pago": "tarjeta", "estado": "confirmado", "numeros_accion": [740, 1855, 4073, 5084, 5793], "notas": "DATO DE PRUEBA"}, {"nombre": "Diana Jiménez Prado", "cedula": "1-1325-8568", "telefono": "62820435", "correo": "prueba38@test.com", "cantidad": 4, "metodo_pago": "tarjeta", "estado": "confirmado", "numeros_accion": [978, 2778, 4227, 4461], "notas": "DATO DE PRUEBA"}, {"nombre": "Guillermo Castro Mora", "cedula": "9-2377-2892", "telefono": "88717957", "correo": "prueba39@test.com", "cantidad": 5, "metodo_pago": "tarjeta", "estado": "confirmado", "numeros_accion": [358, 626, 4742, 5097, 5747], "notas": "DATO DE PRUEBA"}, {"nombre": "Vanessa Vega Fernández", "cedula": "6-9785-7151", "telefono": "82241286", "correo": "prueba40@test.com", "cantidad": 3, "metodo_pago": "sinpe", "estado": "confirmado", "numeros_accion": [1123, 1817, 3587], "notas": "DATO DE PRUEBA"}, {"nombre": "Alberto Soto Rodríguez", "cedula": "4-6010-6475", "telefono": "76579750", "correo": "prueba41@test.com", "cantidad": 1, "metodo_pago": "tarjeta", "estado": "confirmado", "numeros_accion": [3816], "notas": "DATO DE PRUEBA"}, {"nombre": "Tatiana Fernández Acuña", "cedula": "3-5448-9889", "telefono": "83419277", "correo": "prueba42@test.com", "cantidad": 3, "metodo_pago": "tarjeta", "estado": "confirmado", "numeros_accion": [1974, 3600, 4984], "notas": "DATO DE PRUEBA"}, {"nombre": "Jorge Vargas Madrigal", "cedula": "4-7735-5352", "telefono": "82754643", "correo": "prueba43@test.com", "cantidad": 4, "metodo_pago": "sinpe", "estado": "confirmado", "numeros_accion": [1342, 2717, 3712, 4523], "notas": "DATO DE PRUEBA"}, {"nombre": "Rebeca Chaves Ulate", "cedula": "4-7723-6677", "telefono": "77938662", "correo": "prueba44@test.com", "cantidad": 3, "metodo_pago": "sinpe", "estado": "confirmado", "numeros_accion": [807, 4298, 5869], "notas": "DATO DE PRUEBA"}, {"nombre": "Ernesto Mora Herrera", "cedula": "8-1462-5577", "telefono": "63505170", "correo": "prueba45@test.com", "cantidad": 5, "metodo_pago": "tarjeta", "estado": "confirmado", "numeros_accion": [3180, 3584, 4355, 5095, 5930], "notas": "DATO DE PRUEBA"}, {"nombre": "Katherine Brenes Rojas", "cedula": "2-9291-6840", "telefono": "64399814", "correo": "prueba46@test.com", "cantidad": 3, "metodo_pago": "sinpe", "estado": "confirmado", "numeros_accion": [1639, 3501, 3830], "notas": "DATO DE PRUEBA"}, {"nombre": "Mauricio Quesada Vega", "cedula": "8-7144-9952", "telefono": "61471790", "correo": "prueba47@test.com", "cantidad": 1, "metodo_pago": "tarjeta", "estado": "confirmado", "numeros_accion": [4510], "notas": "DATO DE PRUEBA"}, {"nombre": "Fabiola Araya Solano", "cedula": "2-9105-2396", "telefono": "72973845", "correo": "prueba48@test.com", "cantidad": 1, "metodo_pago": "tarjeta", "estado": "confirmado", "numeros_accion": [3852], "notas": "DATO DE PRUEBA"}, {"nombre": "Iván Hidalgo Zamora", "cedula": "5-6136-9576", "telefono": "83670175", "correo": "prueba49@test.com", "cantidad": 1, "metodo_pago": "sinpe", "estado": "confirmado", "numeros_accion": [4935], "notas": "DATO DE PRUEBA"}, {"nombre": "Priscilla Salazar Castro", "cedula": "7-6250-8893", "telefono": "82812001", "correo": "prueba50@test.com", "cantidad": 1, "metodo_pago": "sinpe", "estado": "confirmado", "numeros_accion": [333], "notas": "DATO DE PRUEBA"}, {"nombre": "Erick Camacho López", "cedula": "4-8267-7716", "telefono": "83351496", "correo": "prueba51@test.com", "cantidad": 4, "metodo_pago": "tarjeta", "estado": "confirmado", "numeros_accion": [3447, 4361, 4430, 4921], "notas": "DATO DE PRUEBA"}, {"nombre": "Natasha Núñez Prado", "cedula": "1-5169-2822", "telefono": "89687577", "correo": "prueba52@test.com", "cantidad": 4, "metodo_pago": "tarjeta", "estado": "confirmado", "numeros_accion": [3707, 4034, 4047, 5447], "notas": "DATO DE PRUEBA"}, {"nombre": "Arturo Romero Jiménez", "cedula": "2-7103-3992", "telefono": "73113836", "correo": "prueba53@test.com", "cantidad": 2, "metodo_pago": "sinpe", "estado": "confirmado", "numeros_accion": [2700, 5827], "notas": "DATO DE PRUEBA"}, {"nombre": "Yessenia Campos Vega", "cedula": "4-9487-8733", "telefono": "79255947", "correo": "prueba54@test.com", "cantidad": 3, "metodo_pago": "sinpe", "estado": "confirmado", "numeros_accion": [2623, 4962, 5506], "notas": "DATO DE PRUEBA"}, {"nombre": "Esteban Montoya Herrera", "cedula": "6-3852-5443", "telefono": "73115501", "correo": "prueba55@test.com", "cantidad": 1, "metodo_pago": "sinpe", "estado": "confirmado", "numeros_accion": [1889], "notas": "DATO DE PRUEBA"}, {"nombre": "Adriana Zúñiga Mora", "cedula": "9-9071-6270", "telefono": "65841833", "correo": "prueba56@test.com", "cantidad": 5, "metodo_pago": "sinpe", "estado": "confirmado", "numeros_accion": [1121, 1828, 3648, 5499, 5968], "notas": "DATO DE PRUEBA"}, {"nombre": "Víctor Blanco Rodríguez", "cedula": "9-8399-7994", "telefono": "64802664", "correo": "prueba57@test.com", "cantidad": 2, "metodo_pago": "tarjeta", "estado": "confirmado", "numeros_accion": [4321, 4848], "notas": "DATO DE PRUEBA"}, {"nombre": "Shirley Fonseca Soto", "cedula": "7-3018-4126", "telefono": "88993488", "correo": "prueba58@test.com", "cantidad": 1, "metodo_pago": "tarjeta", "estado": "confirmado", "numeros_accion": [3230], "notas": "DATO DE PRUEBA"}, {"nombre": "Xavier Madrigal Brenes", "cedula": "6-7466-8271", "telefono": "65671990", "correo": "prueba59@test.com", "cantidad": 1, "metodo_pago": "tarjeta", "estado": "confirmado", "numeros_accion": [421], "notas": "DATO DE PRUEBA"}, {"nombre": "Roxana Quirós Vargas", "cedula": "7-4440-8243", "telefono": "89324097", "correo": "prueba60@test.com", "cantidad": 2, "metodo_pago": "sinpe", "estado": "confirmado", "numeros_accion": [1689, 4124], "notas": "DATO DE PRUEBA"}, {"nombre": "Alfredo Ruiz Ulate", "cedula": "1-4396-7882", "telefono": "85095360", "correo": "prueba61@test.com", "cantidad": 5, "metodo_pago": "sinpe", "estado": "confirmado", "numeros_accion": [134, 703, 948, 2171, 3576], "notas": "DATO DE PRUEBA"}, {"nombre": "Giselle Aguilar Fernández", "cedula": "5-3946-7868", "telefono": "64688771", "correo": "prueba62@test.com", "cantidad": 3, "metodo_pago": "tarjeta", "estado": "confirmado", "numeros_accion": [1759, 5383, 5457], "notas": "DATO DE PRUEBA"}, {"nombre": "Nicolás Soto Jiménez", "cedula": "9-8887-2164", "telefono": "71762131", "correo": "prueba63@test.com", "cantidad": 5, "metodo_pago": "sinpe", "estado": "confirmado", "numeros_accion": [405, 1884, 4435, 4881, 5273], "notas": "DATO DE PRUEBA"}, {"nombre": "Paola Herrera Castro", "cedula": "9-7971-7263", "telefono": "72044017", "correo": "prueba64@test.com", "cantidad": 1, "metodo_pago": "sinpe", "estado": "confirmado", "numeros_accion": [3586], "notas": "DATO DE PRUEBA"}, {"nombre": "Héctor Vargas Rojas", "cedula": "7-3202-1248", "telefono": "77365475", "correo": "prueba65@test.com", "cantidad": 4, "metodo_pago": "sinpe", "estado": "confirmado", "numeros_accion": [1768, 2223, 3131, 4219], "notas": "DATO DE PRUEBA"}, {"nombre": "Marcela Mora Camacho", "cedula": "3-2116-4702", "telefono": "62291851", "correo": "prueba66@test.com", "cantidad": 1, "metodo_pago": "tarjeta", "estado": "confirmado", "numeros_accion": [3773], "notas": "DATO DE PRUEBA"}, {"nombre": "Samuel Jiménez Vega", "cedula": "3-1463-2052", "telefono": "73688533", "correo": "prueba67@test.com", "cantidad": 4, "metodo_pago": "tarjeta", "estado": "confirmado", "numeros_accion": [1883, 5656, 5890, 5913], "notas": "DATO DE PRUEBA"}, {"nombre": "Karina Castro Zamora", "cedula": "8-9668-4349", "telefono": "73605963", "correo": "prueba68@test.com", "cantidad": 2, "metodo_pago": "tarjeta", "estado": "confirmado", "numeros_accion": [2018, 3332], "notas": "DATO DE PRUEBA"}, {"nombre": "Gerardo Prado Solano", "cedula": "9-4432-1685", "telefono": "64688325", "correo": "prueba69@test.com", "cantidad": 3, "metodo_pago": "sinpe", "estado": "confirmado", "numeros_accion": [2298, 2626, 3445], "notas": "DATO DE PRUEBA"}, {"nombre": "Yolanda Ulate Brenes", "cedula": "5-4712-6393", "telefono": "63999412", "correo": "prueba70@test.com", "cantidad": 3, "metodo_pago": "tarjeta", "estado": "confirmado", "numeros_accion": [2580, 2678, 5525], "notas": "DATO DE PRUEBA"}, {"nombre": "Leonardo Fernández Herrera", "cedula": "4-4496-9341", "telefono": "83802282", "correo": "prueba71@test.com", "cantidad": 4, "metodo_pago": "sinpe", "estado": "confirmado", "numeros_accion": [860, 3871, 4153, 4304], "notas": "DATO DE PRUEBA"}, {"nombre": "Viviana Soto Acuña", "cedula": "9-6195-6964", "telefono": "65128228", "correo": "prueba72@test.com", "cantidad": 3, "metodo_pago": "tarjeta", "estado": "confirmado", "numeros_accion": [327, 4473, 5765], "notas": "DATO DE PRUEBA"}, {"nombre": "Rafael Acuña Rodríguez", "cedula": "7-5285-9187", "telefono": "68843243", "correo": "prueba73@test.com", "cantidad": 4, "metodo_pago": "tarjeta", "estado": "confirmado", "numeros_accion": [1429, 1780, 2482, 4918], "notas": "DATO DE PRUEBA"}, {"nombre": "Lorena Madrigal Chaves", "cedula": "7-1670-5848", "telefono": "61676537", "correo": "prueba74@test.com", "cantidad": 5, "metodo_pago": "sinpe", "estado": "confirmado", "numeros_accion": [1, 2983, 3800, 4404, 4664], "notas": "DATO DE PRUEBA"}, {"nombre": "Álvaro Brenes Quesada", "cedula": "7-7391-1705", "telefono": "86153498", "correo": "prueba75@test.com", "cantidad": 3, "metodo_pago": "tarjeta", "estado": "confirmado", "numeros_accion": [3133, 3298, 4851], "notas": "DATO DE PRUEBA"}, {"nombre": "Alejandra Rojas Ulate", "cedula": "3-2613-6366", "telefono": "89941892", "correo": "prueba76@test.com", "cantidad": 2, "metodo_pago": "tarjeta", "estado": "confirmado", "numeros_accion": [4675, 5128], "notas": "DATO DE PRUEBA"}, {"nombre": "Cristian Vega Soto", "cedula": "9-3638-1937", "telefono": "66159109", "correo": "prueba77@test.com", "cantidad": 5, "metodo_pago": "tarjeta", "estado": "confirmado", "numeros_accion": [1035, 2989, 4237, 4471, 5940], "notas": "DATO DE PRUEBA"}, {"nombre": "Denise Herrera Blanco", "cedula": "8-4792-6990", "telefono": "85243476", "correo": "prueba78@test.com", "cantidad": 3, "metodo_pago": "tarjeta", "estado": "confirmado", "numeros_accion": [729, 2540, 3663], "notas": "DATO DE PRUEBA"}, {"nombre": "Jonathan Castro Mora", "cedula": "6-7845-8454", "telefono": "71699448", "correo": "prueba79@test.com", "cantidad": 2, "metodo_pago": "tarjeta", "estado": "confirmado", "numeros_accion": [200, 2473], "notas": "DATO DE PRUEBA"}, {"nombre": "Stephanie Vargas Ruiz", "cedula": "3-2387-5036", "telefono": "69782816", "correo": "prueba80@test.com", "cantidad": 1, "metodo_pago": "sinpe", "estado": "confirmado", "numeros_accion": [4114], "notas": "DATO DE PRUEBA"}, {"nombre": "Roberto Solano Fernández", "cedula": "5-2034-4601", "telefono": "83983931", "correo": "prueba81@test.com", "cantidad": 2, "metodo_pago": "tarjeta", "estado": "confirmado", "numeros_accion": [728, 960], "notas": "DATO DE PRUEBA"}, {"nombre": "Nathalie Jiménez Prado", "cedula": "9-7123-4034", "telefono": "74495467", "correo": "prueba82@test.com", "cantidad": 5, "metodo_pago": "sinpe", "estado": "confirmado", "numeros_accion": [925, 3629, 3844, 3981, 5560], "notas": "DATO DE PRUEBA"}, {"nombre": "Josué Zamora Herrera", "cedula": "6-2888-9629", "telefono": "74393006", "correo": "prueba83@test.com", "cantidad": 5, "metodo_pago": "sinpe", "estado": "confirmado", "numeros_accion": [2635, 4257, 4377, 4688, 4689], "notas": "DATO DE PRUEBA"}, {"nombre": "Pierrette Mora Vega", "cedula": "9-6803-7625", "telefono": "76177542", "correo": "prueba84@test.com", "cantidad": 3, "metodo_pago": "sinpe", "estado": "confirmado", "numeros_accion": [131, 2010, 4621], "notas": "DATO DE PRUEBA"}, {"nombre": "Ignacio Núñez Camacho", "cedula": "3-2028-7867", "telefono": "84226285", "correo": "prueba85@test.com", "cantidad": 4, "metodo_pago": "tarjeta", "estado": "confirmado", "numeros_accion": [832, 2369, 2533, 4613], "notas": "DATO DE PRUEBA"}, {"nombre": "Cindy Soto López", "cedula": "3-1560-3742", "telefono": "71187130", "correo": "prueba86@test.com", "cantidad": 4, "metodo_pago": "tarjeta", "estado": "confirmado", "numeros_accion": [1548, 2074, 4655, 5175], "notas": "DATO DE PRUEBA"}, {"nombre": "Franklin Quesada Jiménez", "cedula": "3-5772-8231", "telefono": "66383015", "correo": "prueba87@test.com", "cantidad": 2, "metodo_pago": "sinpe", "estado": "confirmado", "numeros_accion": [605, 843], "notas": "DATO DE PRUEBA"}, {"nombre": "Marta Araya Montoya", "cedula": "1-1606-6779", "telefono": "79784372", "correo": "prueba88@test.com", "cantidad": 3, "metodo_pago": "sinpe", "estado": "confirmado", "numeros_accion": [576, 4925, 5372], "notas": "DATO DE PRUEBA"}, {"nombre": "Byron Hidalgo Vargas", "cedula": "2-8805-2551", "telefono": "86812626", "correo": "prueba89@test.com", "cantidad": 1, "metodo_pago": "sinpe", "estado": "confirmado", "numeros_accion": [5938], "notas": "DATO DE PRUEBA"}, {"nombre": "Keisy Rodríguez Brenes", "cedula": "8-7264-6746", "telefono": "89638966", "correo": "prueba90@test.com", "cantidad": 1, "metodo_pago": "tarjeta", "estado": "confirmado", "numeros_accion": [450], "notas": "DATO DE PRUEBA"}, {"nombre": "Marvin Salazar Vega", "cedula": "9-1900-9488", "telefono": "79131752", "correo": "prueba91@test.com", "cantidad": 5, "metodo_pago": "tarjeta", "estado": "confirmado", "numeros_accion": [2055, 5056, 5248, 5312, 5362], "notas": "DATO DE PRUEBA"}, {"nombre": "Yoany Castro Herrera", "cedula": "3-4206-3681", "telefono": "67846910", "correo": "prueba92@test.com", "cantidad": 4, "metodo_pago": "sinpe", "estado": "confirmado", "numeros_accion": [951, 1546, 2386, 4210], "notas": "DATO DE PRUEBA"}, {"nombre": "Gustavo Blanco Fernández", "cedula": "7-3137-4464", "telefono": "67726014", "correo": "prueba93@test.com", "cantidad": 2, "metodo_pago": "sinpe", "estado": "confirmado", "numeros_accion": [3032, 5627], "notas": "DATO DE PRUEBA"}, {"nombre": "Tania Madrigal Soto", "cedula": "3-8666-9351", "telefono": "73263982", "correo": "prueba94@test.com", "cantidad": 3, "metodo_pago": "sinpe", "estado": "confirmado", "numeros_accion": [2891, 2897, 3861], "notas": "DATO DE PRUEBA"}, {"nombre": "Kevin Romero Acuña", "cedula": "3-5739-4954", "telefono": "83296787", "correo": "prueba95@test.com", "cantidad": 4, "metodo_pago": "sinpe", "estado": "confirmado", "numeros_accion": [1394, 1416, 2015, 2968], "notas": "DATO DE PRUEBA"}, {"nombre": "Luisa Quirós Ulate", "cedula": "1-8041-4663", "telefono": "82949972", "correo": "prueba96@test.com", "cantidad": 2, "metodo_pago": "sinpe", "estado": "confirmado", "numeros_accion": [1013, 5666], "notas": "DATO DE PRUEBA"}, {"nombre": "Nelson Camacho Rojas", "cedula": "1-7266-2495", "telefono": "79406157", "correo": "prueba97@test.com", "cantidad": 3, "metodo_pago": "sinpe", "estado": "confirmado", "numeros_accion": [2803, 3542, 4470], "notas": "DATO DE PRUEBA"}, {"nombre": "Gloria Vargas Jiménez", "cedula": "9-1719-2528", "telefono": "64146270", "correo": "prueba98@test.com", "cantidad": 1, "metodo_pago": "tarjeta", "estado": "confirmado", "numeros_accion": [669], "notas": "DATO DE PRUEBA"}, {"nombre": "Wilber Fonseca Chaves", "cedula": "6-4375-9899", "telefono": "89689144", "correo": "prueba99@test.com", "cantidad": 2, "metodo_pago": "sinpe", "estado": "confirmado", "numeros_accion": [164, 2565], "notas": "DATO DE PRUEBA"}, {"nombre": "Estela Mora Solano", "cedula": "1-2991-2882", "telefono": "75201140", "correo": "prueba100@test.com", "cantidad": 5, "metodo_pago": "sinpe", "estado": "confirmado", "numeros_accion": [180, 1028, 2575, 4014, 5220], "notas": "DATO DE PRUEBA"}];
 
 // ════════════════════════════════════════
@@ -828,11 +780,6 @@ function showAdmin() {
 function showSorteo() {
   var url = window.location.href.split('?')[0] + '?view=sorteo';
   window.open(url, '_blank', 'width=1280,height=800,menubar=no,toolbar=no,location=no');
-}
-function hideSorteo() {
-  document.getElementById('vs').style.display = 'none';
-  document.getElementById('va').style.display = 'block';
-  stopSorteoPoll();
 }
 
 // ════════════════════════════════════════
@@ -861,6 +808,50 @@ function aHeaders(srv) {
 }
 
 // ════════════════════════════════════════
+// PAGO OK — detectar retorno de OnvoPay
+// ════════════════════════════════════════
+function checkPagoOk() {
+  // Si venimos dentro de un iframe, salir al top primero
+  if (window !== window.top) {
+    window.top.location.href = window.location.href;
+    return;
+  }
+  var params = new URLSearchParams(window.location.search);
+  var pago = params.get('pago');
+  var id   = params.get('id');
+  if (pago === 'ok') {
+    // Limpiar la URL sin recargar
+    var cleanUrl = window.location.pathname;
+    window.history.replaceState({}, '', cleanUrl);
+    // Mostrar banner de éxito
+    var banner = document.createElement('div');
+    banner.className = 'pago-ok';
+    banner.innerHTML = '✅ ¡Pago recibido! Tus números quedan confirmados.<br><span style="font-size:11px;opacity:.8">Recibirás un correo de confirmación en breve.</span>';
+    document.body.appendChild(banner);
+    setTimeout(function(){ banner.remove(); }, 8000);
+    // Marcar venta como confirmada si tenemos el id
+    if (id) {
+      fetch(SB_URL + '/rest/v1/ventas?id=eq.' + id, {
+        method: 'PATCH',
+        headers: aHeaders(false),
+        body: JSON.stringify({ estado: 'confirmado', notas: 'Pago OnvoPay confirmado' })
+      }).then(function(r) {
+        if (r.ok) {
+          // Enviar certificado por correo
+          fetch(SB_URL + '/rest/v1/ventas?id=eq.' + id + '&select=*', { headers: aHeaders(false) })
+            .then(function(r2){ return r2.json(); })
+            .then(function(d){ if(d && d[0]) sendCertificado(d[0]); });
+        }
+      }).catch(function(){});
+    }
+  } else if (pago === 'cancelado') {
+    var cleanUrl2 = window.location.pathname;
+    window.history.replaceState({}, '', cleanUrl2);
+    toast('⚠️ El pago fue cancelado. Podés intentarlo de nuevo.', true);
+  }
+}
+
+// ════════════════════════════════════════
 // CAROUSEL
 // ════════════════════════════════════════
 var cIdx = 0;
@@ -868,11 +859,8 @@ var dotEls = [];
 var cTimer;
 
 function initCarousel() {
-  var track = document.getElementById('ct');
   var dotsEl = document.getElementById('cdots');
-  var ctr = document.getElementById('cctr');
-  if (!track || !dotsEl) return;
-
+  if (!dotsEl) return;
   IMGS.forEach(function(_, i) {
     var d = document.createElement('button');
     d.className = 'cdot' + (i===0?' active':'');
@@ -880,10 +868,8 @@ function initCarousel() {
     dotsEl.appendChild(d);
     dotEls.push(d);
   });
-
   document.getElementById('cprev').onclick = function() { goC((cIdx - 1 + N) % N); };
   document.getElementById('cnext').onclick = function() { goC((cIdx + 1) % N); };
-
   goC(0);
   cTimer = setInterval(function() { goC((cIdx + 1) % N); }, 5000);
 }
@@ -899,21 +885,17 @@ function goC(n) {
 // COUNTDOWN
 // ════════════════════════════════════════
 var TARGET = new Date('2026-11-30T23:59:59');
-
 function tick() {
   var diff = TARGET - new Date();
-  if (diff <= 0) {
-    ['days','hours','mins','secs'].forEach(function(k){ document.getElementById('cd-'+k).textContent = '00'; });
-    return;
-  }
-  var days  = Math.floor(diff/86400000); diff -= days*86400000;
-  var hours = Math.floor(diff/3600000);  diff -= hours*3600000;
-  var mins  = Math.floor(diff/60000);    diff -= mins*60000;
-  var secs  = Math.floor(diff/1000);
-  document.getElementById('cd-days').textContent  = pad(days);
-  document.getElementById('cd-hours').textContent = pad(hours);
-  document.getElementById('cd-mins').textContent  = pad(mins);
-  document.getElementById('cd-secs').textContent  = pad(secs);
+  if (diff <= 0) { ['days','hours','mins','secs'].forEach(function(k){ document.getElementById('cd-'+k).textContent='00'; }); return; }
+  var days=Math.floor(diff/86400000); diff-=days*86400000;
+  var hours=Math.floor(diff/3600000); diff-=hours*3600000;
+  var mins=Math.floor(diff/60000); diff-=mins*60000;
+  var secs=Math.floor(diff/1000);
+  document.getElementById('cd-days').textContent=pad(days);
+  document.getElementById('cd-hours').textContent=pad(hours);
+  document.getElementById('cd-mins').textContent=pad(mins);
+  document.getElementById('cd-secs').textContent=pad(secs);
 }
 
 // ════════════════════════════════════════
@@ -928,37 +910,44 @@ async function loadProgress() {
     var pct=Math.min(Math.round((v/TOTAL)*100),100);
     setTimeout(function(){document.getElementById('pf').style.width=pct+'%';},300);
     var cur=0; var step=function(){cur++;if(cur<=pct){document.getElementById('pp').textContent=cur+'%';setTimeout(step,18);}};step();
-    document.getElementById('av').textContent = fmtCRC(a);
+    document.getElementById('av').textContent=fmtCRC(a);
   } catch(e){}
 }
 
 // ════════════════════════════════════════
-// SECRET ACCESS
+// INIT
 // ════════════════════════════════════════
 var sClicks=0, sTimer;
 document.addEventListener('DOMContentLoaded', function() {
-  var urlParams=new URLSearchParams(window.location.search);
-  if(urlParams.get('view')=='sorteo'){
-    document.getElementById('vl').style.display='none';
-    document.getElementById('va').style.display='none';
-    document.getElementById('vs').style.display='flex';
+  var urlParams = new URLSearchParams(window.location.search);
+
+  // Vista sorteo público
+  if (urlParams.get('view') === 'sorteo') {
+    document.getElementById('vl').style.display = 'none';
+    document.getElementById('va').style.display = 'none';
+    var vs = document.getElementById('vs');
+    vs.style.display = 'flex';
     buildParticles();
     initWheels();
     startSorteoPoll();
     return;
   }
-  document.addEventListener('keydown',function(e){
-    var ts=document.getElementById('ts');
-    if(!ts||!ts.classList.contains('active')) return;
-    if(e.key==='Enter'&&!e.repeat){e.preventDefault();var b=document.getElementById('sbini');if(b&&!b.disabled)iniciarSorteo();}
-    if((e.key===' '||e.code==='Space')&&!e.repeat){e.preventDefault();resetSorteo();}
+
+  // Detectar retorno de pago
+  checkPagoOk();
+
+  // Teclado admin sorteo
+  document.addEventListener('keydown', function(e) {
+    var ts = document.getElementById('ts');
+    if (!ts || !ts.classList.contains('active')) return;
+    if (e.key==='Enter' && !e.repeat) { e.preventDefault(); var b=document.getElementById('sbini'); if(b&&!b.disabled) iniciarSorteo(); }
+    if ((e.key===' '||e.code==='Space') && !e.repeat) { e.preventDefault(); resetSorteo(); }
   });
-  // Carousel
+
   initCarousel();
-  // Countdown
   tick();
   setInterval(tick, 1000);
-  // Progress observer
+
   var el = document.getElementById('prog');
   if (el) {
     var obs = new IntersectionObserver(function(entries){
@@ -966,25 +955,8 @@ document.addEventListener('DOMContentLoaded', function() {
     },{threshold:0.3});
     obs.observe(el);
   }
-  // FAQ
+
   buildFAQ();
-  // Secret click
-  // Check if opened as sorteo public view
-  var urlParams = new URLSearchParams(window.location.search);
-  if (urlParams.get('view') === 'sorteo') {
-    // Hide all other views
-    document.getElementById('vl').style.display = 'none';
-    document.getElementById('va').style.display = 'none';
-    var vs = document.getElementById('vs');
-    vs.style.display = 'flex';
-    // Build particles
-    buildParticles();
-    // Init wheels with dash placeholders
-    initWheels();
-    // Start polling Supabase every 2 seconds
-    startSorteoPoll();
-    return; // Skip landing init
-  }
 
   document.getElementById('logo-click').addEventListener('click', function(){
     sClicks++;
@@ -1007,10 +979,8 @@ var FAQS = [
   {q:'¿Puedo pagar con tarjeta desde el exterior?',a:'Sí, OnvoPay acepta tarjetas internacionales. El vehículo solo se entrega en Costa Rica.'},
   {q:'¿Cómo recibo el carro si gano?',a:'El ganador será contactado directamente. La entrega se formaliza ante Notario Público con 30 días naturales.'}
 ];
-
 function buildFAQ() {
-  var fl = document.getElementById('fql');
-  if (!fl) return;
+  var fl = document.getElementById('fql'); if (!fl) return;
   FAQS.forEach(function(f,i){
     var d=document.createElement('div'); d.className='fqi';
     d.innerHTML='<button class="fqq" onclick="tFAQ('+i+')">'+f.q+'<span class="fqic" id="fic'+i+'">+</span></button><div class="fqa" id="fa'+i+'">'+f.a+'</div>';
@@ -1027,10 +997,10 @@ function tFAQ(i){
 // ════════════════════════════════════════
 // FLOW MODAL
 // ════════════════════════════════════════
-var flQty=1, regRead=false, regAcc=false, payMethod=null, sinpeDone=false, tiloToken=null, tiloOrder=null;
+var flQty=1, regRead=false, regAcc=false;
 
 function openFlow(){
-  flQty=1; regRead=false; regAcc=false; payMethod=null; sinpeDone=false;
+  flQty=1; regRead=false; regAcc=false;
   document.getElementById('fqn').textContent='1';
   document.getElementById('fqt').textContent='= '+fmtCRC(PRICE);
   ['fn','fid','ftel','fem'].forEach(function(id){var e=document.getElementById(id);if(e){e.value='';e.classList.remove('err');}});
@@ -1042,21 +1012,17 @@ function openFlow(){
   document.getElementById('rh').classList.remove('done');
   document.getElementById('rscr').scrollTop=0;
   var bcf=document.getElementById('bcf'); if(bcf) bcf.disabled=false;
-
   showStep(1);
   document.getElementById('fov').classList.add('open');
   document.body.style.overflow='hidden';
 }
-
 function closeFlow(){document.getElementById('fov').classList.remove('open');document.body.style.overflow='';}
 function fovBg(e){if(e.target===e.currentTarget)closeFlow();}
-
 function showStep(n){
   ['s1','s2','s3','sc'].forEach(function(id){document.getElementById(id).style.display='none';});
   var key=n==='c'?'sc':'s'+n;
   document.getElementById(key).style.display='block';
 }
-
 function fqty(d){flQty=Math.max(1,Math.min(50,flQty+d));document.getElementById('fqn').textContent=flQty;document.getElementById('fqt').textContent='= '+fmtCRC(flQty*PRICE);}
 
 function goS(n){
@@ -1074,7 +1040,6 @@ function goS(n){
   if(n===3){
     if(!regAcc){toast('⚠️ Aceptá el reglamento',true);return;}
     document.getElementById('ptl').textContent=fmtCRC(flQty*PRICE);
-    var smonto=document.getElementById('smonto'); if(smonto) smonto.textContent=fmtCRC(flQty*PRICE);
   }
   showStep(n);
 }
@@ -1092,51 +1057,7 @@ function onRegScroll(){
     document.getElementById('rh').textContent='⬇️ '+(100-pct)+'% restante…';
   }
 }
-
 function onAcc(){regAcc=document.getElementById('arc').checked;document.getElementById('bs3').disabled=!regAcc;}
-
-function selPay(m){
-  payMethod=m; sinpeDone=false;
-  document.getElementById('spc').checked=false;
-
-  document.getElementById('pm-'+m).classList.add('sel');
-
-  document.getElementById('bcf').disabled=true;
-  if(m==='card') initTilo();
-}
-
-function onSinpePaid(){sinpeDone=document.getElementById('spc').checked;document.getElementById('bcf').disabled=!sinpeDone;}
-
-function copySinpe(){navigator.clipboard.writeText('87043603').catch(function(){});toast('📋 Número copiado: 8704-3603');}
-
-async function initTilo(){
-  var ld=document.getElementById('tl'),fl=document.getElementById('tfields');
-  ld.style.display='block'; fl.style.display='none';
-  try{
-    var r=await fetch(TP_API+'/GetTokenSdk',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({apiuser:TP_USER,apipassword:TP_PASS,apikey:TP_KEY})});
-    var d=await r.json(); tiloToken=d.token||null;
-  } catch(e){tiloToken=null;}
-  
-  tiloOrder='RIFA-'+Date.now();
-  var nom=document.getElementById('fn').value.trim();
-  var em=document.getElementById('fem').value.trim()||'sin@correo.com';
-  var ced=document.getElementById('fid').value.trim();
-  var tel=document.getElementById('ftel').value.trim();
-  var monto=(flQty*PRICE/500).toFixed(2);
-  var loadJS=function(src){return new Promise(function(res,rej){if(document.querySelector('script[src="'+src+'"]')){res();return;}var s=document.createElement('script');s.src=src;s.onload=res;s.onerror=rej;document.head.appendChild(s);});};
-  try{
-    await loadJS('https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js');
-    await loadJS('https://app.tilopay.com/sdk/v1/sdk.min.js');
-    ld.style.display='none'; fl.style.display='block';
-    window.Tilopay.Init({token:tiloToken,currency:'USD',language:'es',amount:parseFloat(monto),typeDni:1,dni:ced,billToFirstName:nom.split(' ')[0]||nom,billToLastName:nom.split(' ').slice(1).join(' ')||'-',billToAddress:'Costa Rica',billToCity:'San Jose',billToState:'SJO',billToZipPostCode:'10101',billToCountry:'CR',billToTelephone:tel,billToEmail:em,orderNumber:tiloOrder,capture:1,redirect:window.location.href.split('?')[0]+'?tp=ok',subscription:0},function(resp){
-      if(resp&&resp.methods&&resp.methods.length){
-        var sel=document.getElementById('method');sel.innerHTML='';
-        resp.methods.forEach(function(m){var o=document.createElement('option');o.value=m.id;o.textContent=m.name;sel.appendChild(o);});
-        document.getElementById('bcf').disabled=false;
-      }
-    });
-  } catch(e){}
-}
 
 async function asignarNums(qty){
   try{
@@ -1150,39 +1071,93 @@ async function asignarNums(qty){
   }catch(e){return[];}
 }
 
+// ════════════════════════════════════════
+// CONFIRMAR — CORREGIDO
+// ════════════════════════════════════════
 async function confirmar(){
-  var btn=document.getElementById('bcf');
-  btn.disabled=true; btn.textContent='⏳ Procesando...';
-  var nums=await asignarNums(flQty);
-  if(nums.length<flQty){toast('⚠️ No hay suficientes acciones',true);btn.disabled=false;btn.textContent='✅ Confirmar compra';return;}
-  var body={
-    nombre:document.getElementById('fn').value.trim(),
-    cedula:document.getElementById('fid').value.trim(),
-    telefono:document.getElementById('ftel').value.trim(),
-    correo:document.getElementById('fem').value.trim()||null,
-    cantidad:flQty, metodo_pago:payMethod, estado:'pendiente',
-    numeros_accion:nums,
-    metodo_pago:'tarjeta',notas:'OnvoPay pendiente'
+  var btn = document.getElementById('bcf');
+  btn.disabled = true;
+  btn.textContent = '⏳ Procesando...';
+
+  var nums = await asignarNums(flQty);
+  if (nums.length < flQty) {
+    toast('⚠️ No hay suficientes acciones disponibles', true);
+    btn.disabled = false;
+    btn.textContent = '✅ Confirmar compra';
+    return;
+  }
+
+  var nombre  = document.getElementById('fn').value.trim();
+  var cedula  = document.getElementById('fid').value.trim();
+  var telefono= document.getElementById('ftel').value.trim();
+  var correo  = document.getElementById('fem').value.trim();
+
+  var body = {
+    nombre: nombre,
+    cedula: cedula,
+    telefono: telefono,
+    correo: correo || null,
+    cantidad: flQty,
+    metodo_pago: 'tarjeta',
+    estado: 'pendiente',
+    numeros_accion: nums,
+    notas: 'OnvoPay pendiente'
   };
-  try{
-    var r=await fetch(SB_URL+'/rest/v1/ventas',{method:'POST',headers:aHeaders(false),body:JSON.stringify(body)});
-    var d=await r.json();
-    if(r.ok){
-      if(true){
-        var ventaId=d&&d[0]?d[0].id:null;
-        btn.textContent='⏳ Redirigiendo...';
-        fetch(SB_URL+'/functions/v1/create-checkout',{method:'POST',headers:{'Authorization':'Bearer '+SB_ANON,'Content-Type':'application/json','apikey':SB_ANON},body:JSON.stringify({venta:{ventaId:ventaId,nombre:document.getElementById('fn').value.trim(),correo:document.getElementById('fem').value.trim(),telefono:document.getElementById('ftel').value.trim(),cantidad:flQty,numeros_accion:nums}})
-        }).then(function(cr){return cr.json();}).then(function(cd){
-          if(cd.ok&&cd.url){window.location.href=cd.url;}
-          else{toast('❌ Error: '+(cd.error||''),true);btn.disabled=false;btn.textContent='✅ Confirmar compra';}
-        }).catch(function(){toast('❌ Error de conexión',true);btn.disabled=false;btn.textContent='✅ Confirmar compra';});
-        return;
-      }
-      var fmt=nums.map(function(n){return String(n).padStart(4,'0');});
-      document.getElementById('cnums').textContent=fmt.join(' · ');
-      showStep('c');
-    } else {throw new Error();}
-  } catch(e){toast('Error al procesar. Intentá de nuevo.',true);btn.disabled=false;btn.textContent='✅ Confirmar compra';}
+
+  try {
+    var r = await fetch(SB_URL + '/rest/v1/ventas', {
+      method: 'POST',
+      headers: aHeaders(false),
+      body: JSON.stringify(body)
+    });
+    var d = await r.json();
+
+    // Validar que el insert devolvió el registro con id
+    if (!r.ok || !d || !d[0] || !d[0].id) {
+      toast('❌ Error al registrar. Intentá de nuevo.', true);
+      btn.disabled = false;
+      btn.textContent = '✅ Confirmar compra';
+      return;
+    }
+
+    var ventaId = d[0].id;
+    btn.textContent = '⏳ Redirigiendo a pago...';
+
+    var cr = await fetch(SB_URL + '/functions/v1/create-checkout', {
+      method: 'POST',
+      headers: {
+        'Authorization': 'Bearer ' + SB_ANON,
+        'Content-Type': 'application/json',
+        'apikey': SB_ANON
+      },
+      body: JSON.stringify({
+        venta: {
+          ventaId: ventaId,
+          nombre: nombre,
+          correo: correo,
+          telefono: telefono,
+          cantidad: flQty,
+          numeros_accion: nums
+        }
+      })
+    });
+
+    var cd = await cr.json();
+
+    if (cd.ok && cd.url) {
+      // Redirigir en la ventana principal (no en iframe)
+      window.top.location.href = cd.url;
+    } else {
+      toast('❌ Error al generar el pago: ' + (cd.error || 'intentá de nuevo'), true);
+      btn.disabled = false;
+      btn.textContent = '✅ Confirmar compra';
+    }
+
+  } catch(e) {
+    toast('❌ Error de conexión. Intentá de nuevo.', true);
+    btn.disabled = false;
+    btn.textContent = '✅ Confirmar compra';
+  }
 }
 
 // ════════════════════════════════════════
@@ -1191,19 +1166,6 @@ async function confirmar(){
 var accessToken=null, allVentas=[];
 
 async function doLogin(){
-  if(location.protocol==='file:'){
-    var em2=document.getElementById('lem').value.trim();
-    var pw2=document.getElementById('lpw').value;
-    var err2=document.getElementById('lerr');err2.style.display='none';
-    if(em2==='batisvar@gmail.com'&&pw2==='Cbva050579.'){
-      accessToken=SB_ANON;
-      document.getElementById('tu').textContent=em2;
-      document.getElementById('ls').style.display='none';
-      document.getElementById('ash').classList.add('vis');
-      loadAll();
-    }else{err2.style.display='block';}
-    return;
-  }
   var em=document.getElementById('lem').value.trim();
   var pw=document.getElementById('lpw').value;
   var err=document.getElementById('lerr'); err.style.display='none';
@@ -1219,7 +1181,7 @@ async function doLogin(){
     document.getElementById('vs').style.display='none';
     document.getElementById('ash').classList.add('vis');
     loadAll();
-  } catch(e){err.style.display='block';}
+  }catch(e){err.style.display='block';}
 }
 document.addEventListener('DOMContentLoaded', function(){
   var lp=document.getElementById('lpw'); if(lp) lp.addEventListener('keydown',function(e){if(e.key==='Enter')doLogin();});
@@ -1276,7 +1238,7 @@ function renderTabla(vs){
     var nm=(v.numeros_accion||[]).map(function(n){return String(n).padStart(4,'0');}).join(', ');
     var ac='';
     if(v.estado==='pendiente') ac+='<button class="tbtn2 c" onclick="cambiar(\''+v.id+'\',\'confirmado\')">✓</button>';
-    if(v.estado==='confirmado'&&v.correo&&v.correo.indexOf('@')>0) ac+='<button class="tbtn2" style="background:rgba(0,150,255,.15);color:#4af" title="Reenviar certificado" onclick="reenviarCert(\''+v.id+'\')" >📧</button>';
+    if(v.estado==='confirmado'&&v.correo&&v.correo.indexOf('@')>0) ac+='<button class="tbtn2" style="background:rgba(0,150,255,.15);color:#4af" title="Reenviar certificado" onclick="reenviarCert(\''+v.id+'\')">📧</button>';
     if(v.estado!=='cancelado') ac+='<button class="tbtn2 x" onclick="cambiar(\''+v.id+'\',\'cancelado\')">✗</button>';
     return '<tr><td class="nums">'+(nm||'—')+'</td><td><strong>'+(v.nombre||'—')+'</strong>'+(isp?'<br><span style="font-size:10px;color:#66f">🧪</span>':'')+'</td><td>'+(v.cedula||'—')+'</td><td>'+(v.telefono||'—')+'</td><td style="font-size:11px;color:var(--muted)">'+(v.correo||'—')+'</td><td style="text-align:center">'+v.cantidad+'</td><td style="font-size:11px;text-transform:uppercase;color:var(--muted)">'+v.metodo_pago+'</td><td><span class="badge '+v.estado+'">'+v.estado+'</span></td><td style="font-size:11px;color:var(--muted);white-space:nowrap">'+fmtD(v.created_at)+'</td><td><div class="tac">'+ac+'</div></td></tr>';
   }).join('');
@@ -1292,8 +1254,7 @@ async function cambiar(id,est){
       if(ventaConf){sendCertificado(ventaConf);sendAdminNotif(ventaConf);}
     }
     await loadAll();
-  }
-  else toast('Error',true);
+  } else toast('Error',true);
 }
 
 async function asignarNumsAdmin(qty){
@@ -1359,7 +1320,7 @@ function swTab(t){
 }
 
 // ════════════════════════════════════════
-// SORTEO ADMIN CONTROLS
+// SORTEO ADMIN
 // ════════════════════════════════════════
 var sDigitos=[null,null,null,null], sSt='pendiente';
 
@@ -1386,7 +1347,6 @@ function renderSorteo(){
   });
   var parts=sDigitos.map(function(d){return d!==null?String(d):'—';});
   document.getElementById('srn').textContent=parts.join(' · ');
-  var allDone=sDigitos.every(function(d){return d!==null;});
   var sbini=document.getElementById('sbini'); if(sbini) sbini.disabled=sSt!=='pendiente';
 }
 
@@ -1427,30 +1387,6 @@ async function iniciarSorteo(){
   buscarGanadorAdmin();
 }
 
-async function spinD(idx,range,elId){
-  var el=document.getElementById(elId); if(!el) return;
-  el.className='dn sp';
-  var arr=new Uint8Array(20); crypto.getRandomValues(arr);
-  var sum=0; for(var i=0;i<arr.length;i++) sum+=arr[i];
-  var final=sum%range;
-  return new Promise(function(resolve){
-    var dur=2200, start=Date.now();
-    var iv=setInterval(function(){
-      var elapsed=Date.now()-start;
-      if(elapsed%Math.max(40,40+elapsed/dur*200)<20) el.textContent=Math.floor(Math.random()*range);
-      if(elapsed>=dur){
-        clearInterval(iv);
-        el.textContent=final; el.className='dn dn2';
-        sDigitos[idx]=final;
-        var parts=sDigitos.map(function(d){return d!==null?String(d):'—';});
-        document.getElementById('srn').textContent=parts.join(' · ');
-        try{localStorage.setItem('rifa_ev',JSON.stringify({t:'dig',i:idx,v:final,ds:sDigitos.slice(),ts:Date.now()}));}catch(e){}
-        resolve();
-      }
-    },20);
-  });
-}
-
 async function buscarGanadorAdmin(){
   if(sDigitos.some(function(d){return d===null;})) return;
   var num=sDigitos[0]*1000+sDigitos[1]*100+sDigitos[2]*10+sDigitos[3];
@@ -1471,14 +1407,6 @@ async function buscarGanadorAdmin(){
   }catch(e){}
 }
 
-async function revelarGanador(){
-  if(!confirm('¿Revelar el resultado en la pantalla pública?')) return;
-  await fetch(SB_URL+'/rest/v1/sorteo?id=eq.1',{method:'PATCH',headers:aHeaders(true),body:JSON.stringify({estado:'revelado'})});
-  sSt='revelado'; renderSorteo();
-  try{localStorage.setItem('rifa_ev',JSON.stringify({t:'rev',ds:sDigitos.slice(),ts:Date.now()}));}catch(e){}
-  toast('🏆 Resultado revelado');
-}
-
 async function resetSorteo(){
   sDigitos=[null,null,null,null]; sSt='pendiente';
   await fetch(SB_URL+'/rest/v1/sorteo?id=eq.1',{method:'PATCH',headers:aHeaders(true),body:JSON.stringify({estado:'pendiente',digito_0:null,digito_1:null,digito_2:null,digito_3:null})});
@@ -1489,7 +1417,7 @@ async function resetSorteo(){
 }
 
 // ════════════════════════════════════════
-// SORTEO PÚBLICO — WHEELS + SOUND + ANIMATION
+// SORTEO PÚBLICO
 // ════════════════════════════════════════
 function initWheels(){
   for(var w=0;w<4;w++){
@@ -1498,156 +1426,98 @@ function initWheels(){
     for(var rep=0;rep<3;rep++) for(var d=0;d<10;d++) html+='<div class="wdig">'+d+'</div>';
     strip.innerHTML=html;
   }
-  // Show dashes initially
   for(var w=0;w<4;w++) setWheel(w,null,false);
 }
 
-function setWheel(w, digit, animate){
-  var strip = document.getElementById('ws'+w); if(!strip) return;
-  var wh    = document.getElementById('w'+w);  if(!wh)    return;
-  var firstDig = strip.querySelector('.wdig');
-  var dh  = firstDig ? firstDig.offsetHeight : Math.round(wh.offsetHeight/3);
-  var wHt = wh.offsetHeight;
-  if(!dh || !wHt) return;
-
-  if(digit === null){
-    strip.style.transition = 'none';
-    strip.style.transform  = 'translateY('+((wHt/2)-(dh/2))+'px)';
-    strip.querySelectorAll('.wdig').forEach(function(el){
-      el.style.color='#333'; el.classList.remove('sel2');
-    });
+function setWheel(w,digit,animate){
+  var strip=document.getElementById('ws'+w); if(!strip) return;
+  var wh=document.getElementById('w'+w); if(!wh) return;
+  var firstDig=strip.querySelector('.wdig');
+  var dh=firstDig?firstDig.offsetHeight:Math.round(wh.offsetHeight/3);
+  var wHt=wh.offsetHeight;
+  if(!dh||!wHt) return;
+  if(digit===null){
+    strip.style.transition='none';
+    strip.style.transform='translateY('+((wHt/2)-(dh/2))+'px)';
+    strip.querySelectorAll('.wdig').forEach(function(el){el.style.color='#333';el.classList.remove('sel2');});
     return;
   }
-  var targetIdx = 10 + digit;
-  var offset    = -(targetIdx*dh)+(wHt/2)-(dh/2);
-  strip.style.transition = animate ? 'transform 0.8s cubic-bezier(.23,1,.32,1)' : 'none';
-  strip.style.transform  = 'translateY('+offset+'px)';
-  strip.querySelectorAll('.wdig').forEach(function(el,i){
-    el.classList.toggle('sel2', i===targetIdx);
-  });
+  var targetIdx=10+digit;
+  var offset=-(targetIdx*dh)+(wHt/2)-(dh/2);
+  strip.style.transition=animate?'transform 0.8s cubic-bezier(.23,1,.32,1)':'none';
+  strip.style.transform='translateY('+offset+'px)';
+  strip.querySelectorAll('.wdig').forEach(function(el,i){el.classList.toggle('sel2',i===targetIdx);});
 }
 
-function playSpinSoundPublic(dur){
+function spinWheelPublic(w,finalDigit,duration,cb){
+  var strip=document.getElementById('ws'+w); if(!strip) return;
+  var wh=document.getElementById('w'+w); if(!wh) return;
+  var firstDig=strip.querySelector('.wdig');
+  var dh=firstDig?firstDig.offsetHeight:Math.round(wh.offsetHeight/3);
+  var wHt=wh.offsetHeight;
+  if(!dh||!wHt){if(cb)cb();return;}
+  strip.style.transition='none';
+  var startOffset=(wHt/2)-(dh/2);
+  strip.style.transform='translateY('+startOffset+'px)';
+  var targetIdx=10+finalDigit;
+  var endOffset=-(targetIdx*dh)+(wHt/2)-(dh/2);
+  strip.getBoundingClientRect();
+  strip.style.transition='transform '+duration+'ms cubic-bezier(.16,1,.3,1)';
+  strip.style.transform='translateY('+endOffset+'px)';
+  setTimeout(function(){
+    strip.querySelectorAll('.wdig').forEach(function(el,i){el.classList.toggle('sel2',i===targetIdx);});
+    if(cb)cb();
+  },duration);
+}
+
+function playSpinSound(duration){
   try{
     var ctx=new(window.AudioContext||window.webkitAudioContext)();
-    if(ctx.state==='suspended')ctx.resume();
-    var steps=Math.floor(dur/55);
+    var steps=Math.floor(duration/80);
     for(var i=0;i<steps;i++){(function(i){
-      var o=ctx.createOscillator(),g=ctx.createGain();
-      o.connect(g);g.connect(ctx.destination);
-      o.frequency.value=900-(i/steps)*700;o.type='sine';
-      var t=ctx.currentTime+i*(dur/1000/steps);
-      g.gain.setValueAtTime(0.07,t);g.gain.exponentialRampToValueAtTime(0.001,t+0.05);
-      o.start(t);o.stop(t+0.06);
+      var osc=ctx.createOscillator(),gain=ctx.createGain();
+      osc.connect(gain);gain.connect(ctx.destination);
+      var freq=800-(i/steps)*600;
+      var t=ctx.currentTime+i*(duration/1000/steps);
+      osc.frequency.setValueAtTime(freq,t);
+      gain.gain.setValueAtTime(0.12,t);
+      gain.gain.exponentialRampToValueAtTime(0.001,t+0.07);
+      osc.start(t);osc.stop(t+0.08);
     })(i);}
-    var t2=ctx.currentTime+dur/1000-0.08;
-    var o2=ctx.createOscillator(),g2=ctx.createGain();
-    o2.connect(g2);g2.connect(ctx.destination);
-    o2.frequency.value=180;o2.type='sawtooth';
-    g2.gain.setValueAtTime(0.25,t2);g2.gain.exponentialRampToValueAtTime(0.001,t2+0.3);
-    o2.start(t2);o2.stop(t2+0.35);
-    var o3=ctx.createOscillator(),g3=ctx.createGain();
-    o3.connect(g3);g3.connect(ctx.destination);
-    o3.frequency.value=1047;o3.type='sine';
-    g3.gain.setValueAtTime(0.3,t2+0.05);g3.gain.exponentialRampToValueAtTime(0.001,t2+0.6);
-    o3.start(t2+0.05);o3.stop(t2+0.65);
+    var osc2=ctx.createOscillator(),g2=ctx.createGain();
+    osc2.connect(g2);g2.connect(ctx.destination);
+    osc2.frequency.value=880;osc2.type='sine';
+    var t2=ctx.currentTime+duration/1000-0.05;
+    g2.gain.setValueAtTime(0.3,t2);g2.gain.exponentialRampToValueAtTime(0.001,t2+0.5);
+    osc2.start(t2);osc2.stop(t2+0.6);
   }catch(e){}
 }
+
 function playWinnerSound(){
   try{
     var ctx=new(window.AudioContext||window.webkitAudioContext)();
-    if(ctx.state==='suspended')ctx.resume();
     [523,659,784,880,1047,1319,1047,1568].forEach(function(freq,i){
       var o=ctx.createOscillator(),g=ctx.createGain();
-      o.connect(g);g.connect(ctx.destination);
-      o.frequency.value=freq;o.type='sine';
+      o.connect(g);g.connect(ctx.destination);o.frequency.value=freq;o.type='sine';
       var t=ctx.currentTime+i*0.14;
-      g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(0.35,t+0.07);
-      g.gain.exponentialRampToValueAtTime(0.001,t+0.5);
+      g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(0.35,t+0.07);g.gain.exponentialRampToValueAtTime(0.001,t+0.5);
       o.start(t);o.stop(t+0.55);
     });
-    var ob=ctx.createOscillator(),gb=ctx.createGain();
-    ob.connect(gb);gb.connect(ctx.destination);
-    ob.frequency.setValueAtTime(150,ctx.currentTime);
-    ob.frequency.exponentialRampToValueAtTime(40,ctx.currentTime+0.5);
-    gb.gain.setValueAtTime(0.5,ctx.currentTime);gb.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+0.5);
-    ob.start(ctx.currentTime);ob.stop(ctx.currentTime+0.55);
-    for(var i=0;i<50;i++){(function(i){
-      var buf=ctx.createBuffer(1,Math.floor(ctx.sampleRate*0.08),ctx.sampleRate);
-      var data=buf.getChannelData(0);
-      for(var j=0;j<data.length;j++)data[j]=(Math.random()*2-1)*Math.pow(1-j/data.length,1.5);
-      var src=ctx.createBufferSource(),g=ctx.createGain();
-      src.buffer=buf;g.gain.value=0.06+Math.random()*0.1;
-      src.connect(g);g.connect(ctx.destination);
-      src.start(ctx.currentTime+1.2+i*0.06+Math.random()*0.03);
-    })(i);}
   }catch(e){}
 }
-function showDigitPublic(idx,digit){
-  var wh=document.getElementById('w'+idx);
-  var strip=document.getElementById('ws'+idx);
-  if(!wh||!strip)return;
-  if(!strip.querySelector('.wdig')){
-    var dh=Math.max(80,Math.round(wh.offsetHeight/3));
-    var h='';
-    for(var rep=0;rep<5;rep++)
-      for(var d=0;d<10;d++)
-        h+='<div class="wdig" style="height:'+dh+'px;font-size:'+Math.round(dh*.8)+'px;width:100%;display:flex;align-items:center;justify-content:center;font-family:Bebas Neue,sans-serif;color:#fff;flex-shrink:0;text-shadow:0 2px 8px rgba(0,0,0,.8);">'+d+'</div>';
-    strip.innerHTML=h;
-    strip.style.transition='none';
-    strip.style.transform='translateY('+((wh.offsetHeight/2)-(dh/2))+'px)';
+
+function animarRuletasPublico(digs,onDone){
+  var spinDur=2800,gap=400;
+  function spinNext(idx){
+    if(idx>=4){if(onDone)onDone();return;}
+    if(digs[idx]===null){spinNext(idx+1);return;}
+    playSpinSound(spinDur);
+    spinWheelPublic(idx,digs[idx],spinDur,function(){setTimeout(function(){spinNext(idx+1);},gap);});
   }
-  playSpinSoundPublic(3000);
-  var dh=Math.max(80,Math.round(wh.offsetHeight/3));
-  var wHt=wh.offsetHeight;
-  var tIdx=30+digit;
-  var startO=(wHt/2)-(dh/2);
-  var endO=-(tIdx*dh)+(wHt/2)-(dh/2);
-  strip.style.transition='none';
-  strip.style.transform='translateY('+startO+'px)';
-  strip.getBoundingClientRect();
-  strip.style.transition='transform 3000ms cubic-bezier(.08,.82,.17,1)';
-  strip.style.transform='translateY('+endO+'px)';
-  wh.style.borderColor='#FFD600';
-  setTimeout(function(){
-    strip.querySelectorAll('.wdig').forEach(function(el,i){
-      el.style.color=(i===tIdx)?'#FFD600':'rgba(255,255,255,.2)';
-      el.style.textShadow=(i===tIdx)?'0 0 30px rgba(255,214,0,.9)':'none';
-    });
-    wh.style.boxShadow='0 0 40px rgba(255,214,0,.6)';
-  },3000);
-}
-function spinWheelPublic(w, finalDigit, duration, cb){
-  var strip = document.getElementById('ws'+w); if(!strip) return;
-  var wh    = document.getElementById('w'+w);  if(!wh)    return;
-  // Recalculate height from actual rendered element
-  var firstDig = strip.querySelector('.wdig');
-  var dh  = firstDig ? firstDig.offsetHeight : Math.round(wh.offsetHeight / 3);
-  var wHt = wh.offsetHeight;
-  if(!dh || !wHt) { if(cb) cb(); return; }
-
-  // Reset to top (digit 0 of first set)
-  strip.style.transition = 'none';
-  var startOffset = (wHt/2) - (dh/2); // center on first digit
-  strip.style.transform = 'translateY('+startOffset+'px)';
-
-  var targetIdx  = 10 + finalDigit; // middle repetition
-  var endOffset  = -(targetIdx * dh) + (wHt/2) - (dh/2);
-
-  // Force reflow then animate
-  strip.getBoundingClientRect();
-  strip.style.transition = 'transform '+duration+'ms cubic-bezier(.16,1,.3,1)';
-  strip.style.transform  = 'translateY('+endOffset+'px)';
-
-  setTimeout(function(){
-    strip.querySelectorAll('.wdig').forEach(function(el,i){
-      el.classList.toggle('sel2', i === targetIdx);
-    });
-    if(cb) cb();
-  }, duration);
+  spinNext(0);
 }
 
-var _spTimer, lastPollKey='', _sh=null, _lastDigTime=0;
+var _sh=null,lastPollKey='',pubSpinning=false,pubRevealed=false,pubDigits=[null,null,null,null],_lastDigTime=0;
 
 function startSorteoPoll(){
   stopSorteoPoll();
@@ -1666,19 +1536,16 @@ function startSorteoPoll(){
           var ws=document.getElementById('ws'+w);
           if(ws){ws.innerHTML='';ws.style.transition='none';ws.style.transform='translateY(0)';}
         }
+        pubSpinning=false;pubRevealed=false;pubDigits=[null,null,null,null];
       } else if(m.t==='go'){
         document.getElementById('stb').className='stbadge gir';
         document.getElementById('stbt').textContent='Sorteando...';
         document.getElementById('wm').style.display='none';
-      } else if(m.t==='dig'){
-        _lastDigTime=Date.now();
-        document.getElementById('stb').className='stbadge gir';
-        document.getElementById('stbt').textContent='Sorteando...';
-        document.getElementById('wm').style.display='none';
-        showDigitPublic(m.i,m.v);
       } else if(m.t==='rev'){
+        pubRevealed=true;
         document.getElementById('stb').className='stbadge rev';
-        document.getElementById('stbt').textContent='Numero ganador revelado!';
+        document.getElementById('stbt').textContent='✅ ¡Número ganador revelado!';
+        document.getElementById('wm').style.display='none';
         var elapsed=Date.now()-_lastDigTime;
         var wait=Math.max(0,3200-elapsed);
         setTimeout(function(){fetchWinner(m.ds);},wait);
@@ -1689,110 +1556,10 @@ function startSorteoPoll(){
 }
 function stopSorteoPoll(){if(_sh){window.removeEventListener('storage',_sh);_sh=null;}}
 
-async function pollSorteo(){
-  try{
-    var r=await fetch(SB_URL+'/rest/v1/sorteo?id=eq.1&select=estado,digito_0,digito_1,digito_2,digito_3',{
-      headers:{'apikey':SB_ANON,'Authorization':'Bearer '+SB_ANON,'Content-Type':'application/json'}
-    });
-    if(!r.ok) return;
-    var d=await r.json(); if(!d||!d[0]) return;
-    var s=d[0];
-    var key=s.estado+'|'+[s.digito_0,s.digito_1,s.digito_2,s.digito_3].join(',');
-    if(key===lastPollKey) return;
-    lastPollKey=key;
-    updateSorteoPublic(s);
-  }catch(e){}
-}
-
-var pubSpinning = false;
-var pubRevealed = false;
-var pubDigits   = [null,null,null,null];
-
-function updateSorteoPublic(s){
-  var badge=document.getElementById('stb'),txt=document.getElementById('stbt'),wm2=document.getElementById('wm');
-
-  if(s.estado==='pendiente'){
-    badge.className='stbadge pen'; txt.textContent='Esperando inicio del sorteo'; wm2.style.display='block';
-    for(var w=0;w<4;w++) setWheel(w,null,false);
-    document.getElementById('winn').classList.remove('show');
-    pubSpinning=false; pubRevealed=false; pubDigits=[null,null,null,null];
-  }
-
-  else if(s.estado==='girando' && !pubSpinning && !pubRevealed){
-    badge.className='stbadge gir'; txt.textContent='🎰 ¡Sorteando!'; wm2.style.display='none';
-    pubSpinning=true;
-    pubDigits=[s.digito_0,s.digito_1,s.digito_2,s.digito_3];
-    animarRuletasPublico(pubDigits);
-  }
-
-  else if(s.estado==='revelado' && !pubRevealed){
-    pubRevealed=true; pubSpinning=false;
-    badge.className='stbadge rev'; txt.textContent='✅ ¡Número ganador revelado!'; wm2.style.display='none';
-    var digs=[s.digito_0,s.digito_1,s.digito_2,s.digito_3];
-    // If wheels haven't spun yet (late viewer), spin then reveal
-    if(pubDigits[0]===null){
-      animarRuletasPublico(digs, function(){ fetchWinner(digs); });
-    } else {
-      fetchWinner(digs);
-    }
-  }
-}
-
-function animarRuletasPublico(digs, onDone) {
-  // Spin each digit sequentially: start next when previous finishes
-  var spinDur = 2800;
-  var gap     = 400; // pause between digits
-  function spinNext(idx) {
-    if(idx >= 4) { if(onDone) onDone(); return; }
-    if(digs[idx] === null) { spinNext(idx+1); return; }
-    playSpinSound(spinDur);
-    spinWheelPublic(idx, digs[idx], spinDur, function(){
-      setTimeout(function(){ spinNext(idx+1); }, gap);
-    });
-  }
-  spinNext(0);
-}
-
-function playSpinSound(duration) {
-  try {
-    var ctx = new (window.AudioContext || window.webkitAudioContext)();
-    var steps = Math.floor(duration / 80);
-    for(var i=0; i<steps; i++){
-      (function(i){
-        var osc = ctx.createOscillator();
-        var gain = ctx.createGain();
-        osc.connect(gain); gain.connect(ctx.destination);
-        // Frequency slows from 800 to 200 over duration
-        var progress = i / steps;
-        var freq = 800 - progress * 600;
-        var t = ctx.currentTime + i * (duration/1000/steps);
-        osc.frequency.setValueAtTime(freq, t);
-        gain.gain.setValueAtTime(0.12, t);
-        gain.gain.exponentialRampToValueAtTime(0.001, t + 0.07);
-        osc.start(t);
-        osc.stop(t + 0.08);
-      })(i);
-    }
-    // Final "ding"
-    var osc2 = ctx.createOscillator();
-    var g2 = ctx.createGain();
-    osc2.connect(g2); g2.connect(ctx.destination);
-    osc2.frequency.value = 880;
-    osc2.type = 'sine';
-    var t2 = ctx.currentTime + duration/1000 - 0.05;
-    g2.gain.setValueAtTime(0.3, t2);
-    g2.gain.exponentialRampToValueAtTime(0.001, t2 + 0.5);
-    osc2.start(t2);
-    osc2.stop(t2 + 0.6);
-  } catch(e){}
-}
-
 async function fetchWinner(digs){
   var num=digs[0]*1000+digs[1]*100+digs[2]*10+digs[3];
   try{
-    var r=await fetch(SB_URL+'/rest/v1/ventas?numeros_accion=cs.{'+num+'}&estado=eq.confirmado&select=nombre,cedula&limit=1',{
-      headers:{'apikey':SB_ANON,'Authorization':'Bearer '+SB_ANON}
-    });
+    var r=await fetch(SB_URL+'/rest/v1/ventas?numeros_accion=cs.{'+num+'}&estado=eq.confirmado&select=nombre,cedula&limit=1',{headers:{'apikey':SB_ANON,'Authorization':'Bearer '+SB_ANON}});
     var d=await r.json();
     playWinnerSound();
     launchCelebration();
@@ -1805,8 +1572,9 @@ async function fetchWinner(digs){
       document.getElementById('wnom').innerHTML='<span style="color:#D32F2F;font-size:clamp(18px,4vw,40px)">NUMERO NO ASIGNADO</span>';
       document.getElementById('wced').textContent='Se realizara nueva extraccion ante el Notario';
     }
-  }catch(e){console.error('fetchWinner error',e);}
+  }catch(e){}
 }
+
 function launchCelebration(){
   var cols=['#FFD600','#D32F2F','#00C853','#fff','#FF6B6B','#4FC3F7','#CE93D8','#FFB300','#76FF03','#FF4081'];
   var flash=document.createElement('div');
@@ -1824,58 +1592,6 @@ function launchCelebration(){
   })(i);}
 }
 
-function launchConfetti(){
-  var colors=['#FFD600','#D32F2F','#00C853','#fff','#FF6B6B'];
-  for(var i=0;i<120;i++){(function(i){
-    setTimeout(function(){
-      var el=document.createElement('div');
-      el.className='conf';
-      el.style.left=Math.random()*100+'vw';
-      el.style.top='-20px';
-      el.style.background=colors[Math.floor(Math.random()*colors.length)];
-      el.style.width=(Math.random()*10+5)+'px';
-      el.style.height=(Math.random()*10+5)+'px';
-      el.style.animationDuration=(Math.random()*3+2)+'s';
-      document.body.appendChild(el);
-      setTimeout(function(){el.remove();},5000);
-    },i*30);
-  })(i);}
-}
-
-// ════════════════════════════════════════
-// DESCARGAR BASE DE DATOS CSV
-// ════════════════════════════════════════
-function descargarCSV() {
-  if (!allVentas || !allVentas.length) { toast('⚠️ Sin datos para exportar', true); return; }
-  var headers = ['Nombre','Cédula','Teléfono','Correo','Cantidad','Método','Estado','Números de Acción','Fecha'];
-  var rows = allVentas.map(function(v) {
-    var nums = (v.numeros_accion||[]).map(function(n){return String(n).padStart(4,'0');}).join(' - ');
-    return [
-      v.nombre||'',
-      v.cedula||'',
-      v.telefono||'',
-      v.correo||'',
-      v.cantidad||'',
-      v.metodo_pago||'',
-      v.estado||'',
-      nums,
-      new Date(v.created_at).toLocaleDateString('es-CR')
-    ].map(function(c){ return '"'+String(c).replace(/"/g,'""')+'"'; }).join(',');
-  });
-  var csv = '﻿' + headers.join(',') + '\n' + rows.join('\n');
-  var blob = new Blob([csv], {type:'text/csv;charset=utf-8;'});
-  var url = URL.createObjectURL(blob);
-  var a = document.createElement('a');
-  a.href = url;
-  a.download = 'participantes-rifa-trax-' + new Date().toISOString().slice(0,10) + '.csv';
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  URL.revokeObjectURL(url);
-  toast('📥 Lista descargada (' + allVentas.length + ' registros)');
-}
-
-// Particles
 function buildParticles(){
   var pc=document.getElementById('parts'); if(!pc||pc.children.length>0) return;
   var cols=['#FFD600','#D32F2F','#fff'];
@@ -1889,7 +1605,6 @@ function buildParticles(){
     pc.appendChild(el);
   })();}
 }
-document.addEventListener('DOMContentLoaded', buildParticles);
 
 async function spinDFinal(idx,finalDigit,elId){
   var el=document.getElementById(elId); if(!el) return;
@@ -1911,6 +1626,10 @@ async function spinDFinal(idx,finalDigit,elId){
     },20);
   });
 }
+
+// ════════════════════════════════════════
+// EMAIL
+// ════════════════════════════════════════
 async function sendCertificado(v){
   if(!v.correo||v.correo==='sin@correo.com'||v.correo.indexOf('@')<0){toast('⚠️ Sin correo');return false;}
   try{
@@ -1931,6 +1650,25 @@ async function simularVenta(){
   toast('📤 Enviando...');await sendCertificado(venta);await sendAdminNotif(venta);
 }
 
+// ════════════════════════════════════════
+// CSV
+// ════════════════════════════════════════
+function descargarCSV(){
+  if(!allVentas||!allVentas.length){toast('⚠️ Sin datos para exportar',true);return;}
+  var headers=['Nombre','Cédula','Teléfono','Correo','Cantidad','Método','Estado','Números de Acción','Fecha'];
+  var rows=allVentas.map(function(v){
+    var nums=(v.numeros_accion||[]).map(function(n){return String(n).padStart(4,'0');}).join(' - ');
+    return [v.nombre||'',v.cedula||'',v.telefono||'',v.correo||'',v.cantidad||'',v.metodo_pago||'',v.estado||'',nums,new Date(v.created_at).toLocaleDateString('es-CR')]
+      .map(function(c){return '"'+String(c).replace(/"/g,'""')+'"';}).join(',');
+  });
+  var csv='﻿'+headers.join(',')+'\n'+rows.join('\n');
+  var blob=new Blob([csv],{type:'text/csv;charset=utf-8;'});
+  var url=URL.createObjectURL(blob);
+  var a=document.createElement('a');
+  a.href=url;a.download='participantes-rifa-trax-'+new Date().toISOString().slice(0,10)+'.csv';
+  document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url);
+  toast('📥 Lista descargada ('+allVentas.length+' registros)');
+}
 </script>
 </body>
 </html>
