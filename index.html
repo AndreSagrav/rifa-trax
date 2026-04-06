@@ -937,12 +937,23 @@ async function loadProgress() {
 // ════════════════════════════════════════
 var sClicks=0, sTimer;
 document.addEventListener('DOMContentLoaded', function() {
-  if(new URLSearchParams(window.location.search).get('v')==='sorteo'){
+  var urlParams=new URLSearchParams(window.location.search);
+  if(urlParams.get('view')=='sorteo'){
     document.getElementById('vl').style.display='none';
     document.getElementById('va').style.display='none';
     document.getElementById('vs').style.display='flex';
+    buildParticles();
+    initWheels();
     startSorteoPoll();
     return;
+  }
+  if(urlParams.get('pago')==='ok'){
+    history.replaceState({},'',window.location.pathname);
+    setTimeout(function(){toast('✅ ¡Pago recibido! Tu certificado llegará por correo en breve.');},800);
+  }
+  if(urlParams.get('pago')==='cancelado'){
+    history.replaceState({},'',window.location.pathname);
+    setTimeout(function(){toast('ℹ️ Pago cancelado. Podés intentarlo de nuevo.');},800);
   }
   document.addEventListener('keydown',function(e){
     var ts=document.getElementById('ts');
@@ -1390,58 +1401,28 @@ function renderSorteo(){
 async function iniciarSorteo(){
   if(!confirm('¿Iniciar el sorteo? Se seleccionará un número de acción real al azar.')) return;
   document.getElementById('sbini').disabled=true;
-
-  // ── Cargar acciones confirmadas ──
   toast('⏳ Cargando acciones...');
   var resp=await fetch(SB_URL+'/rest/v1/ventas?estado=eq.confirmado&select=nombre,numeros_accion',{headers:aHeaders(false)});
   var ventas=await resp.json();
-
-  // Expandir en lista plana — cada número de acción es una entrada
   var acciones=[];
   ventas.forEach(function(v){
     if(!v.numeros_accion||!v.numeros_accion.length) return;
-    v.numeros_accion.forEach(function(n){
-      var num=parseInt(n);
-      if(!isNaN(num)&&num>0) acciones.push({numero:num,nombre:v.nombre});
-    });
+    v.numeros_accion.forEach(function(n){var num=parseInt(n);if(!isNaN(num)&&num>0) acciones.push({numero:num,nombre:v.nombre});});
   });
-
-  if(acciones.length===0){
-    toast('⚠️ No hay acciones confirmadas para sortear',true);
-    document.getElementById('sbini').disabled=false;
-    return;
-  }
-
+  if(acciones.length===0){toast('⚠️ No hay acciones confirmadas',true);document.getElementById('sbini').disabled=false;return;}
   toast('✅ '+acciones.length+' acciones participando');
-
-  // ── Mezcla criptográfica Fisher-Yates ──
-  for(var i=acciones.length-1;i>0;i--){
-    var arr=new Uint32Array(1);
-    crypto.getRandomValues(arr);
-    var j=arr[0]%(i+1);
-    var tmp=acciones[i];acciones[i]=acciones[j];acciones[j]=tmp;
-  }
-
-  // ── Selección ganadora ──
-  var arr2=new Uint32Array(1);
-  crypto.getRandomValues(arr2);
+  for(var i=acciones.length-1;i>0;i--){var arr=new Uint32Array(1);crypto.getRandomValues(arr);var j=arr[0]%(i+1);var tmp=acciones[i];acciones[i]=acciones[j];acciones[j]=tmp;}
+  var arr2=new Uint32Array(1);crypto.getRandomValues(arr2);
   var ganador=acciones[arr2[0]%acciones.length];
   var numStr=String(ganador.numero).padStart(4,'0');
   var digits=[parseInt(numStr[0]),parseInt(numStr[1]),parseInt(numStr[2]),parseInt(numStr[3])];
-
   sDigitos=[null,null,null,null];
   document.getElementById('swca').classList.remove('show');
   ['sd0','sd1','sd2b','sd3'].forEach(function(id){var e=document.getElementById(id);if(e){e.textContent='—';e.className='dn';}});
   await fetch(SB_URL+'/rest/v1/sorteo?id=eq.1',{method:'PATCH',headers:aHeaders(true),body:JSON.stringify({estado:'girando',digito_0:null,digito_1:null,digito_2:null,digito_3:null})});
   sSt='girando';document.getElementById('sev').textContent='GIRANDO...';document.getElementById('sev').className='ssv gir';
   try{localStorage.setItem('rifa_ev',JSON.stringify({t:'go',ts:Date.now()}));}catch(e){}
-
-  var ids=['sd0','sd1','sd2b','sd3'];
-  for(var i=0;i<4;i++){
-    await spinDFinal(i,digits[i],ids[i]);
-    await sleep(500);
-  }
-
+  for(var i=0;i<4;i++){await spinDFinal(i,digits[i],['sd0','sd1','sd2b','sd3'][i]);await sleep(500);}
   var patch={estado:'girando',digito_0:digits[0],digito_1:digits[1],digito_2:digits[2],digito_3:digits[3]};
   await fetch(SB_URL+'/rest/v1/sorteo?id=eq.1',{method:'PATCH',headers:aHeaders(true),body:JSON.stringify(patch)});
   await fetch(SB_URL+'/rest/v1/sorteo?id=eq.1',{method:'PATCH',headers:aHeaders(true),body:JSON.stringify({estado:'revelado'})});
@@ -1915,55 +1896,42 @@ function buildParticles(){
 }
 document.addEventListener('DOMContentLoaded', buildParticles);
 
-
 async function spinDFinal(idx,finalDigit,elId){
-  var el=document.getElementById(elId); if(!el) return;
+  var el=document.getElementById(elId);if(!el)return;
   el.className='dn sp';
   return new Promise(function(resolve){
-    var dur=2200, start=Date.now();
+    var dur=2200,start=Date.now();
     var iv=setInterval(function(){
       var elapsed=Date.now()-start;
       if(elapsed%Math.max(40,40+elapsed/dur*200)<20) el.textContent=Math.floor(Math.random()*10);
       if(elapsed>=dur){
-        clearInterval(iv);
-        el.textContent=finalDigit; el.className='dn dn2';
+        clearInterval(iv);el.textContent=finalDigit;el.className='dn dn2';
         sDigitos[idx]=finalDigit;
-        var parts=sDigitos.map(function(d){return d!==null?String(d):'—';});
-        document.getElementById('srn').textContent=parts.join(' · ');
+        document.getElementById('srn').textContent=sDigitos.map(function(d){return d!==null?String(d):'—';}).join(' · ');
         try{localStorage.setItem('rifa_ev',JSON.stringify({t:'dig',i:idx,v:finalDigit,ds:sDigitos.slice(),ts:Date.now()}));}catch(e){}
         resolve();
       }
     },20);
   });
 }
-
-
 async function sendCertificado(v){
-  if(!v.correo||v.correo==='sin@correo.com'||v.correo.indexOf('@')<0){toast('⚠️ Sin correo registrado');return false;}
+  if(!v.correo||v.correo.indexOf('@')<0){toast('⚠️ Sin correo');return false;}
   try{
     var r=await fetch(SB_URL+'/functions/v1/send-email',{method:'POST',headers:{'Authorization':'Bearer '+SB_ANON,'Content-Type':'application/json','apikey':SB_ANON},body:JSON.stringify({type:'certificado',venta:v})});
     var d=await r.json();
-    if(r.ok&&d.ok){toast('📧 Certificado enviado a '+v.correo);return true;}
-    else{toast('❌ Error: '+(d.error||''),true);return false;}
-  }catch(e){toast('❌ Error de conexión',true);return false;}
+    if(r.ok&&d.ok){toast('📧 Enviado a '+v.correo);return true;}
+    else{toast('❌ '+(d.error||'Error'),true);return false;}
+  }catch(e){toast('❌ Error conexión',true);return false;}
 }
-async function sendAdminNotif(v){
-  try{await fetch(SB_URL+'/functions/v1/send-email',{method:'POST',headers:{'Authorization':'Bearer '+SB_ANON,'Content-Type':'application/json','apikey':SB_ANON},body:JSON.stringify({type:'admin',venta:v})});}catch(e){}
-}
-async function reenviarCert(id){
-  var venta=allVentas.find(function(v){return v.id===id;});
-  if(!venta){toast('⚠️ No encontrada',true);return;}
-  await sendCertificado(venta);
-}
+async function sendAdminNotif(v){try{await fetch(SB_URL+'/functions/v1/send-email',{method:'POST',headers:{'Authorization':'Bearer '+SB_ANON,'Content-Type':'application/json','apikey':SB_ANON},body:JSON.stringify({type:'admin',venta:v})});}catch(e){}}
+async function reenviarCert(id){var v=allVentas.find(function(v){return v.id===id;});if(!v){toast('⚠️ No encontrada',true);return;}await sendCertificado(v);}
 async function simularVenta(){
   var correo=document.getElementById('vem').value.trim();
   var cantidad=parseInt(document.getElementById('vqt').value)||1;
-  if(!correo||correo.indexOf('@')<0){toast('⚠️ Correo válido requerido',true);return;}
+  if(!correo||correo.indexOf('@')<0){toast('⚠️ Correo requerido',true);return;}
   var nums=[];for(var i=0;i<cantidad;i++) nums.push(Math.floor(Math.random()*9000)+1000);
-  var venta={nombre:document.getElementById('vnm').value.trim()||'Prueba',cedula:document.getElementById('vcd').value.trim()||'0-0000-0000',telefono:document.getElementById('vtel').value.trim()||'0000-0000',correo:correo,cantidad:cantidad,metodo_pago:'tarjeta',numeros_accion:nums,estado:'confirmado',created_at:new Date().toISOString()};
-  toast('📤 Enviando...');
-  await sendCertificado(venta);
-  await sendAdminNotif(venta);
+  var venta={nombre:document.getElementById('vnm').value.trim()||'Prueba',cedula:'0-0000-0000',telefono:'0000-0000',correo:correo,cantidad:cantidad,metodo_pago:'tarjeta',numeros_accion:nums,estado:'confirmado',created_at:new Date().toISOString()};
+  toast('📤 Enviando...');await sendCertificado(venta);await sendAdminNotif(venta);
 }
 
 </script>
