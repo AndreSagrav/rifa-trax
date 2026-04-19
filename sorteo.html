@@ -129,12 +129,19 @@ function buildWheels(){
   }
 }
 
+function getDigitHeight(strip, wheel){
+  var first = strip.querySelector('.wdig');
+  var dh = first ? first.offsetHeight : 0;
+  if(!dh) dh = Math.round(wheel.offsetHeight / 3);
+  if(!dh) dh = 80;
+  return dh;
+}
+
 function centerWheel(w, digit){
   var strip = document.getElementById('ws'+w);
   if(!strip) return;
   var wheel = strip.parentElement;
-  var dh = wheel.offsetHeight / 3;
-  if(!dh) dh = 80;
+  var dh = getDigitHeight(strip, wheel);
   if(digit === null){
     strip.style.transition = 'none';
     strip.style.transform = 'translateY('+((wheel.offsetHeight/2)-(dh/2))+'px)';
@@ -155,8 +162,7 @@ function spinWheel(w, finalDigit, duration, done){
   var strip = document.getElementById('ws'+w);
   if(!strip){ if(done) done(); return; }
   var wheel = strip.parentElement;
-  var dh = wheel.offsetHeight / 3;
-  if(!dh) dh = 80;
+  var dh = getDigitHeight(strip, wheel);
   wheel.style.borderColor = '#FFD600';
   wheel.style.boxShadow = 'inset 0 20px 40px rgba(0,0,0,.8), 0 0 40px rgba(255,214,0,.3)';
 
