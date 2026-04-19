@@ -77,13 +77,13 @@ h1 span{color:#FFD600;text-shadow:0 0 60px rgba(255,214,0,.5)}
   </div>
 
   <div id="wheels">
-    <div class="wbox"><div class="wlbl">Millar</div><div class="wheel"><div class="wstrip" id="ws0"></div></div></div>
+    <div class="wbox"><div class="wheel"><div class="wstrip" id="ws0"></div></div></div>
     <div class="wsep">·</div>
-    <div class="wbox"><div class="wlbl">Centena</div><div class="wheel"><div class="wstrip" id="ws1"></div></div></div>
+    <div class="wbox"><div class="wheel"><div class="wstrip" id="ws1"></div></div></div>
     <div class="wsep">·</div>
-    <div class="wbox"><div class="wlbl">Decena</div><div class="wheel"><div class="wstrip" id="ws2"></div></div></div>
+    <div class="wbox"><div class="wheel"><div class="wstrip" id="ws2"></div></div></div>
     <div class="wsep">·</div>
-    <div class="wbox"><div class="wlbl">Unidad</div><div class="wheel"><div class="wstrip" id="ws3"></div></div></div>
+    <div class="wbox"><div class="wheel"><div class="wstrip" id="ws3"></div></div></div>
   </div>
 
   <p id="msg">Transmisión en vivo — El sorteo comenzará en breve...</p>
@@ -203,14 +203,12 @@ function spinAll(digits, onDone){
 
 // ── POLL SUPABASE ───────────────────────────────────
 function poll(){
-  fetch(SB_URL+'/rest/v1/sorteo?id=eq.1&select=estado,digito_0,digito_1,digito_2,digito_3', {
+  fetch(SB_URL+'/functions/v1/get-sorteo', {
     headers:{ 'apikey': SB_ANON, 'Authorization': 'Bearer '+SB_ANON }
   })
   .then(function(r){ return r.json(); })
-  .then(function(d){
-    // RLS or auth error returns an object with 'code', not an array
-    if(!Array.isArray(d) || !d[0]) return;
-    var s = d[0];
+  .then(function(s){
+    if(!s || s.error || !s.estado) return;
     var key = s.estado+'|'+[s.digito_0,s.digito_1,s.digito_2,s.digito_3].join(',');
     if(key === state.lastKey) return;
     state.lastKey = key;
