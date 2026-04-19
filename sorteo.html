@@ -103,7 +103,7 @@ var SB_URL  = 'https://kkkqnsvyqjcmxvqdljih.supabase.co';
 var SB_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imtra3Fuc3Z5cWpjbXh2cWRsamloIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ3MTM4MzksImV4cCI6MjA5MDI4OTgzOX0.Xd0uoOoAezmltY2D4oIw1QVCmG0q6g3SM_AsxZarFDs';
 
 // ── STATE ──────────────────────────────────────────
-var state = { spinning: false, revealed: false, digits: [null,null,null,null], lastKey: '' };
+var state = { spinning: false, revealed: false, digits: [null,null,null,null], lastKey: '', seenPendiente: false };
 var pollTimer;
 
 // ── PARTICLES ──────────────────────────────────────
@@ -223,6 +223,7 @@ function applyState(s){
   var msg   = document.getElementById('msg');
 
   if(s.estado === 'pendiente'){
+    state.seenPendiente = true;
     badge.className = 'pen'; btxt.textContent = 'Esperando inicio del sorteo';
     msg.style.display = 'block';
     document.getElementById('winner').classList.remove('show');
@@ -235,7 +236,8 @@ function applyState(s){
     msg.style.display = 'none';
     state.spinning = true;
     state.digits = [s.digito_0, s.digito_1, s.digito_2, s.digito_3];
-    spinAll(state.digits);
+    // Solo animar si vimos la transición desde pendiente en esta sesión
+    if(state.seenPendiente) spinAll(state.digits);
   }
   else if(s.estado === 'revelado' && !state.revealed){
     state.revealed = true; state.spinning = false;
