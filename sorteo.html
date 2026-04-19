@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sorteo Chevrolet Trax 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0A0A0A;color:#F5F5F5;font-family:'Montserrat',sans-serif;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden}
+
+/* PARTICLES */
+#parts{position:fixed;inset:0;pointer-events:none;z-index:0}
+.part{position:absolute;border-radius:50%;opacity:0;animation:rise linear infinite}
+@keyframes rise{0%{transform:translateY(100vh);opacity:0}10%{opacity:.5}90%{opacity:.3}100%{transform:translateY(-10vh);opacity:0}}
+
+/* MAIN CARD */
+#card{position:relative;z-index:1;text-align:center;padding:40px 24px;width:100%;max-width:900px}
+
+.lbl{font-size:11px;letter-spacing:6px;text-transform:uppercase;color:#D32F2F;margin-bottom:16px;font-weight:800}
+h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(48px,10vw,100px);line-height:.9;margin-bottom:8px}
+h1 span{color:#FFD600;text-shadow:0 0 60px rgba(255,214,0,.5)}
+.sub{font-size:12px;letter-spacing:3px;text-transform:uppercase;color:#555;margin-bottom:32px}
+
+/* STATUS BADGE */
+#badge{display:inline-flex;align-items:center;gap:8px;padding:8px 22px;border-radius:20px;font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:800;margin-bottom:36px;transition:all .4s}
+#badge.pen{background:rgba(255,255,255,.05);color:#666;border:1px solid #222}
+#badge.gir{background:rgba(255,214,0,.1);color:#FFD600;border:1px solid rgba(255,214,0,.3);animation:pulse 1s ease-in-out infinite}
+#badge.rev{background:rgba(0,200,83,.1);color:#00C853;border:1px solid rgba(0,200,83,.3)}
+.dot{width:8px;height:8px;border-radius:50%;background:currentColor}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 currentColor}50%{box-shadow:0 0 0 6px transparent}}
+
+/* WHEELS */
+#wheels{display:flex;align-items:center;justify-content:center;gap:clamp(8px,2vw,24px);margin-bottom:28px}
+.wsep{font-family:'Bebas Neue',sans-serif;font-size:clamp(44px,8vw,80px);color:#333;line-height:1}
+.wbox{display:flex;flex-direction:column;align-items:center;gap:8px}
+.wlbl{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#444;font-weight:800}
+.wheel{width:clamp(130px,20vw,200px);height:clamp(160px,25vw,250px);background:#111;border:2px solid #222;border-radius:12px;overflow:hidden;position:relative;box-shadow:inset 0 20px 40px rgba(0,0,0,.8),0 8px 32px rgba(0,0,0,.6)}
+.wheel::before{content:'';position:absolute;inset:0;top:auto;bottom:auto;height:clamp(52px,13vw,96px);background:rgba(255,214,0,.06);border-top:2px solid rgba(255,214,0,.35);border-bottom:2px solid rgba(255,214,0,.35);z-index:2;pointer-events:none}
+.wstrip{position:absolute;width:100%;display:flex;flex-direction:column;align-items:center;top:0;will-change:transform}
+.wdig{width:100%;height:clamp(52px,13vw,96px);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:clamp(48px,12vw,90px);color:#fff;flex-shrink:0;text-shadow:0 2px 8px rgba(0,0,0,.8)}
+.wdig.active{color:#FFD600;text-shadow:0 0 30px rgba(255,214,0,.8)}
+
+/* MESSAGE */
+#msg{font-size:13px;color:#444;letter-spacing:2px;margin-bottom:20px}
+
+/* WINNER */
+#winner{display:none;margin-top:24px;border:2px solid #FFD600;border-radius:16px;padding:28px 40px;background:rgba(255,214,0,.05);box-shadow:0 0 60px rgba(255,214,0,.3);max-width:600px;margin-left:auto;margin-right:auto}
+#winner.show{display:block;animation:fadein .6s ease}
+@keyframes fadein{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
+.wt{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:#FFD600;margin-bottom:12px;font-weight:800}
+#wnom{font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,6vw,52px);color:#FFD600;margin-bottom:6px}
+#wced{font-size:13px;color:#888;margin-bottom:6px}
+#wnum{font-family:'Bebas Neue',sans-serif;font-size:22px;color:#FFD600;letter-spacing:6px}
+
+/* CLOSE */
+#close{position:fixed;top:16px;left:16px;background:rgba(10,10,10,.8);border:1px solid rgba(255,214,0,.3);color:#FFD600;font-family:'Montserrat',sans-serif;font-weight:800;font-size:11px;letter-spacing:2px;text-transform:uppercase;padding:8px 16px;border-radius:4px;cursor:pointer;z-index:999}
+#close:hover{background:rgba(255,214,0,.15)}
+
+/* FLASH / CONFETTI */
+.conf{position:fixed;pointer-events:none;z-index:9999;animation:cfall linear forwards}
+@keyframes cfall{to{transform:translateY(110vh) rotate(360deg);opacity:0}}
+</style>
+</head>
+<body>
+
+<div id="parts"></div>
+
+<div id="card">
+  <div class="lbl">🏁 Gran Rifa 2026 — En Vivo</div>
+  <h1>Sorteo<span><br>Chevrolet Trax</span></h1>
+  <p class="sub">30 de Noviembre 2026 · Notaría Pública</p>
+
+  <div id="badge" class="pen">
+    <div class="dot"></div>
+    <span id="badgetxt">Esperando inicio del sorteo</span>
+  </div>
+
+  <div id="wheels">
+    <div class="wbox"><div class="wlbl">Millar</div><div class="wheel"><div class="wstrip" id="ws0"></div></div></div>
+    <div class="wsep">·</div>
+    <div class="wbox"><div class="wlbl">Centena</div><div class="wheel"><div class="wstrip" id="ws1"></div></div></div>
+    <div class="wsep">·</div>
+    <div class="wbox"><div class="wlbl">Decena</div><div class="wheel"><div class="wstrip" id="ws2"></div></div></div>
+    <div class="wsep">·</div>
+    <div class="wbox"><div class="wlbl">Unidad</div><div class="wheel"><div class="wstrip" id="ws3"></div></div></div>
+  </div>
+
+  <p id="msg">Transmisión en vivo — El sorteo comenzará en breve...</p>
+
+  <div id="winner">
+    <div class="wt">🏆 ¡Tenemos un ganador!</div>
+    <div id="wnom">—</div>
+    <div id="wced">—</div>
+    <div id="wnum">—</div>
+  </div>
+</div>
+
+<button id="close" onclick="window.close()">✕ Cerrar</button>
+
+<script>
+var SB_URL  = 'https://kkkqnsvyqjcmxvqdljih.supabase.co';
+var SB_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imtra3Fuc3Z5cWpjbXh2cWRsamloIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ3MTM4MzksImV4cCI6MjA5MDI4OTgzOX0.Xd0uoOoAezmltY2D4oIw1QVCmG0q6g3SM_AsxZarFDs';
+
+// ── STATE ──────────────────────────────────────────
+var state = { spinning: false, revealed: false, digits: [null,null,null,null], lastKey: '' };
+var pollTimer;
+
+// ── PARTICLES ──────────────────────────────────────
+(function(){
+  var pc = document.getElementById('parts');
+  var cols = ['#FFD600','#D32F2F','#fff'];
+  for(var i=0;i<22;i++){
+    var el = document.createElement('div');
+    el.className = 'part';
+    el.style.cssText = 'left:'+Math.random()*100+'vw;width:'+(Math.random()*4+1)+'px;height:'+(Math.random()*4+1)+'px;background:'+cols[Math.floor(Math.random()*cols.length)]+';animation-duration:'+(Math.random()*8+6)+'s;animation-delay:'+(Math.random()*8)+'s';
+    pc.appendChild(el);
+  }
+})();
+
+// ── WHEELS ─────────────────────────────────────────
+function buildWheels(){
+  for(var w=0;w<4;w++){
+    var s = document.getElementById('ws'+w);
+    var h = '';
+    for(var r=0;r<3;r++) for(var d=0;d<10;d++) h += '<div class="wdig">'+d+'</div>';
+    s.innerHTML = h;
+    centerWheel(w, null);
+  }
+}
+
+function centerWheel(w, digit){
+  var strip = document.getElementById('ws'+w);
+  if(!strip) return;
+  var wheel = strip.parentElement;
+  var dh = wheel.offsetHeight / 3;
+  if(!dh) dh = 80;
+  if(digit === null){
+    strip.style.transition = 'none';
+    strip.style.transform = 'translateY('+((wheel.offsetHeight/2)-(dh/2))+'px)';
+    strip.querySelectorAll('.wdig').forEach(function(el){ el.style.color='#222'; el.classList.remove('active'); });
+    return;
+  }
+  var idx = 10 + digit;
+  var offset = -(idx*dh) + (wheel.offsetHeight/2) - (dh/2);
+  strip.style.transition = 'none';
+  strip.style.transform = 'translateY('+offset+'px)';
+  strip.querySelectorAll('.wdig').forEach(function(el,i){
+    el.style.color = i===idx ? '#FFD600' : '#333';
+    el.classList.toggle('active', i===idx);
+  });
+}
+
+function spinWheel(w, finalDigit, duration, done){
+  var strip = document.getElementById('ws'+w);
+  if(!strip){ if(done) done(); return; }
+  var wheel = strip.parentElement;
+  var dh = wheel.offsetHeight / 3;
+  if(!dh) dh = 80;
+  wheel.style.borderColor = '#FFD600';
+  wheel.style.boxShadow = 'inset 0 20px 40px rgba(0,0,0,.8), 0 0 40px rgba(255,214,0,.3)';
+
+  var startTime = Date.now();
+  var startY = parseFloat(strip.style.transform.replace('translateY(','')) || 0;
+  var totalSpins = 25 + Math.random()*10;
+  var totalDistance = totalSpins * dh * 10;
+  var finalIdx = 10 + finalDigit;
+  var finalOffset = -(finalIdx*dh) + (wheel.offsetHeight/2) - (dh/2);
+
+  function tick(){
+    var elapsed = Date.now() - startTime;
+    var progress = Math.min(elapsed / duration, 1);
+    var ease = progress < 0.7 ? progress/0.7 : 1 - Math.pow((progress-0.7)/0.3, 3);
+    var currentY = startY - (totalDistance * ease) + ((startY - finalOffset) * (1-ease)) * 0;
+    if(progress < 1){
+      var spinY = startY - totalDistance * ease;
+      strip.style.transition = 'none';
+      strip.style.transform = 'translateY(' + (spinY % (dh*10) + finalOffset) + 'px)';
+      requestAnimationFrame(tick);
+    } else {
+      strip.style.transition = 'transform 0.4s cubic-bezier(.23,1,.32,1)';
+      strip.style.transform = 'translateY('+finalOffset+'px)';
+      strip.querySelectorAll('.wdig').forEach(function(el,i){
+        el.style.color = i===finalIdx ? '#FFD600' : '#333';
+        el.classList.toggle('active', i===finalIdx);
+      });
+      setTimeout(function(){ if(done) done(); }, 450);
+    }
+  }
+  requestAnimationFrame(tick);
+}
+
+function spinAll(digits, onDone){
+  var dur = 2600;
+  var gap = 500;
+  function next(i){
+    if(i>=4){ if(onDone) onDone(); return; }
+    if(digits[i]===null){ next(i+1); return; }
+    spinWheel(i, digits[i], dur, function(){ setTimeout(function(){ next(i+1); }, gap); });
+  }
+  next(0);
+}
+
+// ── POLL SUPABASE ───────────────────────────────────
+function poll(){
+  fetch(SB_URL+'/rest/v1/sorteo?id=eq.1&select=estado,digito_0,digito_1,digito_2,digito_3', {
+    headers:{ 'apikey': SB_ANON, 'Authorization': 'Bearer '+SB_ANON }
+  })
+  .then(function(r){ return r.json(); })
+  .then(function(d){
+    if(!d||!d[0]) return;
+    var s = d[0];
+    var key = s.estado+'|'+[s.digito_0,s.digito_1,s.digito_2,s.digito_3].join(',');
+    if(key === state.lastKey) return;
+    state.lastKey = key;
+    applyState(s);
+  })
+  .catch(function(){});
+}
+
+function applyState(s){
+  var badge = document.getElementById('badge');
+  var btxt  = document.getElementById('badgetxt');
+  var msg   = document.getElementById('msg');
+
+  if(s.estado === 'pendiente'){
+    badge.className = 'pen'; btxt.textContent = 'Esperando inicio del sorteo';
+    msg.style.display = 'block';
+    document.getElementById('winner').classList.remove('show');
+    for(var w=0;w<4;w++) centerWheel(w, null);
+    state.spinning = false; state.revealed = false;
+    state.digits = [null,null,null,null];
+  }
+  else if(s.estado === 'girando' && !state.spinning && !state.revealed){
+    badge.className = 'gir'; btxt.textContent = '🎰 ¡Sorteando!';
+    msg.style.display = 'none';
+    state.spinning = true;
+    state.digits = [s.digito_0, s.digito_1, s.digito_2, s.digito_3];
+    spinAll(state.digits);
+  }
+  else if(s.estado === 'revelado' && !state.revealed){
+    state.revealed = true; state.spinning = false;
+    badge.className = 'rev'; btxt.textContent = '✅ ¡Número ganador revelado!';
+    msg.style.display = 'none';
+    var digs = [s.digito_0, s.digito_1, s.digito_2, s.digito_3];
+    if(state.digits[0] === null){
+      spinAll(digs, function(){ showWinner(digs); });
+    } else {
+      setTimeout(function(){ showWinner(digs); }, 800);
+    }
+  }
+}
+
+function showWinner(digs){
+  var num = digs[0]*1000 + digs[1]*100 + digs[2]*10 + digs[3];
+  fetch(SB_URL+'/rest/v1/ventas?numeros_accion=cs.{'+num+'}&estado=eq.confirmado&select=nombre,cedula&limit=1', {
+    headers:{ 'apikey': SB_ANON, 'Authorization': 'Bearer '+SB_ANON }
+  })
+  .then(function(r){ return r.json(); })
+  .then(function(d){
+    document.getElementById('winner').classList.add('show');
+    document.getElementById('wnum').textContent = 'Acción #'+String(num).padStart(4,'0');
+    if(d && d[0]){
+      document.getElementById('wnom').textContent = d[0].nombre;
+      document.getElementById('wced').textContent = 'Cédula: '+d[0].cedula;
+    } else {
+      document.getElementById('wnom').textContent = 'NÚMERO NO ASIGNADO';
+      document.getElementById('wced').textContent = 'Se realizará nueva extracción';
+    }
+    confetti();
+  }).catch(function(){});
+}
+
+function confetti(){
+  var cols=['#FFD600','#D32F2F','#00C853','#fff','#FF6B6B'];
+  for(var i=0;i<200;i++){(function(i){
+    setTimeout(function(){
+      var el=document.createElement('div'); el.className='conf';
+      var sz=Math.random()*12+4;
+      el.style.cssText='left:'+Math.random()*100+'vw;top:-20px;width:'+sz+'px;height:'+(Math.random()>.4?sz*.4:sz)+'px;background:'+cols[Math.floor(Math.random()*cols.length)]+';border-radius:'+(Math.random()>.4?'2px':'50%')+';animation-duration:'+(Math.random()*3+2)+'s;transform:rotate('+Math.random()*360+'deg)';
+      document.body.appendChild(el);
+      setTimeout(function(){ if(el.parentNode) el.parentNode.removeChild(el); }, 5500);
+    }, i*15);
+  })(i);}
+}
+
+// ── INIT ────────────────────────────────────────────
+window.addEventListener('DOMContentLoaded', function(){
+  buildWheels();
+  poll();
+  pollTimer = setInterval(poll, 2000);
+
+  // localStorage sync for same-browser tab
+  window.addEventListener('storage', function(e){
+    if(e.key !== 'rifa_ev' || !e.newValue) return;
+    try{
+      var m = JSON.parse(e.newValue);
+      if(m.t === 'rst'){
+        state.lastKey = '';
+        applyState({estado:'pendiente',digito_0:null,digito_1:null,digito_2:null,digito_3:null});
+      }
+    }catch(x){}
+  });
+});
+</script>
+</body>
+</html>
