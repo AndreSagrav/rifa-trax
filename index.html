@@ -760,7 +760,7 @@ tbody td{padding:10px 14px;vertical-align:middle}
       </div>
     </div>
   </div>
-  <button class="bkbtn" onclick="window.close()">✕ Cerrar</button>
+  <button class="bkbtn" onclick="hideSorteo()">← Volver al panel</button>
 </div><!-- /vs -->
 
 <div class="toast" id="toast"></div>
@@ -1317,20 +1317,67 @@ async function iniciarSorteo(){
   if(!data.ok){toast('⚠️ '+data.error,true);document.getElementById('sbini').disabled=false;return;}
 
   var digits=data.digits;
-  var numStr=digits.join('');
   toast('✅ '+data.total+' acciones participaron');
 
+  // Mostrar pantalla de ruleta
+  document.getElementById('va').style.display='none';
+  var vs=document.getElementById('vs');
+  vs.style.display='flex';
+  document.getElementById('stb').className='stbadge gir';
+  document.getElementById('stbt').textContent='🎰 ¡Sorteando!';
+  document.getElementById('wm').style.display='block';
+  document.getElementById('wm').textContent='Extrayendo número al azar...';
+  document.getElementById('winn').classList.remove('show');
+
+  await sleep(80);
+  initWheels();
+  await sleep(30);
+
   sDigitos=[null,null,null,null];
-  document.getElementById('swca').classList.remove('show');
-  ['sd0','sd1','sd2b','sd3'].forEach(function(id){var e=document.getElementById(id);if(e){e.textContent='—';e.className='dn';}});
-  sSt='girando';document.getElementById('sev').textContent='GIRANDO...';document.getElementById('sev').className='ssv gir';
+  sSt='girando';
   try{localStorage.setItem('rifa_ev',JSON.stringify({t:'go',ts:Date.now()}));}catch(e){}
-  for(var i=0;i<4;i++){await spinDFinal(i,digits[i],['sd0','sd1','sd2b','sd3'][i]);await sleep(500);}
+
+  // Animar ruedas una por una
+  for(var i=0;i<4;i++){
+    await (function(idx){
+      return new Promise(function(resolve){ spinWheelPublic(idx,digits[idx],2600,resolve); });
+    })(i);
+    sDigitos[i]=digits[i];
+    var aEl=['sd0','sd1','sd2b','sd3'];
+    var el=document.getElementById(aEl[i]); if(el){el.textContent=digits[i];el.className='dn dn2';}
+    document.getElementById('srn').textContent=sDigitos.map(function(d){return d!==null?String(d):'—';}).join(' · ');
+    await sleep(500);
+  }
+
+  // Guardar revelado en DB
   var _uph=Object.assign({},aHeaders(),{'Prefer':'resolution=merge-duplicates,return=representation'});
   await fetch(SB_URL+'/rest/v1/sorteo',{method:'POST',headers:_uph,body:JSON.stringify({id:1,estado:'revelado',digito_0:digits[0],digito_1:digits[1],digito_2:digits[2],digito_3:digits[3]})});
-  sSt='revelado';renderSorteo();
+  sSt='revelado';
+
+  document.getElementById('stb').className='stbadge rev';
+  document.getElementById('stbt').textContent='✅ ¡Número ganador revelado!';
+  document.getElementById('wm').style.display='none';
+
+  // Buscar y mostrar ganador en pantalla
+  var num=digits[0]*1000+digits[1]*100+digits[2]*10+digits[3];
+  document.getElementById('wnum').textContent='Acción #'+String(num).padStart(4,'0');
+  try{
+    var rw=await fetch(SB_URL+'/rest/v1/ventas?numeros_accion=cs.{'+num+'}&estado=eq.confirmado&select=nombre,cedula,telefono&limit=1',{headers:aHeaders()});
+    var dw=await rw.json();
+    if(dw&&dw[0]){
+      document.getElementById('wnom').textContent=dw[0].nombre;
+      document.getElementById('wced').textContent='Cédula: '+dw[0].cedula+' · Tel: '+dw[0].telefono;
+    } else {
+      document.getElementById('wnom').textContent='NÚMERO NO ASIGNADO';
+      document.getElementById('wced').textContent='Se realizará nueva extracción ante el Notario';
+    }
+  }catch(e){}
+  document.getElementById('winn').classList.add('show');
+  playWinnerSound();
+
   try{localStorage.setItem('rifa_ev',JSON.stringify({t:'rev',ds:digits.slice(),ts:Date.now()}));}catch(e){}
-  toast('🏆 Número ganador: #'+numStr);
+  toast('🏆 Número ganador: #'+digits.join(''));
+  renderSorteo();
   buscarGanadorAdmin();
 }
 
