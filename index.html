@@ -723,7 +723,7 @@ tbody td{padding:10px 14px;vertical-align:middle}
             <div class="wad" id="swd">—</div>
             <div class="wanum" id="swnum">—</div>
           </div>
-          <div class="sbtns"><p style="width:100%;text-align:center;font-size:11px;color:var(--muted);letter-spacing:2px;font-family:'Montserrat',sans-serif;margin-bottom:6px">ENTER → Iniciar &nbsp;·&nbsp; ESPACIO → Reiniciar</p>
+          <div class="sbtns">
             <button class="s1 go" id="sbini" onclick="iniciarSorteo()">🎲 Iniciar sorteo</button>
             <button class="s1 rst" onclick="resetSorteo()">↺ Reiniciar</button>
           </div>
@@ -934,7 +934,6 @@ document.addEventListener('DOMContentLoaded', function() {
   document.addEventListener('keydown',function(e){
     var ts=document.getElementById('ts');
     if(!ts||!ts.classList.contains('active')) return;
-    if(e.key==='Enter'&&!e.repeat){e.preventDefault();var b=document.getElementById('sbini');if(b&&!b.disabled)iniciarSorteo();}
     if((e.key===' '||e.code==='Space')&&!e.repeat){e.preventDefault();resetSorteo();}
   });
   // Carousel
