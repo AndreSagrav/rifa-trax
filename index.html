@@ -20,7 +20,7 @@ body{background:var(--black);color:var(--white);font-family:'Crimson Text',Georg
 /* ── VIEWS ── */
 #vl{display:block}
 #va{display:none}
-#vs{display:none;position:fixed;inset:0;z-index:900;background:#0A0A0A;flex-direction:column;align-items:center;justify-content:center;overflow:hidden}
+#vs{display:none;position:fixed;inset:0;z-index:9999;background:#0A0A0A;overflow-y:auto;}
 
 /* ══════════════ LANDING CSS ══════════════ */
 /* NAV */
@@ -734,7 +734,7 @@ tbody td{padding:10px 14px;vertical-align:middle}
 </div><!-- /va -->
 
 <!-- ════════════ VIEW: SORTEO PÚBLICO ════════════ -->
-<div id="vs" style="display:none;position:fixed;inset:0;z-index:9999;background:#0A0A0A;flex-direction:column;align-items:center;justify-content:flex-start;overflow-y:auto;">
+<div id="vs" style="display:none;">
   <div class="parts" id="parts"></div>
   <div class="spub">
     <div class="sel">🏁 Gran Rifa 2026 — En Vivo</div>
@@ -917,7 +917,7 @@ document.addEventListener('DOMContentLoaded', function() {
   if(urlParams.get('view')=='sorteo'){
     document.getElementById('vl').style.display='none';
     document.getElementById('va').style.display='none';
-    document.getElementById('vs').style.display='flex';
+    document.getElementById('vs').style.display='block';
     buildParticles();
     initWheels();
     startSorteoPoll();
