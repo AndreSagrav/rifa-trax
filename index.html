@@ -1327,7 +1327,8 @@ async function iniciarSorteo(){
   sSt='girando';document.getElementById('sev').textContent='GIRANDO...';document.getElementById('sev').className='ssv gir';
   try{localStorage.setItem('rifa_ev',JSON.stringify({t:'go',ts:Date.now()}));}catch(e){}
   for(var i=0;i<4;i++){await spinDFinal(i,digits[i],['sd0','sd1','sd2b','sd3'][i]);await sleep(500);}
-  await fetch(SB_URL+'/rest/v1/sorteo?id=eq.1',{method:'PATCH',headers:aHeaders(),body:JSON.stringify({estado:'revelado'})});
+  var _uph=Object.assign({},aHeaders(),{'Prefer':'resolution=merge-duplicates,return=representation'});
+  await fetch(SB_URL+'/rest/v1/sorteo',{method:'POST',headers:_uph,body:JSON.stringify({id:1,estado:'revelado',digito_0:digits[0],digito_1:digits[1],digito_2:digits[2],digito_3:digits[3]})});
   sSt='revelado';renderSorteo();
   try{localStorage.setItem('rifa_ev',JSON.stringify({t:'rev',ds:digits.slice(),ts:Date.now()}));}catch(e){}
   toast('🏆 Número ganador: #'+numStr);
@@ -1380,7 +1381,9 @@ async function buscarGanadorAdmin(){
 
 async function revelarGanador(){
   if(!confirm('¿Revelar el resultado en la pantalla pública?')) return;
-  await fetch(SB_URL+'/rest/v1/sorteo?id=eq.1',{method:'PATCH',headers:aHeaders(),body:JSON.stringify({estado:'revelado'})});
+  var body=JSON.stringify({id:1,estado:'revelado',digito_0:sDigitos[0],digito_1:sDigitos[1],digito_2:sDigitos[2],digito_3:sDigitos[3]});
+  var h=Object.assign({},aHeaders(),{'Prefer':'resolution=merge-duplicates,return=representation'});
+  await fetch(SB_URL+'/rest/v1/sorteo',{method:'POST',headers:h,body:body});
   sSt='revelado'; renderSorteo();
   try{localStorage.setItem('rifa_ev',JSON.stringify({t:'rev',ds:sDigitos.slice(),ts:Date.now()}));}catch(e){}
   toast('🏆 Resultado revelado');
@@ -1388,7 +1391,9 @@ async function revelarGanador(){
 
 async function resetSorteo(){
   sDigitos=[null,null,null,null]; sSt='pendiente';
-  await fetch(SB_URL+'/rest/v1/sorteo?id=eq.1',{method:'PATCH',headers:aHeaders(),body:JSON.stringify({estado:'pendiente',digito_0:null,digito_1:null,digito_2:null,digito_3:null})});
+  var body=JSON.stringify({id:1,estado:'pendiente',digito_0:null,digito_1:null,digito_2:null,digito_3:null});
+  var h=Object.assign({},aHeaders(),{'Prefer':'resolution=merge-duplicates,return=representation'});
+  await fetch(SB_URL+'/rest/v1/sorteo',{method:'POST',headers:h,body:body});
   document.getElementById('swca').classList.remove('show');
   renderSorteo();
   try{localStorage.setItem('rifa_ev',JSON.stringify({t:'rst',ts:Date.now()}));}catch(e){}

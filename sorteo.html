@@ -208,7 +208,8 @@ function poll(){
   })
   .then(function(r){ return r.json(); })
   .then(function(d){
-    if(!d||!d[0]) return;
+    // RLS or auth error returns an object with 'code', not an array
+    if(!Array.isArray(d) || !d[0]) return;
     var s = d[0];
     var key = s.estado+'|'+[s.digito_0,s.digito_1,s.digito_2,s.digito_3].join(',');
     if(key === state.lastKey) return;
