@@ -288,7 +288,7 @@ tbody td{padding:10px 14px;vertical-align:middle}
 .sinst strong{color:var(--gold);font-family:'Montserrat',sans-serif}
 
 /* ══════════════ SORTEO PÚBLICO CSS ══════════════ */
-.spub{position:absolute;inset:0;z-index:10;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px 24px;overflow-y:auto;box-sizing:border-box;}
+.spub{position:fixed;inset:0;z-index:10000;display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px 24px;overflow-y:auto;box-sizing:border-box;}
 .sel{font-size:11px;letter-spacing:6px;text-transform:uppercase;color:var(--red);margin-bottom:12px;font-weight:700;font-family:'Montserrat',sans-serif}
 .spub h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(36px,8vw,80px);line-height:.9;margin-bottom:6px}
 .spub h1 span{color:var(--gold);text-shadow:0 0 60px rgba(255,214,0,.6)}
@@ -918,6 +918,8 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('vl').style.display='none';
     document.getElementById('va').style.display='none';
     document.getElementById('vs').style.display='block';
+    var spub=document.querySelector('.spub');
+    if(spub) spub.style.display='flex';
     buildParticles();
     initWheels();
     startSorteoPoll();
