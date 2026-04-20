@@ -112,6 +112,8 @@ footer strong{color:var(--gold)}
 .fov{display:none;position:fixed;inset:0;z-index:800;background:rgba(0,0,0,.88);backdrop-filter:blur(20px) saturate(1.2);align-items:center;justify-content:center;padding:16px}
 .fov.open{display:flex}
 .fbox{background:linear-gradient(170deg,#161618 0%,#0e0e10 100%);border:1px solid rgba(255,214,0,.12);border-radius:20px;max-width:580px;width:100%;height:90vh;max-height:90vh;display:flex;flex-direction:column;box-shadow:0 40px 100px rgba(0,0,0,.8),0 0 0 1px rgba(255,255,255,.04) inset,0 1px 0 rgba(255,255,255,.06) inset;animation:mIn .4s cubic-bezier(.23,1,.32,1);position:relative;overflow:hidden}
+#s1,#s2,#s3,#sc{display:flex;flex-direction:column;flex:1;min-height:0;overflow:hidden}
+#s1[style*="none"],#s2[style*="none"],#s3[style*="none"],#sc[style*="none"]{display:none!important}
 .fbox::before{content:'';position:absolute;top:0;left:0;right:0;height:200px;background:radial-gradient(ellipse 70% 100% at 50% 0%,rgba(255,214,0,.06) 0%,transparent 70%);pointer-events:none;z-index:0}
 @keyframes mIn{from{opacity:0;transform:translateY(32px) scale(.96)}to{opacity:1;transform:none}}
 /* Header */
@@ -434,6 +436,40 @@ tbody td{padding:10px 14px;vertical-align:middle}
 .exp-time.urgente{background:rgba(211,47,47,.2);color:#f88}
 .exp-time.pronto{background:rgba(255,214,0,.15);color:var(--gold)}
 
+/* ══════════════ PASO 3 PAGO — PREMIUM ══════════════ */
+.p3-total{text-align:center;padding:20px 0 22px;border-bottom:1px solid rgba(255,255,255,.05);margin-bottom:18px}
+.p3-total-lbl{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#444;font-family:'Montserrat',sans-serif;font-weight:700;margin-bottom:6px}
+.p3-total-val{font-family:'Bebas Neue',sans-serif;font-size:52px;color:var(--gold);letter-spacing:4px;text-shadow:0 0 60px rgba(255,214,0,.18);line-height:1}
+.p3-section{margin-bottom:16px}
+.p3-sec-title{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#444;font-family:'Montserrat',sans-serif;font-weight:700;margin-bottom:8px}
+/* Pill toggle */
+.p3-toggle{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.p3-tog-btn{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:10px 14px;cursor:pointer;text-align:left;transition:all .2s;display:flex;flex-direction:column;gap:2px}
+.p3-tog-btn:hover{border-color:rgba(255,214,0,.2);background:rgba(255,214,0,.02)}
+.p3-tog-btn.active{border-color:rgba(255,214,0,.4);background:rgba(255,214,0,.05);box-shadow:0 0 20px rgba(255,214,0,.05)}
+.p3-tog-icon{font-size:16px;margin-bottom:2px}
+.p3-tog-label{font-size:12px;color:var(--white);font-family:'Montserrat',sans-serif;font-weight:700}
+.p3-tog-desc{font-size:10px;color:#555;font-family:'Montserrat',sans-serif}
+.p3-tog-btn.active .p3-tog-label{color:var(--gold)}
+.p3-tog-btn.active .p3-tog-desc{color:rgba(255,214,0,.5)}
+/* OnvoPay card */
+.p3-pay-card{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:16px 18px}
+.p3-pay-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.p3-pay-name{font-size:16px;color:var(--white);font-family:'Montserrat',sans-serif;font-weight:800;display:flex;align-items:center;gap:8px}
+.p3-pay-badge{font-size:8px;letter-spacing:2px;text-transform:uppercase;background:rgba(0,200,83,.1);color:var(--green);border:1px solid rgba(0,200,83,.2);border-radius:20px;padding:2px 8px;font-weight:700}
+.p3-pay-sub{font-size:11px;color:#555;font-family:'Montserrat',sans-serif;margin-top:2px}
+.p3-pay-lock{font-size:22px;opacity:.6}
+.p3-pay-badges{display:flex;gap:8px;flex-wrap:wrap}
+.p3-pay-badges span{font-size:8px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,214,0,.4);font-family:'Montserrat',sans-serif;font-weight:700;background:rgba(255,214,0,.04);border:1px solid rgba(255,214,0,.1);border-radius:4px;padding:3px 8px}
+/* Steps */
+.p3-steps{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+.p3-step{display:flex;align-items:center;gap:12px;padding:9px 12px;background:rgba(255,255,255,.015);border-radius:8px}
+.p3-step-n{width:22px;height:22px;border-radius:50%;background:rgba(255,214,0,.08);color:var(--gold);font-size:10px;font-weight:800;font-family:'Montserrat',sans-serif;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.p3-step-t{font-size:11px;color:#666;font-family:'Montserrat',sans-serif;line-height:1.5}
+.p3-step-t strong{color:#999}
+/* Warning */
+.p3-warn{font-size:11px;color:#555;font-family:'Montserrat',sans-serif;text-align:center;padding:10px 14px;background:rgba(211,47,47,.03);border:1px solid rgba(211,47,47,.08);border-radius:8px}
+
 /* ══════════════ SORTEO PÚBLICO CSS ══════════════ */
 .spub{position:relative;z-index:10;text-align:center;padding:24px;width:100%;}
 .sel{font-size:11px;letter-spacing:6px;text-transform:uppercase;color:var(--red);margin-bottom:12px;font-weight:700;font-family:'Montserrat',sans-serif}
@@ -730,32 +766,60 @@ tbody td{padding:10px 14px;vertical-align:middle}
     </div>
     <!-- PASO 3 -->
     <div id="s3" style="display:none">
-      <div class="fh"><div><div class="sdots"><span class="sd done"></span><span class="sd done"></span><span class="sd active"></span></div><h2>💳 Pago</h2><p>Paso 3 de 3 — Elegí cómo pagar</p></div><button class="fx" onclick="closeFlow()">&#215;</button></div>
+      <div class="fh"><div><div class="sdots"><span class="sd done"></span><span class="sd done"></span><span class="sd active"></span></div><h2>💳 Resumen y Pago</h2><p>Paso 3 de 3 — Revisá y confirmá</p></div><button class="fx" onclick="closeFlow()">&#215;</button></div>
       <div class="fb">
-        <div style="text-align:center;margin-bottom:18px">
-          <div style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#555;font-family:'Montserrat',sans-serif;font-weight:700;margin-bottom:6px">Total a pagar</div>
-          <div id="ptl" style="font-family:'Bebas Neue',sans-serif;font-size:42px;color:var(--gold);letter-spacing:4px;text-shadow:0 0 40px rgba(255,214,0,.2)"></div>
+
+        <!-- Total -->
+        <div class="p3-total">
+          <div class="p3-total-lbl">Total a pagar</div>
+          <div class="p3-total-val" id="ptl"></div>
         </div>
-        <div style="font-family:'Montserrat',sans-serif;margin-bottom:8px">
-          <div style="background:rgba(255,214,0,.03);border:1px solid rgba(255,214,0,.1);border-radius:14px;padding:20px;text-align:center;margin-bottom:14px;position:relative;overflow:hidden">
-            <div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 50% 0%,rgba(255,214,0,.04) 0%,transparent 70%);pointer-events:none"></div>
-            <p style="font-size:28px;margin:0 0 8px;position:relative">🔒</p>
-            <p style="color:#fff;font-weight:700;font-size:15px;margin:0 0 6px;position:relative">Pago seguro con OnvoPay</p>
-            <p style="color:#666;font-size:12px;margin:0 0 10px;line-height:1.6;position:relative">Al confirmar serás redirigido al formulario seguro donde podés pagar con <strong style="color:#bbb">tarjeta de crédito/débito</strong> o <strong style="color:#bbb">SINPE Móvil</strong>.</p>
-            <div style="display:flex;justify-content:center;gap:16px;font-size:9px;letter-spacing:2px;color:rgba(255,214,0,.6);font-weight:700;position:relative"><span>PCI DSS</span><span style="color:#333">·</span><span>3DS 2.0</span><span style="color:#333">·</span><span>SSL</span></div>
+
+        <!-- Modo de asignación — pill toggle -->
+        <div class="p3-section">
+          <div class="p3-sec-title">Asignación de números</div>
+          <div class="p3-toggle">
+            <button class="p3-tog-btn active" id="togConsec" onclick="setAssign('consec')">
+              <span class="p3-tog-icon">⬛</span>
+              <span class="p3-tog-label">Consecutiva</span>
+              <span class="p3-tog-desc">Primeros disponibles</span>
+            </button>
+            <button class="p3-tog-btn" id="togRandom" onclick="setAssign('random')">
+              <span class="p3-tog-icon">🎲</span>
+              <span class="p3-tog-label">Aleatoria</span>
+              <span class="p3-tog-desc">Al azar entre disponibles</span>
+            </button>
           </div>
-          <div style="background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);border-radius:14px;padding:18px 20px">
-            <p style="color:rgba(255,214,0,.7);font-weight:700;font-size:10px;letter-spacing:2px;text-transform:uppercase;margin:0 0 14px">📱 SINPE Móvil — instrucciones</p>
-            <div style="display:flex;flex-direction:column;gap:10px">
-              <div style="display:flex;gap:12px;align-items:flex-start"><span style="background:rgba(255,214,0,.1);color:var(--gold);font-weight:800;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0">1</span><span style="color:#777;font-size:12px;line-height:1.6">Ingresá tu <strong style="color:#bbb">número de teléfono</strong> vinculado a SINPE Móvil.</span></div>
-              <div style="display:flex;gap:12px;align-items:flex-start"><span style="background:rgba(255,214,0,.1);color:var(--gold);font-weight:800;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0">2</span><span style="color:#777;font-size:12px;line-height:1.6">Recibirás una <strong style="color:#bbb">solicitud de cobro</strong> en tu app bancaria.</span></div>
-              <div style="display:flex;gap:12px;align-items:flex-start"><span style="background:rgba(255,214,0,.1);color:var(--gold);font-weight:800;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0">3</span><span style="color:#777;font-size:12px;line-height:1.6">La confirmación es <strong style="color:#bbb">automática</strong> — recibirás tu certificado por correo.</span></div>
-              <div style="display:flex;gap:12px;align-items:flex-start;background:rgba(211,47,47,.04);border:1px solid rgba(211,47,47,.1);border-radius:8px;padding:10px 12px;margin-top:2px"><span style="color:#f88;font-size:14px;flex-shrink:0">⚠️</span><span style="color:#888;font-size:11px;line-height:1.6">No cerrés la ventana de OnvoPay hasta que el pago sea <strong style="color:#bbb">confirmado</strong>.</span></div>
+        </div>
+
+        <!-- OnvoPay card -->
+        <div class="p3-section">
+          <div class="p3-sec-title">Método de pago</div>
+          <div class="p3-pay-card">
+            <div class="p3-pay-top">
+              <div>
+                <div class="p3-pay-name">OnvoPay <span class="p3-pay-badge">Seguro</span></div>
+                <div class="p3-pay-sub">Tarjeta de crédito/débito · SINPE Móvil</div>
+              </div>
+              <div class="p3-pay-lock">🔒</div>
+            </div>
+            <div class="p3-pay-badges">
+              <span>PCI DSS</span><span>3DS 2.0</span><span>SSL 256-bit</span>
             </div>
           </div>
         </div>
+
+        <!-- SINPE steps -->
+        <div class="p3-steps">
+          <div class="p3-step"><div class="p3-step-n">1</div><div class="p3-step-t">Elegí <strong>SINPE Móvil</strong> o <strong>Transferencia por número telefónico</strong></div></div>
+          <div class="p3-step"><div class="p3-step-n">2</div><div class="p3-step-t">Ingresá el número SINPE: <strong style="color:var(--gold);letter-spacing:1px">+50670196686</strong></div></div>
+          <div class="p3-step"><div class="p3-step-n">3</div><div class="p3-step-t">Poné el monto y <strong>confirmá la transferencia</strong></div></div>
+        </div>
+
+        <div class="p3-warn">⚠️ No cerrés OnvoPay hasta que el pago sea confirmado.</div>
+
       </div>
-      <div class="ff2"><button class="fbb" onclick="goS(2)">← Volver</button><button class="fbn" id="bcf" onclick="confirmar()">✅ Confirmar compra</button></div>
+      <div class="ff2"><button class="fbb" onclick="goS(2)">← Volver</button><button class="fbn" id="bcf" onclick="confirmar()">Confirmar y pagar →</button></div>
     </div>
     <!-- CONFIRMACIÓN -->
     <div id="sc" style="display:none">
@@ -1259,7 +1323,7 @@ function tFAQ(i){
 // ════════════════════════════════════════
 // FLOW MODAL
 // ════════════════════════════════════════
-var flQty=1, regRead=false, regAcc=false;
+var flQty=1, regRead=false, regAcc=false, flAssignMode='consec';
 
 function openFlow(){
   flQty=1; regRead=false; regAcc=false;
@@ -1275,6 +1339,9 @@ function openFlow(){
   document.getElementById('rh').classList.remove('done');
   document.getElementById('rscr').scrollTop=0;
   var bcf=document.getElementById('bcf'); if(bcf) bcf.disabled=false;
+  flAssignMode='consec';
+  var modeConsec=document.querySelector('input[name="fassign"][value="consec"]');
+  if(modeConsec) modeConsec.checked=true;
 
   showStep(1);
   document.getElementById('fov').classList.add('open');
@@ -1287,10 +1354,18 @@ function fovBg(e){if(e.target===e.currentTarget)closeFlow();}
 function showStep(n){
   ['s1','s2','s3','sc'].forEach(function(id){document.getElementById(id).style.display='none';});
   var key=n==='c'?'sc':'s'+n;
-  document.getElementById(key).style.display='block';
+  document.getElementById(key).style.display='flex';
 }
 
 function fqty(d){flQty=Math.max(1,flQty+d);document.getElementById('fqn').textContent=flQty;document.getElementById('fqt').textContent='= '+fmtCRC(flQty*PRICE);}
+
+function onAssignMode(v){flAssignMode=(v==='random'?'random':'consec');}
+function setAssign(v){
+  flAssignMode=(v==='random'?'random':'consec');
+  var c=document.getElementById('togConsec'),r=document.getElementById('togRandom');
+  if(c) c.classList.toggle('active',v==='consec');
+  if(r) r.classList.toggle('active',v==='random');
+}
 
 function goS(n){
   if(n===2){
@@ -1329,22 +1404,30 @@ function onRegScroll(){
 function onAcc(){regAcc=document.getElementById('arc').checked;document.getElementById('bs3').disabled=!regAcc;}
 
 
-async function asignarNums(qty){
+async function asignarNums(qty,modo){
   try{
     var r=await fetch(SB_URL+'/rest/v1/ventas?select=numeros_accion&estado=neq.cancelado',{headers:aHeaders()});
     var d=await r.json();
     var used=new Set();
     d.forEach(function(v){if(v.numeros_accion)v.numeros_accion.forEach(function(n){used.add(n);});});
     var avail=[];
-    for(var i=0;i<=5999&&avail.length<qty;i++){if(!used.has(i))avail.push(i);}
-    return avail;
+    for(var i=0;i<=5999;i++){if(!used.has(i))avail.push(i);}
+    if(avail.length<qty) return [];
+    if(modo==='random'){
+      for(var j=avail.length-1;j>0;j--){
+        var k=Math.floor(Math.random()*(j+1));
+        var tmp=avail[j]; avail[j]=avail[k]; avail[k]=tmp;
+      }
+      return avail.slice(0,qty).sort(function(a,b){return a-b;});
+    }
+    return avail.slice(0,qty);
   }catch(e){return[];}
 }
 
 async function confirmar(){
   var btn=document.getElementById('bcf');
   btn.disabled=true; btn.textContent='⏳ Procesando...';
-  var nums=await asignarNums(flQty);
+  var nums=await asignarNums(flQty,flAssignMode);
   if(nums.length<flQty){toast('⚠️ No hay suficientes acciones',true);btn.disabled=false;btn.textContent='✅ Confirmar compra';return;}
   var body={
     nombre:document.getElementById('fn').value.trim(),
