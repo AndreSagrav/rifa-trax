@@ -934,7 +934,11 @@ document.addEventListener('DOMContentLoaded', function() {
   document.addEventListener('keydown',function(e){
     var ts=document.getElementById('ts');
     if(!ts||!ts.classList.contains('active')) return;
-    if((e.key===' '||e.code==='Space')&&!e.repeat){e.preventDefault();resetSorteo();}
+    if((e.key===' '||e.code==='Space')&&!e.repeat){
+      e.preventDefault();
+      if(sSt==='pendiente') iniciarSorteo();
+      else if(sSt==='revelado') resetSorteo();
+    }
   });
   // Carousel
   initCarousel();
