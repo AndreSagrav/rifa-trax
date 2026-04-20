@@ -287,6 +287,46 @@ tbody td{padding:10px 14px;vertical-align:middle}
 .sinst{background:rgba(255,214,0,.05);border:1px solid rgba(255,214,0,.1);border-radius:8px;padding:14px 18px;font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:18px;font-family:'Crimson Text',serif}
 .sinst strong{color:var(--gold);font-family:'Montserrat',sans-serif}
 
+/* ══════════════ PANEL FISCALIZACIÓN ══════════════ */
+.fis-wrap{max-width:960px;margin:0 auto}
+.fis-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;gap:12px;flex-wrap:wrap}
+.fis-title{font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--gold);letter-spacing:3px}
+.fis-meta{font-size:11px;color:var(--muted);font-family:'Montserrat',sans-serif;letter-spacing:1px}
+.fis-refresh{background:transparent;border:1px solid #444;color:var(--muted);font-family:'Montserrat',sans-serif;font-weight:700;font-size:11px;letter-spacing:2px;text-transform:uppercase;padding:7px 16px;border-radius:5px;cursor:pointer;transition:all .2s}
+.fis-refresh:hover{border-color:var(--gold);color:var(--gold)}
+.fis-refresh:disabled{opacity:.4;pointer-events:none}
+/* Leyenda */
+.fis-legend{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:10px}
+.fis-leg{display:flex;align-items:center;gap:5px;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-family:'Montserrat',sans-serif;font-weight:600}
+.fis-dot{width:10px;height:10px;border-radius:2px;flex-shrink:0}
+.fis-dot.libre{background:#222;border:1px solid #333}
+.fis-dot.pen{background:rgba(255,214,0,.35);border:1px solid rgba(255,214,0,.5)}
+.fis-dot.conf{background:rgba(0,200,83,.35);border:1px solid rgba(0,200,83,.5)}
+.fis-dot.canc{background:rgba(211,47,47,.25);border:1px solid rgba(211,47,47,.4)}
+/* Mapa */
+.fis-map-wrap{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:18px;overflow:hidden}
+#fisMap{display:flex;flex-wrap:wrap;gap:2px;line-height:0}
+.fm{width:9px;height:9px;border-radius:1px;flex-shrink:0;transition:background .3s}
+.fm.libre{background:#1e1e1e}
+.fm.pen{background:rgba(255,214,0,.5)}
+.fm.conf{background:rgba(0,200,83,.7)}
+.fm.canc{background:rgba(211,47,47,.5)}
+.fm:hover{opacity:.7;cursor:default}
+/* Log */
+.fis-log-wrap{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px}
+.fis-log-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;gap:8px}
+.fis-log-title{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);font-weight:700;font-family:'Montserrat',sans-serif}
+#fisLog{max-height:340px;overflow-y:auto}
+#fisLog::-webkit-scrollbar{width:4px}
+#fisLog::-webkit-scrollbar-thumb{background:var(--gold);border-radius:2px}
+.fl-row{display:grid;grid-template-columns:auto 1fr auto auto;gap:8px 12px;align-items:center;padding:8px 0;border-bottom:1px solid #1a1a1a;font-family:'Montserrat',sans-serif}
+.fl-row:last-child{border-bottom:none}
+.fl-num{font-family:'Bebas Neue',sans-serif;font-size:13px;color:var(--gold);letter-spacing:1px;white-space:nowrap}
+.fl-name{font-size:12px;color:var(--white);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.fl-name small{display:block;font-size:10px;color:var(--muted);letter-spacing:1px}
+.fl-qty{font-size:11px;color:var(--muted);white-space:nowrap;text-align:right}
+.fl-ts{font-size:10px;color:#555;white-space:nowrap;text-align:right}
+
 /* ══════════════ SORTEO PÚBLICO CSS ══════════════ */
 .spub{position:relative;z-index:10;text-align:center;padding:24px;width:100%;}
 .sel{font-size:11px;letter-spacing:6px;text-transform:uppercase;color:var(--red);margin-bottom:12px;font-weight:700;font-family:'Montserrat',sans-serif}
@@ -657,7 +697,8 @@ tbody td{padding:10px 14px;vertical-align:middle}
       <div class="tabs">
         <button class="tab active" onclick="swTab('v')">📋 Compradores</button>
         <button class="tab" onclick="swTab('n')">➕ Nueva venta</button>
-        <button class="tab" onclick="swTab('p')">🧪 Pruebas</button>
+        <button class="tab" onclick="swTab('p')">🔍 Fiscalización</button>
+        <button class="tab" onclick="swTab('e')">📊 Estadísticas</button>
         <button class="tab" onclick="swTab('s')">🎰 Sorteo</button>
       </div>
       <!-- TAB COMPRADORES -->
@@ -690,16 +731,39 @@ tbody td{padding:10px 14px;vertical-align:middle}
           </div>
         </div>
       </div>
-      <!-- TAB PRUEBAS -->
+      <!-- TAB FISCALIZACIÓN -->
       <div class="tp" id="tp2">
-        <div class="vf">
-          <div class="vh">🧪 Datos de Prueba</div>
-          <p style="color:var(--muted);font-size:15px;line-height:1.8;margin-bottom:22px;font-family:'Crimson Text',serif">Carga <strong style="color:var(--white);font-family:'Montserrat',sans-serif">100 compradores ficticios</strong> con nombres costarricenses, cédulas y números de acción para probar el sistema incluyendo el sorteo.<br><br><strong style="color:var(--gold);font-family:'Montserrat',sans-serif">⚠️ Eliminá los datos de prueba antes de iniciar la promoción real.</strong></p>
-          <div style="display:flex;gap:14px;flex-wrap:wrap;margin-bottom:16px">
-            <button class="bp" onclick="cargarPrueba()">📥 Cargar 100 compradores</button>
-            <button class="bd" onclick="eliminarPrueba()">🗑️ Eliminar datos de prueba</button>
+        <div class="fis-wrap">
+          <div class="fis-head">
+            <div>
+              <div class="fis-title">🔍 Panel de Fiscalización</div>
+              <div class="fis-meta" id="fisMeta">—</div>
+            </div>
+            <button class="fis-refresh" id="fisBtn" onclick="loadFiscalizacion()">↺ Actualizar</button>
           </div>
-          <div id="pr" style="font-size:14px;color:var(--muted);font-family:'Montserrat',sans-serif"></div>
+          <div class="fis-legend">
+            <div class="fis-leg"><div class="fis-dot libre"></div>Libre</div>
+            <div class="fis-leg"><div class="fis-dot pen"></div>Pendiente</div>
+            <div class="fis-leg"><div class="fis-dot conf"></div>Confirmado</div>
+            <div class="fis-leg"><div class="fis-dot canc"></div>Cancelado</div>
+          </div>
+          <div class="fis-map-wrap">
+            <div id="fisMap"><div class="ld">Cargando mapa…</div></div>
+          </div>
+          <div class="fis-log-wrap">
+            <div class="fis-log-head">
+              <div class="fis-log-title">Últimas ventas</div>
+              <div class="fis-meta" id="fisLogMeta"></div>
+            </div>
+            <div id="fisLog"><div class="ld">Cargando log…</div></div>
+          </div>
+        </div>
+        <div id="pr" style="display:none"></div>
+        <!-- ZONA DE PELIGRO -->
+        <div style="margin-top:28px;background:rgba(211,47,47,.05);border:1px solid rgba(211,47,47,.2);border-radius:12px;padding:18px 20px">
+          <div style="font-family:'Montserrat',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#f88;font-weight:700;margin-bottom:8px">⚠️ Zona de peligro</div>
+          <p style="font-size:13px;color:var(--muted);font-family:'Crimson Text',serif;margin-bottom:14px;line-height:1.6">Elimina <strong style="color:#f88">absolutamente todos</strong> los registros de ventas de la base de datos. Esta acción no se puede deshacer.</p>
+          <button class="bd" onclick="eliminarTodo()">🗑️ Eliminar todos los registros</button>
         </div>
       </div>
       <!-- TAB SORTEO -->
@@ -1248,6 +1312,92 @@ function limpiar(){
   document.getElementById('vqt').value='1';
 }
 
+// ════════════════════════════════════════
+// FISCALIZACIÓN
+// ════════════════════════════════════════
+async function loadFiscalizacion(){
+  var btn=document.getElementById('fisBtn');
+  if(btn) btn.disabled=true;
+  try{
+    var r=await fetch(SB_URL+'/rest/v1/ventas?select=nombre,cantidad,metodo_pago,estado,numeros_accion,created_at&order=created_at.desc&limit=200',{headers:aHeaders()});
+    var data=await r.json();
+    if(!Array.isArray(data)) throw new Error();
+    renderFisMap(data);
+    renderFisLog(data);
+    var ts=new Date().toLocaleTimeString('es-CR');
+    document.getElementById('fisMeta').textContent='Última actualización: '+ts+' — '+data.length+' registros';
+  }catch(e){
+    document.getElementById('fisMeta').textContent='Error al cargar datos';
+  }
+  if(btn){btn.disabled=false;}
+}
+
+function renderFisMap(data){
+  var estado=new Array(6000).fill('libre');
+  data.forEach(function(v){
+    if(!v.numeros_accion) return;
+    var cls=v.estado==='confirmado'?'conf':v.estado==='cancelado'?'canc':'pen';
+    v.numeros_accion.forEach(function(n){
+      if(n>=0&&n<6000) estado[n]=cls;
+    });
+  });
+  var conf=0,pen=0,canc=0;
+  var frag=document.createDocumentFragment();
+  for(var i=0;i<6000;i++){
+    var d=document.createElement('div');
+    d.className='fm '+estado[i];
+    var padded=String(i).padStart(4,'0');
+    d.title=padded+' — '+estado[i];
+    frag.appendChild(d);
+    if(estado[i]==='conf') conf++;
+    else if(estado[i]==='pen') pen++;
+    else if(estado[i]==='canc') canc++;
+  }
+  var map=document.getElementById('fisMap');
+  map.innerHTML='';
+  map.appendChild(frag);
+  document.getElementById('fisLogMeta').textContent=conf+' conf · '+pen+' pend · '+canc+' canc · '+(6000-conf-pen-canc)+' libres';
+}
+
+function renderFisLog(data){
+  var log=document.getElementById('fisLog');
+  if(!data.length){log.innerHTML='<div class="ld">Sin registros.</div>';return;}
+  var html='';
+  data.slice(0,50).forEach(function(v){
+    var nums=(v.numeros_accion||[]).slice(0,5).map(function(n){return String(n).padStart(4,'0');}).join(' ');
+    if((v.numeros_accion||[]).length>5) nums+=' …+'+(v.numeros_accion.length-5);
+    var badge=v.estado==='confirmado'?'conf':v.estado==='cancelado'?'canc':'pen';
+    var ts=v.created_at?new Date(v.created_at).toLocaleDateString('es-CR',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'}):'';
+    html+='<div class="fl-row">'
+      +'<div class="fl-num fis-dot '+badge+'" style="width:auto;height:auto;background:none;border:none;padding:0"><span class="badge '+v.estado+'">'+v.estado+'</span></div>'
+      +'<div class="fl-name">'+v.nombre+'<small>'+v.metodo_pago+'</small></div>'
+      +'<div class="fl-qty">'+v.cantidad+' acc<br><span style="font-size:10px;color:#555;font-family:monospace">'+nums+'</span></div>'
+      +'<div class="fl-ts">'+ts+'</div>'
+      +'</div>';
+  });
+  log.innerHTML=html;
+}
+
+async function eliminarTodo(){
+  if(!confirm('⚠️ ¿Estás seguro? Esto eliminará TODOS los registros de ventas sin excepción.')) return;
+  var confirm2=prompt('Escribí CONFIRMAR para continuar:');
+  if(confirm2!=='CONFIRMAR'){toast('Operación cancelada');return;}
+  var btn=document.querySelector('[onclick="eliminarTodo()"]');
+  if(btn){btn.disabled=true;btn.textContent='⏳ Eliminando...';}
+  try{
+    var r=await fetch(SB_URL+'/rest/v1/ventas?id=neq.00000000-0000-0000-0000-000000000000',{method:'DELETE',headers:aHeaders()});
+    if(r.ok){
+      allVentas=[];
+      await loadAll();
+      await loadFiscalizacion();
+      toast('🗑️ Todos los registros eliminados');
+    } else {
+      toast('Error al eliminar',true);
+    }
+  }catch(e){toast('Error de conexión',true);}
+  if(btn){btn.disabled=false;btn.textContent='🗑️ Eliminar todos los registros';}
+}
+
 async function cargarPrueba(){
   var el=document.getElementById('pr'); el.textContent='⏳ Cargando...';
   var ok=0;
@@ -1271,12 +1421,14 @@ async function eliminarPrueba(){
 }
 
 function swTab(t){
-  var names=['v','n','p','s'];
+  var names=['v','n','p','e','s'];
   document.querySelectorAll('.tab').forEach(function(b,i){b.classList.toggle('active',names[i]===t);});
   document.querySelectorAll('.tp').forEach(function(p){p.classList.remove('active');});
-  var map={v:'tv',n:'tn',p:'tp2',s:'ts'};
+  var map={v:'tv',n:'tn',p:'tp2',e:'te',s:'ts'};
   document.getElementById(map[t]).classList.add('active');
   if(t==='s') loadSorteoState();
+  if(t==='p') loadFiscalizacion();
+  if(t==='e') loadEstadisticas();
 }
 
 // ════════════════════════════════════════
