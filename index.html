@@ -964,12 +964,6 @@ tbody td{padding:10px 14px;vertical-align:middle}
           </div>
         </div>
         <div id="pr" style="display:none"></div>
-        <!-- ZONA DE PELIGRO -->
-        <div style="margin-top:28px;background:rgba(211,47,47,.05);border:1px solid rgba(211,47,47,.2);border-radius:12px;padding:18px 20px">
-          <div style="font-family:'Montserrat',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#f88;font-weight:700;margin-bottom:8px">⚠️ Zona de peligro</div>
-          <p style="font-size:13px;color:var(--muted);font-family:'Crimson Text',serif;margin-bottom:14px;line-height:1.6">Elimina <strong style="color:#f88">absolutamente todos</strong> los registros de ventas de la base de datos. Esta acción no se puede deshacer.</p>
-          <button class="bd" onclick="eliminarTodo()">🗑️ Eliminar todos los registros</button>
-        </div>
       </div>
       <!-- TAB ESTADÍSTICAS -->
       <div class="tp" id="te">
@@ -1960,23 +1954,7 @@ function renderEstExp(data){
 }
 
 async function eliminarTodo(){
-  if(!confirm('⚠️ ¿Estás seguro? Esto eliminará TODOS los registros de ventas sin excepción.')) return;
-  var confirm2=prompt('Escribí CONFIRMAR para continuar:');
-  if(confirm2!=='CONFIRMAR'){toast('Operación cancelada');return;}
-  var btn=document.querySelector('[onclick="eliminarTodo()"]');
-  if(btn){btn.disabled=true;btn.textContent='⏳ Eliminando...';}
-  try{
-    var r=await fetch(SB_URL+'/rest/v1/ventas?id=neq.00000000-0000-0000-0000-000000000000',{method:'DELETE',headers:aHeaders()});
-    if(r.ok){
-      allVentas=[];
-      await loadAll();
-      await loadFiscalizacion();
-      toast('🗑️ Todos los registros eliminados');
-    } else {
-      toast('Error al eliminar',true);
-    }
-  }catch(e){toast('Error de conexión',true);}
-  if(btn){btn.disabled=false;btn.textContent='🗑️ Eliminar todos los registros';}
+  toast('🔒 Por transparencia, el borrado de registros fue deshabilitado.',true);
 }
 
 async function cargarPrueba(){
