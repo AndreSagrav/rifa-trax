@@ -728,8 +728,17 @@ tbody td{padding:10px 14px;vertical-align:middle}
       <div class="fh"><div><div class="sdots"><span class="sd active"></span><span class="sd"></span><span class="sd"></span></div><h2>🎟️ Tus datos</h2><p>Paso 1 de 3 — Completá tu información</p></div><button class="fx" onclick="closeFlow()">&#215;</button></div>
       <div class="fb">
         <div class="fg">
-          <div class="ff full"><label>Nombre completo *</label><input type="text" id="fn" placeholder="Juan Pérez González"></div>
-          <div class="ff"><label>Identificación *</label><input type="text" id="fid" placeholder="1-2345-6789" oninput="buscarCedula(this.value)"></div>
+          <div class="ff full">
+            <label>Identificación *</label>
+            <input type="text" id="fid" placeholder="1-2345-6789" oninput="buscarCedula(this.value)" autocomplete="off">
+          </div>
+          <div class="ff full" id="fn-wrap" style="position:relative">
+            <label style="display:flex;align-items:center;gap:6px">Nombre completo <span id="fn-badge" style="font-size:10px;padding:2px 8px;border-radius:20px;background:rgba(255,214,0,0.15);color:var(--gold);border:1px solid rgba(255,214,0,0.3);display:none">✓ Verificado</span></label>
+            <div style="position:relative">
+              <input type="text" id="fn" placeholder="Se completa al ingresar la cédula" readonly style="background:rgba(255,255,255,0.04);color:var(--muted);cursor:not-allowed;padding-right:2.5rem">
+              <span id="fn-spinner" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);display:none;font-size:14px">⏳</span>
+            </div>
+          </div>
           <div class="ff"><label>Teléfono *</label><input type="tel" id="ftel" placeholder="8888-8888"></div>
           <div class="ff full"><label>Correo electrónico *</label><input type="email" id="fem" placeholder="correo@ejemplo.com"></div>
           <div class="ff"><label>Provincia</label><select id="fprov"><option value="">— Seleccioná —</option><option>San José</option><option>Alajuela</option><option>Cartago</option><option>Heredia</option><option>Guanacaste</option><option>Puntarenas</option><option>Limón</option></select></div>
@@ -1423,16 +1432,27 @@ var _cedTimer=null;
 function buscarCedula(val){
   clearTimeout(_cedTimer);
   var cedula=val.replace(/\D/g,'');
-  if(cedula.length<9) return;
+  var fn=document.getElementById('fn');
+  var badge=document.getElementById('fn-badge');
+  var spinner=document.getElementById('fn-spinner');
+  if(cedula.length<9){
+    fn.value=''; fn.placeholder='Se completa al ingresar la cédula';
+    fn.style.color=''; badge.style.display='none'; return;
+  }
+  spinner.style.display='block'; badge.style.display='none';
   _cedTimer=setTimeout(async function(){
     try{
       var r=await fetch(SB_URL+'/functions/v1/buscar-cedula?cedula='+cedula,{headers:{'apikey':SB_ANON}});
       var d=await r.json();
+      spinner.style.display='none';
       if(d.ok&&d.nombre){
-        var fn=document.getElementById('fn');
-        if(!fn.value.trim()) fn.value=d.nombre;
+        fn.value=d.nombre;
+        fn.style.color='var(--gold)';
+        badge.style.display='inline-flex';
+      } else {
+        fn.placeholder='No encontrado — verificá la cédula';
       }
-    }catch(e){}
+    }catch(e){ spinner.style.display='none'; }
   },600);
 }
 async function confirmar(){
