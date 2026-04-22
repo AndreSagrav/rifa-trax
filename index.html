@@ -1438,30 +1438,29 @@ function buscarCedula(val){
 async function confirmar(){
   var btn=document.getElementById('bcf');
   btn.disabled=true; btn.textContent='⏳ Procesando...';
-  var nums=await asignarNums(flQty,flAssignMode);
-  if(nums.length<flQty){toast('⚠️ No hay suficientes acciones',true);btn.disabled=false;btn.textContent='✅ Confirmar compra';return;}
-  var body={
+  var payload={
     nombre:document.getElementById('fn').value.trim(),
     cedula:document.getElementById('fid').value.trim(),
     telefono:document.getElementById('ftel').value.trim(),
     correo:document.getElementById('fem').value.trim()||null,
-    cantidad:flQty, metodo_pago:'onvopay', estado:'pendiente',
-    numeros_accion:nums, notas:'OnvoPay pendiente',
+    cantidad:flQty, metodo_pago:'onvopay',
+    notas:'OnvoPay pendiente',
     provincia:document.getElementById('fprov').value||null,
-    fecha_nac:document.getElementById('fnac').value||null
+    fecha_nac:document.getElementById('fnac').value||null,
+    assign_mode:flAssignMode
   };
   try{
-    var r=await fetch(SB_URL+'/rest/v1/ventas',{method:'POST',headers:aHeaders(),body:JSON.stringify(body)});
+    var r=await fetch(SB_URL+'/functions/v1/crear-venta',{method:'POST',headers:{'Content-Type':'application/json','apikey':SB_ANON},body:JSON.stringify(payload)});
     var d=await r.json();
-    if(r.ok){
-      var ventaId=d&&d[0]?d[0].id:null;
+    if(r.ok&&d.ok){
+      var ventaId=d.venta.id; var nums=d.numeros;
       btn.textContent='⏳ Redirigiendo...';
-      fetch(SB_URL+'/functions/v1/create-checkout',{method:'POST',headers:{'Authorization':'Bearer '+SB_ANON,'Content-Type':'application/json','apikey':SB_ANON},body:JSON.stringify({venta:{ventaId:ventaId,nombre:document.getElementById('fn').value.trim(),correo:document.getElementById('fem').value.trim(),telefono:document.getElementById('ftel').value.trim(),cantidad:flQty,numeros_accion:nums}})
+      fetch(SB_URL+'/functions/v1/create-checkout',{method:'POST',headers:{'Authorization':'Bearer '+SB_JWT,'Content-Type':'application/json','apikey':SB_ANON},body:JSON.stringify({venta:{ventaId:ventaId,nombre:document.getElementById('fn').value.trim(),correo:document.getElementById('fem').value.trim(),telefono:document.getElementById('ftel').value.trim(),cantidad:flQty,numeros_accion:nums}})
       }).then(function(cr){return cr.json();}).then(function(cd){
         if(cd.ok&&cd.url){window.location.href=cd.url;}
         else{toast('❌ Error: '+(cd.error||''),true);btn.disabled=false;btn.textContent='✅ Confirmar compra';}
       }).catch(function(){toast('❌ Error de conexión',true);btn.disabled=false;btn.textContent='✅ Confirmar compra';});
-    } else {throw new Error();}
+    } else {throw new Error(d.error||'Error');}
   } catch(e){toast('Error al procesar. Intentá de nuevo.',true);btn.disabled=false;btn.textContent='✅ Confirmar compra';}
 }
 
