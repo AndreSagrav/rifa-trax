@@ -245,7 +245,20 @@ footer strong{color:var(--gold)}
 .bs2:hover{border-color:var(--gold);color:var(--gold)}
 .bd{background:transparent;color:#f88;font-family:'Montserrat',sans-serif;font-weight:700;font-size:13px;letter-spacing:2px;text-transform:uppercase;padding:12px 24px;border-radius:6px;border:1px solid rgba(211,47,47,.4);cursor:pointer;transition:all .2s}
 .bd:hover{background:rgba(211,47,47,.15)}
-.tw2{overflow-x:auto;border-radius:10px;border:1px solid #2a2a2a}
+.tw2{overflow-x:auto;border-radius:12px;border:1px solid #2a2a2a;box-shadow:0 4px 24px rgba(0,0,0,.4)}
+.tw2 table{width:100%;border-collapse:collapse;min-width:700px}
+.tw2 table colgroup col:nth-child(1){width:18%}
+.tw2 table colgroup col:nth-child(2){width:26%}
+.tw2 table colgroup col:nth-child(3){width:14%}
+.tw2 table colgroup col:nth-child(4){width:14%}
+.tw2 table colgroup col:nth-child(5){width:12%}
+.tw2 table colgroup col:nth-child(6){width:16%}
+.vcard-name{font-family:'Montserrat',sans-serif;font-weight:700;font-size:13px;color:var(--white);line-height:1.3}
+.vcard-sub{font-size:11px;color:var(--muted);margin-top:2px;font-family:'Montserrat',sans-serif}
+.vcard-tel{font-size:12px;color:var(--muted);margin-top:1px;font-family:'Montserrat',sans-serif}
+.nums-cell{font-family:'Bebas Neue',sans-serif;font-size:13px;color:var(--gold);letter-spacing:1px;line-height:1.6}
+.pago-cell{font-family:'Montserrat',sans-serif;font-size:13px;font-weight:700;color:var(--white)}
+.pago-sub{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-top:2px}
 table{width:100%;border-collapse:collapse;font-size:13px}
 thead th{background:#1a1a1a;padding:10px 14px;text-align:left;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);border-bottom:1px solid #2a2a2a;white-space:nowrap;font-weight:700;font-family:'Montserrat',sans-serif}
 tbody tr{border-bottom:1px solid #1a1a1a;transition:background .15s}
@@ -894,7 +907,7 @@ tbody td{padding:10px 14px;vertical-align:middle}
           <select id="se" onchange="filtrar()"><option value="">Todos</option><option value="confirmado">Confirmados</option><option value="pendiente">Pendientes</option><option value="cancelado">Cancelados</option></select>
           <button class="bp" onclick="descargarCSV()" style="white-space:nowrap">📥 Descargar lista</button>
         </div>
-        <div class="tw2"><table><thead><tr><th>#</th><th>Nombre</th><th>Cédula</th><th>Tel</th><th>Correo</th><th>Cant</th><th>Método</th><th>Estado</th><th>Fecha</th><th>Acciones</th></tr></thead><tbody id="vtb"><tr><td colspan="10"><div class="ld">Cargando...</div></td></tr></tbody></table></div>
+        <div class="tw2"><table><colgroup><col><col><col><col><col><col></colgroup><thead><tr><th>Números</th><th>Comprador</th><th>Pago</th><th>Estado</th><th>Fecha</th><th>Acciones</th></tr></thead><tbody id="vtb"><tr><td colspan="6"><div class="ld">Cargando...</div></td></tr></tbody></table></div>
       </div>
       <!-- TAB NUEVA VENTA -->
       <div class="tp" id="tn">
@@ -1569,15 +1582,28 @@ function filtrar(){
 
 function renderTabla(vs){
   var tb=document.getElementById('vtb');
-  if(!vs.length){tb.innerHTML='<tr><td colspan="10"><div class="es"><div>📭</div><p>Sin registros</p></div></td></tr>';return;}
+  if(!vs.length){tb.innerHTML='<tr><td colspan="6"><div class="es"><div>📭</div><p>Sin registros</p></div></td></tr>';return;}
   tb.innerHTML=vs.map(function(v){
     var isp=v.notas&&v.notas.indexOf('DATO DE PRUEBA')>=0;
-    var nm=(v.numeros_accion||[]).map(function(n){return String(n).padStart(4,'0');}).join(', ');
+    var nm=(v.numeros_accion||[]).map(function(n){return String(n).padStart(4,'0');}).join(' · ');
     var ac='';
     if(v.estado==='pendiente') ac+='<button class="tbtn2 c" onclick="cambiar(\''+v.id+'\',\'confirmado\')">✓</button>';
     if(v.estado==='confirmado'&&v.correo&&v.correo.indexOf('@')>0) ac+='<button class="tbtn2" style="background:rgba(0,150,255,.15);color:#4af" title="Reenviar certificado" onclick="reenviarCert(\''+v.id+'\')" >📧</button>';
     if(v.estado!=='cancelado') ac+='<button class="tbtn2 x" onclick="cambiar(\''+v.id+'\',\'cancelado\')">✗</button>';
-    return '<tr><td class="nums">'+(nm||'—')+'</td><td><strong>'+(v.nombre||'—')+'</strong>'+(isp?'<br><span style="font-size:10px;color:#66f">🧪</span>':'')+'</td><td>'+(v.cedula||'—')+'</td><td>'+(v.telefono||'—')+'</td><td style="font-size:11px;color:var(--muted)">'+(v.correo||'—')+'</td><td style="text-align:center">'+v.cantidad+'</td><td style="font-size:11px;text-transform:uppercase;color:var(--muted)">'+v.metodo_pago+'</td><td><span class="badge '+v.estado+'">'+v.estado+'</span></td><td style="font-size:11px;color:var(--muted);white-space:nowrap">'+fmtD(v.created_at)+'</td><td><div class="tac">'+ac+'</div></td></tr>';
+    var compradorCell='<div class="vcard-name">'+(v.nombre||'—')+(isp?' <span style="font-size:10px;color:#66f">🧪</span>':'')+'</div>'
+      +'<div class="vcard-sub">'+(v.cedula||'—')+'</div>'
+      +(v.correo?'<div class="vcard-sub" style="font-size:10px">'+(v.correo)+'</div>':'')
+      +'<div class="vcard-tel">'+(v.telefono||'—')+'</div>';
+    var pagoCell='<div class="pago-cell">'+v.cantidad+' '+(v.cantidad===1?'acción':'acciones')+'</div>'
+      +'<div class="pago-sub">'+v.metodo_pago+'</div>';
+    return '<tr>'
+      +'<td><div class="nums-cell">'+(nm||'—')+'</div></td>'
+      +'<td>'+compradorCell+'</td>'
+      +'<td>'+pagoCell+'</td>'
+      +'<td><span class="badge '+v.estado+'">'+v.estado+'</span></td>'
+      +'<td style="font-size:11px;color:var(--muted);white-space:nowrap">'+fmtD(v.created_at)+'</td>'
+      +'<td><div class="tac">'+ac+'</div></td>'
+      +'</tr>';
   }).join('');
 }
 
