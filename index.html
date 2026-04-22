@@ -729,7 +729,7 @@ tbody td{padding:10px 14px;vertical-align:middle}
       <div class="fb">
         <div class="fg">
           <div class="ff full"><label>Nombre completo *</label><input type="text" id="fn" placeholder="Juan Pérez González"></div>
-          <div class="ff"><label>Identificación *</label><input type="text" id="fid" placeholder="1-2345-6789"></div>
+          <div class="ff"><label>Identificación *</label><input type="text" id="fid" placeholder="1-2345-6789" oninput="buscarCedula(this.value)"></div>
           <div class="ff"><label>Teléfono *</label><input type="tel" id="ftel" placeholder="8888-8888"></div>
           <div class="ff full"><label>Correo electrónico *</label><input type="email" id="fem" placeholder="correo@ejemplo.com"></div>
           <div class="ff"><label>Provincia</label><select id="fprov"><option value="">— Seleccioná —</option><option>San José</option><option>Alajuela</option><option>Cartago</option><option>Heredia</option><option>Guanacaste</option><option>Puntarenas</option><option>Limón</option></select></div>
@@ -1418,6 +1418,22 @@ async function asignarNums(qty,modo){
   }catch(e){return[];}
 }
 
+var _cedTimer=null;
+function buscarCedula(val){
+  clearTimeout(_cedTimer);
+  var cedula=val.replace(/\D/g,'');
+  if(cedula.length<9) return;
+  _cedTimer=setTimeout(async function(){
+    try{
+      var r=await fetch(SB_URL+'/functions/v1/buscar-cedula?cedula='+cedula,{headers:{'apikey':SB_ANON}});
+      var d=await r.json();
+      if(d.ok&&d.nombre){
+        var fn=document.getElementById('fn');
+        if(!fn.value.trim()) fn.value=d.nombre;
+      }
+    }catch(e){}
+  },600);
+}
 async function confirmar(){
   var btn=document.getElementById('bcf');
   btn.disabled=true; btn.textContent='⏳ Procesando...';
