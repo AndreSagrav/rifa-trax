@@ -11,15 +11,15 @@ jobs:
     steps:
       - name: Ping Supabase (lectura + escritura)
         env:
-          ANON_KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imtra3Fuc3Z5cWpjbXh2cWRsamloIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ3MTM4MzksImV4cCI6MjA5MDI4OTgzOX0.Xd0uoOoAezmltY2D4oIw1QVCmG0q6g3SM_AsxZarFDs
+          ANON_KEY: sb_publishable_KucSDiaHgmH7TShWICDdng_ZUZXxmIS
           BASE: https://kkkqnsvyqjcmxvqdljih.supabase.co
         run: |
           # Escritura (requiere haber ejecutado keepalive_setup.sql en Supabase; si no, solo avisa)
           W=$(curl -s -o /dev/null -w "%{http_code}" -X POST "$BASE/rest/v1/rpc/ping_keepalive" \
-            -H "apikey: $ANON_KEY" -H "Authorization: Bearer $ANON_KEY" -H "Content-Type: application/json" -d '{}')
+            -H "apikey: $ANON_KEY" -H "Content-Type: application/json" -d '{}')
           echo "Escritura: HTTP $W"
 
           # Lectura
-          curl -s -H "apikey: $ANON_KEY" -H "Authorization: Bearer $ANON_KEY" \
+          curl -s -H "apikey: $ANON_KEY" \
             "$BASE/rest/v1/contador?select=id&limit=1" \
             -o /dev/null -w "Lectura: %{http_code} - %{time_total}s\n"
